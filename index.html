@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MatteHaven · Official 3D finisher prints for trail and cycling races</title>
+<meta name="description" content="Official finisher prints of trail and cycling races: the real course on the real 3D relief, with your name and your time. Printed and shipped across Europe.">
+<link rel="canonical" href="https://mattehaven.antonmareo.workers.dev/">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="assets/favicon-180.png">
+<meta property="og:title" content="MatteHaven · Official 3D finisher prints for trail and cycling races"><meta property="og:description" content="Official finisher prints of trail and cycling races: the real course on the real 3D relief, with your name and your time. Printed and shipped across Europe.">
+<meta property="og:image" content="https://mattehaven.antonmareo.workers.dev/tu-lamina/img/canfranc3d-45k.jpg"><meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>:root{--papel:#F2EEE6;--tinta:#23272B;--suave:#5E6266;--linea:#D9D2C5;--acento:#C8381E;--blanco:#FFFFFF}
+*{box-sizing:border-box}html,body{margin:0}
+html,body{overflow-x:hidden}body{background:var(--papel);color:var(--tinta);font-family:Bahnschrift,'Barlow Semi Condensed',Arial,sans-serif;line-height:1.5;font-size:17px}
+a{color:inherit}
+.envoltura{max-width:1120px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--linea)}
+header.top .envoltura{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+.marca{font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;font-size:18px}
+nav{display:flex;gap:18px;flex-wrap:wrap;font-size:15px}
+@media(max-width:560px){header.top .envoltura{flex-direction:column;align-items:flex-start;gap:4px;padding-top:12px;padding-bottom:12px}nav{gap:16px}}
+nav a{text-decoration:none;color:var(--suave)}nav a:hover,nav a:focus-visible{color:var(--tinta)}
+.portada{display:grid;gap:32px;padding:40px 16px 56px;align-items:center}
+@media(min-width:880px){.portada{grid-template-columns:1.05fr .95fr;padding:64px 16px 80px}}
+.antetitulo{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--acento);margin:0 0 12px}
+h1{font-size:clamp(34px,5.2vw,58px);line-height:1.04;margin:0 0 18px;font-weight:700;letter-spacing:-.005em}
+.entrada{font-size:19px;color:var(--suave);max-width:34em;margin:0 0 28px}
+.botones{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;font:inherit;font-weight:700;font-size:17px;padding:14px 22px;border-radius:8px;text-decoration:none;border:1.5px solid var(--tinta)}
+.btn.lleno{background:var(--acento);border-color:var(--acento);color:var(--blanco)}.btn.lleno:hover{filter:brightness(1.07)}
+.btn.vacio{background:transparent;color:var(--tinta)}.btn.vacio:hover{background:var(--tinta);color:var(--papel)}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
+.marco{background:var(--blanco);padding:16px;box-shadow:0 24px 50px rgba(35,39,43,.20),0 2px 8px rgba(35,39,43,.12);border-radius:2px;max-width:460px;margin:0 auto;transform:rotate(-1.2deg)}
+.marco img{display:block;width:100%;height:auto;background:var(--papel)}
+section{padding:56px 0;border-top:1px solid var(--linea)}
+h2{font-size:clamp(26px,3.4vw,36px);line-height:1.1;margin:0 0 10px}
+.intro{color:var(--suave);max-width:40em;margin:0 0 32px}
+.socias{display:grid;gap:22px;grid-template-columns:1fr}
+@media(min-width:600px){.socias{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.socias{grid-template-columns:repeat(4,1fr)}}
+.ficha{background:var(--blanco);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 3px rgba(35,39,43,.10)}
+.ficha img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;background:var(--papel)}
+.ficha .cuerpo{padding:14px 16px 18px;display:flex;flex-direction:column;gap:4px;flex:1}
+.ficha h3{margin:0;font-size:20px;line-height:1.15}
+.ficha .lugar{margin:0 0 12px;color:var(--suave);font-size:14px}
+.ficha .acciones{margin-top:auto;display:flex;gap:14px;font-size:15px;font-weight:600}
+.ficha .acciones a{text-decoration:none;border-bottom:1.5px solid var(--acento);padding-bottom:1px}
+.pasos{display:grid;gap:24px;grid-template-columns:1fr;counter-reset:paso;margin:0;padding:0;list-style:none}
+@media(min-width:760px){.pasos{grid-template-columns:repeat(3,1fr)}}
+.pasos li{counter-increment:paso;padding-top:12px;border-top:2px solid var(--tinta)}
+.pasos li::before{content:counter(paso,decimal-leading-zero);display:block;font-weight:700;color:var(--acento);letter-spacing:.08em;font-size:14px;margin-bottom:6px}
+.pasos h3{margin:0 0 6px;font-size:20px}.pasos p{margin:0;color:var(--suave)}
+.precios{display:flex;flex-wrap:wrap;gap:12px 28px;margin:32px 0 0;padding:18px 20px;background:var(--blanco);border-radius:6px}
+.precios strong{font-size:22px}.precios span{color:var(--suave);font-size:15px;display:block}
+.organizadores{display:grid;gap:28px}
+@media(min-width:880px){.organizadores{grid-template-columns:1fr 1fr;align-items:start}}
+.lista{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.lista li{padding-left:22px;position:relative}.lista li::before{content:'';position:absolute;left:0;top:.62em;width:10px;height:2px;background:var(--acento)}
+.texto{max-width:44em}.texto h1{font-size:clamp(30px,4.4vw,44px)}.texto h2{font-size:24px;margin-top:36px}.texto p,.texto li{color:#34383C}
+footer.pie{border-top:1px solid var(--linea);padding:28px 0 40px;font-size:14px;color:var(--suave)}
+footer.pie .envoltura{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between}
+footer.pie nav a{color:var(--suave)}</style>
+</head>
+<body>
+<header class="top"><div class="envoltura">
+<a class="marca" href="./">MatteHaven</a>
+<nav aria-label="Main"><a href="./#races">Races</a><a href="./#how">How it works</a><a href="./#organisers">For organisers</a><a href="organizadores">Organizadores (ES)</a><a href="https://mattehaven.etsy.com">Shop</a></nav>
+</div></header>
+<main>
+<div class="envoltura portada">
+<div>
+<p class="antetitulo">Official finisher prints</p>
+<h1>Your race, on the real relief. With your name and your time.</h1>
+<p class="entrada">Each course is drawn in 3D over the real mountains it crosses, from real elevation data and aerial imagery, and checked by hand against the official track and results. Then it is printed and shipped to your door.</p>
+<div class="botones"><a class="btn lleno" href="#races">Find your race</a><a class="btn vacio" href="#organisers">For race organisers</a></div>
+</div>
+<div class="marco"><img src="tu-lamina/img/canfranc3d-45k.jpg" alt="CanfrancCanfranc Marathon 45K finisher print in 3D" width="1200" height="1600"></div>
+</div>
+
+<section id="races"><div class="envoltura">
+<h2>Official prints of these races</h2>
+<p class="intro">Each one is the race's own print, made with the organisers. Type your name and time on its page and see your print before you order.</p>
+<div class="socias">
+<article class="ficha">
+<img src="tu-lamina/img/canfranc3d-45k.jpg" alt="CanfrancCanfranc Marathon 45K finisher print in 3D" width="1200" height="1600" loading="lazy">
+<div class="cuerpo"><h3>CanfrancCanfranc</h3><p class="lugar">Canfranc · Pyrenees, Spain</p>
+<div class="acciones"><a href="tu-lamina/canfranc">See yours</a><a href="https://mattehaven.etsy.com/listing/4599445739">Order</a></div></div>
+</article>
+<article class="ficha">
+<img src="tu-lamina/img/marao-utme.jpg" alt="Ultra Trail do Marão finisher print in 3D" width="1200" height="1600" loading="lazy">
+<div class="cuerpo"><h3>Ultra Trail do Marão</h3><p class="lugar">Serra do Marão, Portugal</p>
+<div class="acciones"><a href="tu-lamina/marao">See yours</a><a href="https://mattehaven.etsy.com/listing/4603336295">Order</a></div></div>
+</article>
+<article class="ficha">
+<img src="tu-lamina/img/acantilados-3d.jpg" alt="Acantilados del Norte finisher print in 3D" width="1200" height="1600" loading="lazy">
+<div class="cuerpo"><h3>Acantilados del Norte</h3><p class="lugar">La Palma · Skyrunner World Series</p>
+<div class="acciones"><a href="tu-lamina/acantilados">See yours</a><a href="https://mattehaven.etsy.com/listing/4603495923">Order</a></div></div>
+</article>
+<article class="ficha">
+<img src="tu-lamina/img/remences.jpg" alt="La Remences cycling finisher print in 3D" width="1200" height="1600" loading="lazy">
+<div class="cuerpo"><h3>La Remences</h3><p class="lugar">Garrotxa · Catalonia, cycling</p>
+<div class="acciones"><a href="tu-lamina/remences">See yours</a><a href="https://mattehaven.etsy.com/listing/4609614500">Order</a></div></div>
+</article>
+<article class="ficha">
+<img src="tu-lamina/img/mijas.jpg" alt="Maratón Sierra de Mijas finisher print: the 42 km course in 3D over the real Sierra de Mijas, with the runner's name and time" width="1200" height="1600" loading="lazy">
+<div class="cuerpo"><h3>Maratón Sierra de Mijas</h3><p class="lugar">Mijas · Málaga, Spain</p>
+<div class="acciones"><a href="tu-lamina/mijas">See yours</a><a href="https://mattehaven.etsy.com/listing/4615722754">Order</a></div></div>
+</article>
+<article class="ficha">
+<img src="tu-lamina/img/falco-ultra.jpg" alt="FalcoTrail Ultra finisher print: the course in 3D over the real relief, with the runner's name and time" width="1200" height="1600" loading="lazy">
+<div class="cuerpo"><h3>FalcoTrail</h3><p class="lugar">Sierra del Quípar · Murcia, Spain</p>
+<div class="acciones"><a href="tu-lamina/falcotrail">See yours</a><a href="https://mattehaven.etsy.com/listing/4613207576">Order</a></div></div>
+</article>
+<article class="ficha">
+<img src="tu-lamina/img/saomacario.jpg" alt="São Macário Ultra Trail finisher poster: the Trail course in 3D over the real Serra de São Macário, with the runner's name and time" width="1200" height="1600" loading="lazy">
+<div class="cuerpo"><h3>São Macário Ultra Trail</h3><p class="lugar">São Pedro do Sul, Portugal</p>
+<div class="acciones"><a href="tu-lamina/saomacario">See yours</a><a href="https://mattehaven.etsy.com/listing/4616483284">Order</a></div></div>
+</article>
+<article class="ficha">
+<img src="tu-lamina/img/pitchfork.jpg" alt="The Devil's Pitchfork print by PyrActif Cycling: a 178 km ride over five Pyrenees cols in 3D, with the rider's name and time" width="1200" height="1600" loading="lazy">
+<div class="cuerpo"><h3>The Devil's Pitchfork</h3><p class="lugar">PyrActif Cycling · Pyrenees, France</p>
+<div class="acciones"><a href="https://mattehaven.etsy.com/listing/4622376624">See yours</a><a href="https://mattehaven.etsy.com/listing/4622376624">Order</a></div></div>
+</article>
+<article class="ficha">
+<img src="tu-lamina/img/ancares-gf.jpg" alt="Ancares Cycling Marathon finisher print in 3D" width="1200" height="1600" loading="lazy">
+<div class="cuerpo"><h3>Ancares Cycling Marathon</h3><p class="lugar">Os Ancares · Galicia, cycling</p>
+<div class="acciones"><a href="tu-lamina/ancares">See yours</a><a href="https://mattehaven.etsy.com/listing/4610455741">Order</a></div></div>
+</article>
+</div>
+</div></section>
+
+<section id="how"><div class="envoltura">
+<h2>How it works</h2>
+<p class="intro">Three steps from the finish line to your wall.</p>
+<ol class="pasos">
+<li><h3>Type your name and time</h3><p>Pick your distance and see the print exactly as it will look before you order.</p></li>
+<li><h3>We check it by hand</h3><p>Every print is reviewed against the official course and results before it goes to print.</p></li>
+<li><h3>Printed close to you</h3><p>Premium matte paper, printed by our production partner near you and delivered to your door. Etsy shows the estimated date at checkout.</p></li>
+</ol>
+<div class="precios"><div><strong>€39</strong><span>30 × 40 cm print</span></div><div><strong>€69</strong><span>30 × 40 cm, framed and ready to hang</span></div><div><strong>Free</strong><span>delivery included</span></div></div>
+</div></section>
+
+<section id="organisers"><div class="envoltura organizadores">
+<div>
+<h2>For race organisers</h2>
+<p class="intro">An official finisher print for your race, at no cost to your club or association. You only send one email to your finishers with the link.</p>
+<div class="botones"><a class="btn lleno" href="https://mattehaven.etsy.com">Write to us on Etsy</a></div>
+</div>
+<ul class="lista">
+<li>We draw your course in 3D within 48 hours, with your logo and your colours, no commitment.</li>
+<li>Each runner gets a page to see their own print with their name and time before ordering.</li>
+<li>We print, frame, ship and answer every customer. You never handle orders or runner data.</li>
+<li>Your club earns €8 for every framed print and €4 for every print, paid monthly with a full order list.</li>
+<li>A 13-second 3D video of your course for your social media, as a gift.</li>
+</ul>
+</div></section>
+</main>
+<footer class="pie"><div class="envoltura">
+<span>Made in Madrid by Antonio, who loves mountains, races and the outdoors · every print checked by hand · delivered across Europe, the UK and North America</span>
+<nav aria-label="Footer"><a href="about.html">About</a><a href="shipping.html">Delivery &amp; returns</a><a href="privacy.html">Privacy</a><a href="https://mattehaven.etsy.com">Etsy shop</a></nav>
+</div></footer>
+</body>
+</html>

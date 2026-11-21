@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Tour du Mont Blanc print · MatteHaven</title>
+<meta name="description" content="Type your name and your dates and see how yours will look.">
+<meta property="og:title" content="Your Tour du Mont Blanc print">
+<meta property="og:description" content="Type your name and your dates and see how yours will look.">
+<meta property="og:image" content="https://mattehaven.antonmareo.workers.dev/tu-lamina/img/tmb.jpg">
+<meta property="og:url" content="https://mattehaven.antonmareo.workers.dev/tu-lamina/tmb">
+<link rel="canonical" href="https://mattehaven.antonmareo.workers.dev/tu-lamina/tmb">
+<link rel="preload" href="../fuentes/SourceSerif4Display-Regular.otf" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="../fuentes/SourceSans3-Semibold.otf" as="font" type="font/otf" crossorigin>
+<style>
+/* Las mismas fuentes que la lámina (Source Serif 4 y Source Sans 3, de Adobe, licencia OFL: ../fuentes/LICENSE-*.txt). */
+@font-face{font-family:'MH Serif';src:url(../fuentes/SourceSerif4Display-Regular.otf) format('opentype');font-weight:400;font-display:swap}
+@font-face{font-family:'MH Sans';src:url(../fuentes/SourceSans3-Regular.otf) format('opentype');font-weight:400;font-display:swap}
+@font-face{font-family:'MH Sans';src:url(../fuentes/SourceSans3-Semibold.otf) format('opentype');font-weight:600;font-display:swap}
+:root{--papel:#F2EEE6;--tinta:#23272B;--suave:#5E6266;--acento:#B23A22}
+*{box-sizing:border-box}html,body{margin:0}[hidden]{display:none!important}
+body{background:var(--papel);color:var(--tinta);font-family:'MH Sans','Source Sans 3','Segoe UI',Arial,sans-serif;line-height:1.45}
+main{max-width:1100px;margin:0 auto;padding:24px 16px 48px;display:grid;gap:28px;grid-template-columns:1fr}
+@media(min-width:900px){main{grid-template-columns:minmax(0,1fr) 380px;align-items:start}aside{position:sticky;top:24px}}
+h1{font-family:'MH Serif',Georgia,serif;font-size:clamp(30px,4.4vw,42px);line-height:1.08;margin:0 0 10px;font-weight:400;letter-spacing:-.005em}
+p.sub{margin:0 0 20px;color:var(--suave);font-size:17px}
+.lamina{background:#fff;padding:14px;box-shadow:0 18px 40px rgba(35,39,43,.18),0 2px 6px rgba(35,39,43,.12);border-radius:2px}
+canvas{display:block;width:100%;height:auto;aspect-ratio:3/4;background:var(--papel)}
+label,.rotulo{display:block;font-size:13px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--suave);margin:18px 0 6px}
+input{width:100%;font:inherit;font-size:18px;padding:12px 14px;border:1.5px solid #CFC8BB;border-radius:6px;background:#fff;color:var(--tinta)}
+input:focus{outline:none;border-color:var(--acento);box-shadow:0 0 0 3px color-mix(in srgb,var(--acento) 22%,transparent)}
+.rutas{display:flex;flex-wrap:wrap;gap:8px}
+.rutas button{font:inherit;font-size:15px;padding:9px 13px;border-radius:999px;border:1.5px solid #CFC8BB;background:#fff;color:var(--tinta);cursor:pointer}
+.rutas button:hover{border-color:var(--tinta)}
+.rutas button[aria-pressed=true]{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.rutas button:focus-visible,.btn:focus-visible{outline:3px solid var(--acento);outline-offset:2px}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;font:inherit;font-size:18px;font-weight:600;letter-spacing:.01em;padding:15px 18px;border-radius:8px;border:0;cursor:pointer;text-decoration:none;margin-top:22px}
+.pedir{background:var(--acento);color:#fff}.pedir:hover{filter:brightness(1.08)}
+.otro{background:transparent;color:var(--tinta);border:1.5px solid var(--tinta);margin-top:10px;font-size:16px}.otro:hover{background:var(--tinta);color:var(--papel)}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.plazo{font-size:15px;font-weight:600;margin:12px 0 0;text-align:center}
+.aviso{min-height:1.45em;font-size:14px;margin:10px 0 0}
+.ayuda{font-size:14px;color:var(--suave);margin:8px 0 0}
+.nota{font-size:13px;color:var(--suave);margin-top:14px}
+footer{text-align:center;font-size:12px;color:var(--suave);padding:0 16px 32px;letter-spacing:.03em}
+footer a{color:inherit}
+.error{color:#A4271B}
+</style>
+</head>
+<body>
+<main>
+<section>
+<div class="lamina"><canvas id="lienzo" width="1200" height="1600" role="img" aria-label="Your Tour du Mont Blanc print"></canvas></div>
+</section>
+<aside>
+<h1>Your Tour du Mont Blanc print</h1>
+<p class="sub">Type your name and your dates and see how yours will look.</p>
+
+<label for="nombre">Name</label>
+<input id="nombre" autocomplete="name" maxlength="56" placeholder="Laura Gil" aria-describedby="juntos">
+<p class="ayuda" id="juntos">Walked it together? Write both names.</p>
+<label for="fechas">Dates</label>
+<input id="fechas" inputmode="text" autocomplete="off" maxlength="40" placeholder="4 – 14 July 2026">
+<a class="btn pedir" id="pedir" href="https://mattehaven.etsy.com/listing/4617854057" target="_blank" rel="noopener">Order yours on Etsy</a>
+<p class="plazo" id="plazo" hidden>Order by 10 December to have it for Christmas (US: 8 December).</p>
+<div class="dos"><button class="btn otro" id="copiar" type="button">Copy my text</button><button class="btn otro" id="compartir" type="button">Share</button></div>
+<p class="aviso" id="aviso" role="status"></p>
+<p class="nota">This is a preview of the real print file. We draw yours and check it by hand before it goes to print. 30 × 40 cm (about 12 × 16 in) on matte paper, framed or print only, shipping included. Also as a digital file.</p>
+</aside>
+</main>
+<footer>3D relief drawn by our own code from real elevation data · Satellite imagery Sentinel-2 cloudless by EOX · © OpenStreetMap contributors · <a href="https://mattehaven.etsy.com">MatteHaven</a></footer>
+<script>
+const D={"productos":[{"slug":"tmb","etiqueta":"Tour du Mont Blanc","w":1200,"h":1600,"prefijo":"","ejemplo":"4 – 14 July 2026"}],"etsy":"https://mattehaven.etsy.com/listing/4617854057","color":"#B23A22"};
+const lienzo=document.getElementById('lienzo'),ctx=lienzo.getContext('2d');
+const nombre=document.getElementById('nombre'),fechas=document.getElementById('fechas'),aviso=document.getElementById('aviso');
+let actual=0,imgs=[];
+// La maqueta del motor (topo-3d.mjs, estilo atlas), en píxeles de la lámina impresa: 3543 × 4724.
+const A=3543,H=4724,MX=A*0.055;
+// El nombre va bajo el pie del mapa, que en las láminas sin recorrido (estaciones de esquí) queda más abajo («pie»).
+function yn(){return Math.round(H*(D.productos[actual].pie||0.735))+H*0.04}
+// La misma regla que cajaMixta en letras.mjs: lo escrito TODO EN MAYÚSCULAS pasa a caja mixta; lo demás se respeta.
+const PART=new Set(["de","del","la","las","los","y","e","da","das","do","dos","du","des","di","van","von","der","den","le","el","i","to","of","the","and","on","in","at"]);
+function caja(t){if(t!==t.toUpperCase())return t;return t.toLowerCase().split(/(\s+|-)/).map((p,n)=>n&&PART.has(p)?p:p.charAt(0).toUpperCase()+p.slice(1)).join('')}
+function cargar(i){if(imgs[i])return imgs[i];imgs[i]=new Promise((ok,mal)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=mal;im.src='img/'+D.productos[i].slug+'.jpg'});return imgs[i]}
+// Lo que se imprime: el nombre y, debajo, la fecha (en Kilimanjaro y Everest con «Summit · » o «Base Camp · » delante).
+function textos(){const p=D.productos[actual],n=nombre.value.trim(),f=fechas.value.trim();
+  return {nom:n?caja(n):'Your Name',det:(f?p.prefijo+caja(f):p.prefijo+p.ejemplo),tiempo:!p.prefijo&&/^\d{1,2}:\d{2}(:\d{2})?$/.test(f||p.ejemplo)}}
+// Sin ligaduras (fi, ff, ft…): el motor dibuja letra a letra; un separador invisible (U+200C) tras la «f» las evita
+// en el navegador sin quitar el kerning del par (medido: sin él, «Griffiths» sale un 13 % de em más estrecho que impreso).
+function sinLig(t){return t.replace(/f(?=[fijlt])/g,'f\u200C')}
+function escribir(t,fuente,tam,y,color,s){ctx.font=fuente.replace('§',tam*s);ctx.fillStyle=color;ctx.fillText(sinLig(t),lienzo.width/2,y*s)}
+let turno=0;
+async function dibujar(){
+  const mio=++turno,im=await cargar(actual);if(mio!==turno)return;
+  if(lienzo.width!==im.naturalWidth||lienzo.height!==im.naturalHeight){lienzo.width=im.naturalWidth;lienzo.height=im.naturalHeight}
+  ctx.drawImage(im,0,0);
+  const s=lienzo.width/A,t=textos();
+  ctx.textAlign='center';ctx.textBaseline='alphabetic';
+  // Kerning normal del navegador: el motor (letras.mjs) lee el mismo kerning GPOS de la fuente y da los mismos anchos.
+  ctx.fontKerning='normal';
+  if('textRendering' in ctx)ctx.textRendering='geometricPrecision';
+  // Como «encajar»: el nombre va a A × 0,05 y, si no cabe entre los márgenes, encoge lo justo (se mide a tamaño de imprenta).
+  const SERIF="§px 'MH Serif',Georgia,serif",SANS="600 §px 'MH Sans','Segoe UI',Arial,sans-serif";
+  ctx.font=SERIF.replace('§',A*0.05);
+  const tam=Math.min(A*0.05,A*0.05*(A-2*MX)/Math.max(1,ctx.measureText(sinLig(t.nom)).width));
+  const YN=yn();
+  escribir(t.nom,SERIF,tam,YN,'#23272B',s);
+  const g=t.tiempo&&D.productos[actual].grande?1.4:1;
+  escribir(t.det,SANS,A*(t.tiempo?0.028*g:0.019),YN+H*(t.tiempo?0.036+0.009*(g-1)/0.4:0.031),D.color,s);
+}
+// El texto para la casilla de personalización de Etsy, como lo pide el anuncio: «Name — dates».
+function personalizacion(){return [nombre.value.trim(),fechas.value.trim()].filter(Boolean).join(' — ')}
+async function copiar(){const t=personalizacion();aviso.classList.remove('error');
+  if(!t){aviso.textContent='Type your name first.';aviso.classList.add('error');nombre.focus();return false}
+  try{await navigator.clipboard.writeText(t);aviso.textContent='Copied: «'+t+'». Paste it into the personalisation box on Etsy.'}
+  catch(e){aviso.textContent='Write this in the personalisation box on Etsy: «'+t+'»'}
+  return true}
+// Enlace personal: ?name=Laura%20Gil&dates=4–14%20July%202026&route=<ruta> abre la página con esa lámina. La dirección
+// se actualiza al escribir, así que «Share» manda la lámina de quien comparte y no la de muestra.
+function elegir(i){actual=i;fechas.placeholder=D.productos[i].ejemplo;document.querySelectorAll('.rutas button').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.i===i))}
+function enlace(){const q=new URLSearchParams(),n=nombre.value.trim(),f=fechas.value.trim();if(n)q.set('name',n);if(f)q.set('dates',f);if(D.productos.length>1&&(n||f||actual))q.set('route',D.productos[actual].slug);const s=q.toString();try{history.replaceState(null,'',s?'?'+s:location.pathname)}catch(e){}}
+{const Q=new URLSearchParams(location.search),qn=Q.get('name'),qf=Q.get('dates'),qr=(Q.get('route')||'').toLowerCase();
+  if(qn)nombre.value=qn.slice(0,56);if(qf)fechas.value=qf.slice(0,40);
+  if(qr){const i=D.productos.findIndex(p=>p.slug===qr);if(i>=0)elegir(i)}}
+for(const c of [nombre,fechas])c.addEventListener('input',()=>{aviso.textContent='';aviso.classList.remove('error');enlace();dibujar()});
+document.querySelectorAll('.rutas button').forEach(b=>b.addEventListener('click',()=>{elegir(+b.dataset.i);enlace();dibujar()}));
+{const h=new Date(),k=h.getMonth()*100+h.getDate();if(k>=900&&k<=1110)document.getElementById('plazo').hidden=false}
+// Al ir a Etsy se copia el texto si lo hay (sin estorbar la navegación si no lo hay).
+document.getElementById('pedir').addEventListener('click',()=>{if(personalizacion())copiar()});
+document.getElementById('copiar').addEventListener('click',copiar);
+document.getElementById('compartir').addEventListener('click',async()=>{
+  const blob=await new Promise(ok=>lienzo.toBlob(ok,'image/jpeg',0.9));
+  const fichero=new File([blob],'my-print.jpg',{type:'image/jpeg'});
+  try{if(navigator.canShare&&navigator.canShare({files:[fichero]})){await navigator.share({files:[fichero],url:location.href});return}}catch(e){if(e&&e.name==='AbortError')return}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my-print.jpg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+});
+// Primero las dos fuentes de la lámina: sin ellas el nombre saldría con otra letra y otro ancho.
+(document.fonts?Promise.all([document.fonts.load("40px 'MH Serif'"),document.fonts.load("600 40px 'MH Sans'")]).catch(()=>{}):Promise.resolve()).then(dibujar);
+D.productos.forEach((_,i)=>{if(i!==actual)cargar(i).catch(()=>{})});
+</script>
+</body>
+</html>

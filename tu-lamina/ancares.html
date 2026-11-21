@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tu lámina oficial de Ancares Cycling Marathon · MatteHaven</title>
+<meta name="description" content="Escribe tu nombre y tu tiempo y mira cómo queda la tuya.">
+<meta property="og:title" content="Tu lámina oficial de Ancares Cycling Marathon">
+<meta property="og:description" content="Escribe tu nombre y tu tiempo y mira cómo queda la tuya.">
+<meta property="og:image" content="https://mattehaven.antonmareo.workers.dev/tu-lamina/img/ancares-gf.jpg">
+<meta property="og:url" content="https://mattehaven.antonmareo.workers.dev/tu-lamina/ancares">
+<link rel="canonical" href="https://mattehaven.antonmareo.workers.dev/tu-lamina/ancares">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--papel:#F2EEE6;--tinta:#23272B;--suave:#5E6266;--acento:#2FABBE}
+*{box-sizing:border-box}html,body{margin:0}[hidden]{display:none!important}
+body{background:var(--papel);color:var(--tinta);font-family:Bahnschrift,'Barlow Semi Condensed',Arial,sans-serif;line-height:1.4}
+main{max-width:1100px;margin:0 auto;padding:24px 16px 48px;display:grid;gap:28px;grid-template-columns:1fr}
+@media(min-width:900px){main{grid-template-columns:minmax(0,1fr) 380px;align-items:start}aside{position:sticky;top:24px}}
+h1{font-size:clamp(26px,4vw,38px);line-height:1.1;margin:0 0 8px;font-weight:700;letter-spacing:.01em}
+p.sub{margin:0 0 20px;color:var(--suave);font-size:17px}
+.lamina{background:#fff;padding:14px;box-shadow:0 18px 40px rgba(35,39,43,.18),0 2px 6px rgba(35,39,43,.12);border-radius:2px}
+canvas{display:block;width:100%;height:auto;background:var(--papel)}
+label{display:block;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--suave);margin:18px 0 6px}
+input{width:100%;font:inherit;font-size:18px;padding:12px 14px;border:1.5px solid #CFC8BB;border-radius:6px;background:#fff;color:var(--tinta)}
+input:focus{outline:none;border-color:var(--acento);box-shadow:0 0 0 3px color-mix(in srgb,var(--acento) 22%,transparent)}
+.dist{display:flex;flex-wrap:wrap;gap:8px}
+.dist button{font:inherit;font-size:15px;padding:9px 13px;border-radius:999px;border:1.5px solid #CFC8BB;background:#fff;color:var(--tinta);cursor:pointer}
+.dist button[aria-pressed=true]{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.dist button:focus-visible,.btn:focus-visible{outline:3px solid var(--acento);outline-offset:2px}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;font:inherit;font-size:18px;font-weight:700;letter-spacing:.02em;padding:15px 18px;border-radius:8px;border:0;cursor:pointer;text-decoration:none;margin-top:22px}
+.pedir{background:var(--acento);color:var(--sobre-acento,#fff)}.pedir:hover{filter:brightness(1.07)}
+.compartir{background:transparent;color:var(--tinta);border:1.5px solid var(--tinta);margin-top:10px;font-size:16px}
+.plazo{font-size:15px;font-weight:600;color:var(--tinta);margin:12px 0 0;text-align:center}
+.aviso{min-height:1.4em;font-size:14px;color:var(--tinta);margin:10px 0 0}
+.nota{font-size:13px;color:var(--suave);margin-top:18px}
+.regalo{font-size:14px;color:var(--suave);margin:8px 0 0}
+footer{text-align:center;font-size:12px;color:var(--suave);padding:0 16px 32px;letter-spacing:.04em}
+footer a{color:inherit}
+.error{color:#A4271B}
+</style>
+</head>
+<body>
+<main>
+<section>
+<div class="lamina"><canvas id="lienzo" role="img" aria-label="Tu lámina oficial de Ancares Cycling Marathon"></canvas></div>
+</section>
+<aside>
+<h1>Tu lámina oficial de Ancares Cycling Marathon</h1>
+<p class="sub" id="sub">Escribe tu nombre y tu tiempo y mira cómo queda la tuya.</p>
+<label id="ldist">Distancia</label><div class="dist" role="group" aria-labelledby="ldist"><button type="button" data-i="0" aria-pressed="true">Gran Fondo 125 km</button><button type="button" data-i="1" aria-pressed="false">Medio Fondo 86 km</button></div>
+<label for="nombre">Nombre</label>
+<input id="nombre" autocomplete="name" maxlength="40" placeholder="Uxía Varela">
+<label for="tiempo" id="ltiempo">Tiempo</label>
+<input id="tiempo" inputmode="text" maxlength="20" placeholder="5:27:48" aria-describedby="regalo">
+<p class="regalo" id="regalo">¿Es un regalo y no sabes su tiempo? Escribe solo su nombre: lo buscamos nosotros en la clasificación oficial.</p>
+<a class="btn pedir" id="pedir" href="https://mattehaven.etsy.com/listing/4610455741" target="_blank" rel="noopener">Pedir la mía</a>
+<p class="plazo" id="plazo" hidden>Pídela antes del 10 de diciembre y te llega antes de Navidad.</p>
+<button class="btn compartir" id="compartir" type="button">Compartir</button>
+<p class="aviso" id="aviso" role="status"></p>
+<p class="nota">Vista previa. Cada lámina se revisa a mano antes de imprimirla. 30 × 40 cm, 39 € la lámina y 69 € enmarcada, con envío incluido. También en lienzo (79 €), en metal (89 €) o en archivo digital (19 €).</p>
+</aside>
+</main>
+<footer>Hecha en Madrid por Antonio, amante de la montaña y de las carreras · cada lámina, revisada a mano · <a href="https://mattehaven.etsy.com">MatteHaven</a></footer>
+<script>
+const D={"productos":[{"slug":"ancares-gf","etiqueta":"Gran Fondo 125 km","color":"#2FABBE","ancho":3543,"s":0.3386960203217612,"yNombre":1240,"yTiempo":1288},{"slug":"ancares-mf","etiqueta":"Medio Fondo 86 km","color":"#2FABBE","ancho":3543,"s":0.3386960203217612,"yNombre":1240,"yTiempo":1288}],"url":"https://mattehaven.etsy.com/listing/4610455741","ejemplo":["Uxía Varela","5:27:48"],"idioma":"es","fecha":null,"txt":{"copiado":"Copiado: «§». Pégalo en la casilla de personalización al pedirla.","largo":"Nombre demasiado largo (máximo 40 letras).","subReserva":"Resérvala ya con tu nombre y tu distancia. Cuando cruces la meta, ponemos tu tiempo oficial y te la enviamos.","notaReserva":"Tu tiempo oficial lo ponemos nosotros cuando termines, de la clasificación.","reservar":"Reservar la mía","tuTiempo":"TU TIEMPO OFICIAL"}};
+const lienzo=document.getElementById('lienzo'),ctx=lienzo.getContext('2d');
+const nombre=document.getElementById('nombre'),tiempo=document.getElementById('tiempo'),aviso=document.getElementById('aviso');
+let actual=0,imgs=[];
+const FUENTE="Bahnschrift,'Barlow Semi Condensed',Arial,sans-serif";
+function cargar(i){if(imgs[i])return imgs[i];imgs[i]=new Promise((ok,mal)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=mal;im.src='img/'+D.productos[i].slug+'.jpg'});return imgs[i]}
+// Texto con espaciado entre letras, centrado, como el SVG del motor (letter-spacing después de cada letra).
+function texto(t,x,y,tam,peso,color,esp){ctx.font=peso+' '+tam+'px '+FUENTE;ctx.fillStyle=color;ctx.textBaseline='alphabetic';ctx.textAlign='left';
+  const letras=[...t];let total=0;for(const l of letras)total+=ctx.measureText(l).width+esp;let cx=x-total/2;for(const l of letras){ctx.fillText(l,cx,y);cx+=ctx.measureText(l).width+esp}}
+async function dibujar(){
+  const p=D.productos[actual],im=await cargar(actual);
+  if(lienzo.width!==im.naturalWidth){lienzo.width=im.naturalWidth;lienzo.height=im.naturalHeight}
+  ctx.drawImage(im,0,0);
+  const n=(nombre.value.trim()||D.ejemplo[0]).toLocaleUpperCase(D.idioma),tt=tiempo.value.trim()||(RESERVA?D.txt.tuTiempo:(p.ejemplo||D.ejemplo[1]));
+  const A=p.ancho,s=p.s,MX=A*0.055,ls=A*0.004,letras=Math.max(1,[...n].length);
+  const tam=Math.min(A*0.052,((A-2*MX)/letras-ls)/0.64);
+  texto(n,lienzo.width/2,p.yNombre,tam*s,700,'#23272B',ls*s);
+  texto(tt,lienzo.width/2,p.yTiempo,A*0.021*s,400,p.color,A*0.004*s);
+  // Texto del botón legible sobre el color de cada distancia (el amarillo del MTM de Marão pide letra oscura).
+  const [r,g,b]=[1,3,5].map(i=>parseInt(p.color.slice(i,i+2),16)/255).map(v=>v<=0.03928?v/12.92:((v+0.055)/1.055)**2.4);
+  const lum=0.2126*r+0.7152*g+0.0722*b;
+  document.documentElement.style.setProperty('--acento',p.color);
+  document.documentElement.style.setProperty('--sobre-acento',1.05/(lum+0.05)>=(lum+0.05)/0.07?'#FFFFFF':'#23272B');
+}
+// Reserva (09/11/2026, idea del titular: «después de la carrera se olvidan»): hasta el día de la carrera la página
+// invita a reservarla solo con el nombre y la distancia; el tiempo oficial lo ponemos nosotros de la clasificación.
+const RESERVA=!!D.fecha&&new Date().toLocaleDateString('sv')<D.fecha;
+if(RESERVA){document.getElementById('sub').textContent=D.txt.subReserva;document.getElementById('regalo').textContent=D.txt.notaReserva;
+  document.getElementById('pedir').textContent=D.txt.reservar;tiempo.hidden=true;document.getElementById('ltiempo').hidden=true}
+function personalizacion(){const n=nombre.value.trim(),t=tiempo.value.trim();return [n,t].filter(Boolean).join(' — ')}
+// Enlace personal (09/11/2026): ?nombre=Ana%20Gil&tiempo=5:42:17&d=<distancia> abre la página con la lámina de ese
+// corredor, para que el club pueda mandar a cada finisher la suya. La dirección se actualiza al escribir, así que
+// «Compartir» manda la lámina de quien comparte y no la de muestra.
+function elegir(i){actual=i;document.querySelectorAll('.dist button').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.i===i))}
+function enlace(){const q=new URLSearchParams();if(nombre.value.trim())q.set('nombre',nombre.value.trim());if(tiempo.value.trim())q.set('tiempo',tiempo.value.trim());if(D.productos.length>1&&(nombre.value.trim()||actual))q.set('d',D.productos[actual].slug);const s=q.toString();try{history.replaceState(null,'',s?'?'+s:location.pathname)}catch(e){}}
+{const Q=new URLSearchParams(location.search),qn=Q.get('nombre')||Q.get('n'),qt=Q.get('tiempo')||Q.get('t'),qd=(Q.get('d')||'').toLowerCase();
+  if(qn)nombre.value=qn.slice(0,40);if(qt)tiempo.value=qt.slice(0,20);
+  if(qd){const i=D.productos.findIndex(p=>p.slug===qd||p.etiqueta.toLowerCase().startsWith(qd));if(i>=0)elegir(i)}}
+nombre.addEventListener('input',()=>{aviso.textContent='';aviso.classList.remove('error');enlace();dibujar()});
+tiempo.addEventListener('input',()=>{aviso.textContent='';enlace();dibujar()});
+document.querySelectorAll('.dist button').forEach(b=>b.addEventListener('click',()=>{elegir(+b.dataset.i);enlace();dibujar()}));
+{const h=new Date(),k=h.getMonth()*100+h.getDate();if(k>=900&&k<=1110)document.getElementById('plazo').hidden=false}
+document.getElementById('pedir').addEventListener('click',async()=>{const t=personalizacion();if(!t)return;try{await navigator.clipboard.writeText(t);aviso.textContent=D.txt.copiado.replace('§',t)}catch(e){aviso.textContent=D.txt.copiado.replace('§',t)}});
+document.getElementById('compartir').addEventListener('click',async()=>{
+  const blob=await new Promise(ok=>lienzo.toBlob(ok,'image/jpeg',0.9));
+  const fichero=new File([blob],'mi-lamina.jpg',{type:'image/jpeg'});
+  try{if(navigator.canShare&&navigator.canShare({files:[fichero]})){await navigator.share({files:[fichero],url:location.href});return}}catch(e){if(e&&e.name==='AbortError')return}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mi-lamina.jpg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+});
+(document.fonts?document.fonts.load("700 40px 'Barlow Semi Condensed'").catch(()=>{}):Promise.resolve()).then(dibujar);
+D.productos.forEach((_,i)=>{if(i)cargar(i)});
+</script>
+</body>
+</html>

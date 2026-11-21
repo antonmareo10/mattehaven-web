@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy · MatteHaven</title>
+<meta name="description" content="How MatteHaven handles personal data.">
+<link rel="canonical" href="https://mattehaven.antonmareo.workers.dev/privacy.html">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="assets/favicon-180.png">
+<meta property="og:title" content="Privacy · MatteHaven"><meta property="og:description" content="How MatteHaven handles personal data.">
+<meta property="og:image" content="https://mattehaven.antonmareo.workers.dev/tu-lamina/img/canfranc3d-45k.jpg"><meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>:root{--papel:#F2EEE6;--tinta:#23272B;--suave:#5E6266;--linea:#D9D2C5;--acento:#C8381E;--blanco:#FFFFFF}
+*{box-sizing:border-box}html,body{margin:0}
+html,body{overflow-x:hidden}body{background:var(--papel);color:var(--tinta);font-family:Bahnschrift,'Barlow Semi Condensed',Arial,sans-serif;line-height:1.5;font-size:17px}
+a{color:inherit}
+.envoltura{max-width:1120px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--linea)}
+header.top .envoltura{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+.marca{font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;font-size:18px}
+nav{display:flex;gap:18px;flex-wrap:wrap;font-size:15px}
+@media(max-width:560px){header.top .envoltura{flex-direction:column;align-items:flex-start;gap:4px;padding-top:12px;padding-bottom:12px}nav{gap:16px}}
+nav a{text-decoration:none;color:var(--suave)}nav a:hover,nav a:focus-visible{color:var(--tinta)}
+.portada{display:grid;gap:32px;padding:40px 16px 56px;align-items:center}
+@media(min-width:880px){.portada{grid-template-columns:1.05fr .95fr;padding:64px 16px 80px}}
+.antetitulo{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--acento);margin:0 0 12px}
+h1{font-size:clamp(34px,5.2vw,58px);line-height:1.04;margin:0 0 18px;font-weight:700;letter-spacing:-.005em}
+.entrada{font-size:19px;color:var(--suave);max-width:34em;margin:0 0 28px}
+.botones{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;font:inherit;font-weight:700;font-size:17px;padding:14px 22px;border-radius:8px;text-decoration:none;border:1.5px solid var(--tinta)}
+.btn.lleno{background:var(--acento);border-color:var(--acento);color:var(--blanco)}.btn.lleno:hover{filter:brightness(1.07)}
+.btn.vacio{background:transparent;color:var(--tinta)}.btn.vacio:hover{background:var(--tinta);color:var(--papel)}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
+.marco{background:var(--blanco);padding:16px;box-shadow:0 24px 50px rgba(35,39,43,.20),0 2px 8px rgba(35,39,43,.12);border-radius:2px;max-width:460px;margin:0 auto;transform:rotate(-1.2deg)}
+.marco img{display:block;width:100%;height:auto;background:var(--papel)}
+section{padding:56px 0;border-top:1px solid var(--linea)}
+h2{font-size:clamp(26px,3.4vw,36px);line-height:1.1;margin:0 0 10px}
+.intro{color:var(--suave);max-width:40em;margin:0 0 32px}
+.socias{display:grid;gap:22px;grid-template-columns:1fr}
+@media(min-width:600px){.socias{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.socias{grid-template-columns:repeat(4,1fr)}}
+.ficha{background:var(--blanco);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 3px rgba(35,39,43,.10)}
+.ficha img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;background:var(--papel)}
+.ficha .cuerpo{padding:14px 16px 18px;display:flex;flex-direction:column;gap:4px;flex:1}
+.ficha h3{margin:0;font-size:20px;line-height:1.15}
+.ficha .lugar{margin:0 0 12px;color:var(--suave);font-size:14px}
+.ficha .acciones{margin-top:auto;display:flex;gap:14px;font-size:15px;font-weight:600}
+.ficha .acciones a{text-decoration:none;border-bottom:1.5px solid var(--acento);padding-bottom:1px}
+.pasos{display:grid;gap:24px;grid-template-columns:1fr;counter-reset:paso;margin:0;padding:0;list-style:none}
+@media(min-width:760px){.pasos{grid-template-columns:repeat(3,1fr)}}
+.pasos li{counter-increment:paso;padding-top:12px;border-top:2px solid var(--tinta)}
+.pasos li::before{content:counter(paso,decimal-leading-zero);display:block;font-weight:700;color:var(--acento);letter-spacing:.08em;font-size:14px;margin-bottom:6px}
+.pasos h3{margin:0 0 6px;font-size:20px}.pasos p{margin:0;color:var(--suave)}
+.precios{display:flex;flex-wrap:wrap;gap:12px 28px;margin:32px 0 0;padding:18px 20px;background:var(--blanco);border-radius:6px}
+.precios strong{font-size:22px}.precios span{color:var(--suave);font-size:15px;display:block}
+.organizadores{display:grid;gap:28px}
+@media(min-width:880px){.organizadores{grid-template-columns:1fr 1fr;align-items:start}}
+.lista{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.lista li{padding-left:22px;position:relative}.lista li::before{content:'';position:absolute;left:0;top:.62em;width:10px;height:2px;background:var(--acento)}
+.texto{max-width:44em}.texto h1{font-size:clamp(30px,4.4vw,44px)}.texto h2{font-size:24px;margin-top:36px}.texto p,.texto li{color:#34383C}
+footer.pie{border-top:1px solid var(--linea);padding:28px 0 40px;font-size:14px;color:var(--suave)}
+footer.pie .envoltura{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between}
+footer.pie nav a{color:var(--suave)}</style>
+</head>
+<body>
+<header class="top"><div class="envoltura">
+<a class="marca" href="./">MatteHaven</a>
+<nav aria-label="Main"><a href="./#races">Races</a><a href="./#how">How it works</a><a href="./#organisers">For organisers</a><a href="organizadores">Organizadores (ES)</a><a href="https://mattehaven.etsy.com">Shop</a></nav>
+</div></header>
+<main><div class="envoltura texto" style="padding:48px 16px 64px">
+<h1>Privacy</h1>
+<p>This site is run from Spain by the person behind MatteHaven. It does not use cookies, analytics or tracking.</p>
+<h2>What we collect</h2>
+<p>Orders are placed on Etsy, which processes the payment and shares with us only what is needed to make and deliver your print: your name, delivery address, order details and the name and time you want on it. The preview pages on this site work entirely in your browser: what you type is not sent to us.</p>
+<p>Race organisers never send us runner data, and we do not send them yours. We only tell them how many prints were ordered for their race, so we can pay their share.</p>
+<h2>Who else sees it</h2>
+<p>Our print and shipping partner, strictly to produce and deliver your order. We do not sell data to anyone.</p>
+<h2>Your rights</h2>
+<p>You can ask to see, correct or delete your data at any time by writing to us through our <a href="https://mattehaven.etsy.com">Etsy shop</a>. You can also complain to the Spanish data protection authority (AEPD).</p>
+</div></main>
+<footer class="pie"><div class="envoltura">
+<span>Made in Madrid by Antonio, who loves mountains, races and the outdoors · every print checked by hand · delivered across Europe, the UK and North America</span>
+<nav aria-label="Footer"><a href="about.html">About</a><a href="shipping.html">Delivery &amp; returns</a><a href="privacy.html">Privacy</a><a href="https://mattehaven.etsy.com">Etsy shop</a></nav>
+</div></footer>
+</body>
+</html>
