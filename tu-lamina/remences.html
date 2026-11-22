@@ -39,6 +39,7 @@ input:focus{outline:none;border-color:var(--acento);box-shadow:0 0 0 3px color-m
 footer{text-align:center;font-size:12px;color:var(--suave);padding:0 16px 32px;letter-spacing:.04em}
 footer a{color:inherit}
 .error{color:#A4271B}
+.vuelo{margin:0;width:100%;max-width:520px;justify-self:center}.vuelo video{display:block;width:100%;height:auto;border-radius:3px;box-shadow:0 18px 40px rgba(35,39,43,.18)}.vuelo figcaption{font-size:14px;color:var(--suave);text-align:center;margin-top:10px}.vuelo small{display:block;font-size:11px;opacity:.8;margin-top:2px}@media(min-width:900px){.vuelo{grid-column:1}}
 </style>
 </head>
 <body>
@@ -61,6 +62,7 @@ footer a{color:inherit}
 <p class="aviso" id="aviso" role="status"></p>
 <p class="nota">Vista prèvia. Cada làmina es revisa a mà abans d'imprimir-la. 30 × 40 cm, 39 € la làmina i 69 € emmarcada, amb l'enviament inclòs. També en llenç (79 €), en metall (89 €) o en arxiu digital (19 €).</p>
 </aside>
+<!--vuelo--><figure class="vuelo"><video src="video/remences.mp4" poster="video/remences.jpg" autoplay muted loop playsinline preload="metadata" aria-label="El teu recorregut, des de l’aire"></video><figcaption>El teu recorregut, des de l’aire<small>Ortofoto © IGN España (CC BY 4.0)</small></figcaption></figure><!--/vuelo-->
 </main>
 <footer>Feta a Madrid per l'Antonio, amant de la muntanya i de les curses · cada làmina, revisada a mà · <a href="https://mattehaven.etsy.com">MatteHaven</a></footer>
 <script>
