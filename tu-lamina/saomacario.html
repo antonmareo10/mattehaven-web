@@ -3,72 +3,94 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>O teu póster oficial do São Macário Ultra Trail · MatteHaven</title>
-<meta name="description" content="Escreve o teu nome e o teu tempo e vê como fica o teu.">
-<meta property="og:title" content="O teu póster oficial do São Macário Ultra Trail">
-<meta property="og:description" content="Escreve o teu nome e o teu tempo e vê como fica o teu.">
+<title>Póster oficial de finisher do São Macário Ultra Trail com o teu nome e o teu tempo · MatteHaven</title>
+<meta name="description" content="Escreve o teu nome e vê o teu. Desde 19 €, portes incluídos. Para o Natal, até 10 de dezembro.">
+<meta property="og:title" content="O teu póster oficial do São Macário Ultra Trail, com o teu nome e o teu tempo">
+<meta property="og:description" content="Escreve o teu nome e vê o teu. Desde 19 €, portes incluídos. Para o Natal, até 10 de dezembro.">
 <meta property="og:image" content="https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/saomacario.jpg">
 <meta property="og:url" content="https://antonmareo10.github.io/mattehaven-web/tu-lamina/saomacario">
 <link rel="canonical" href="https://antonmareo10.github.io/mattehaven-web/tu-lamina/saomacario">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Póster oficial de finisher do São Macário Ultra Trail com o teu nome e o teu tempo","sku":"mattehaven-saomacario","image":["https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/saomacario.jpg"],"description":"Escreve o teu nome e vê o teu. Desde 19 €, portes incluídos. Para o Natal, até 10 de dezembro.","brand":{"@type":"Brand","name":"MatteHaven"},"offers":{"@type":"AggregateOffer","priceCurrency":"EUR","lowPrice":19,"highPrice":89,"offerCount":5,"availability":"https://schema.org/InStock","url":"https://mattehaven.etsy.com/listing/4616483284"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--papel:#F2EEE6;--tinta:#23272B;--suave:#5E6266;--acento:#B23A22}
 *{box-sizing:border-box}html,body{margin:0}[hidden]{display:none!important}
 body{background:var(--papel);color:var(--tinta);font-family:Bahnschrift,'Barlow Semi Condensed',Arial,sans-serif;line-height:1.4}
-main{max-width:1100px;margin:0 auto;padding:24px 16px 48px;display:grid;gap:28px;grid-template-columns:1fr}
-@media(min-width:900px){main{grid-template-columns:minmax(0,1fr) 380px;align-items:start}aside{position:sticky;top:24px}}
-h1{font-size:clamp(26px,4vw,38px);line-height:1.1;margin:0 0 8px;font-weight:700;letter-spacing:.01em}
-p.sub{margin:0 0 20px;color:var(--suave);font-size:17px}
+main{max-width:1100px;margin:0 auto;padding:24px 16px 48px;display:grid;column-gap:28px;row-gap:22px;grid-template-columns:minmax(0,1fr);grid-template-areas:"cab" "lamina" "resto"}
+body.personal main{grid-template-areas:"lamina" "cab" "resto"}
+#cab{grid-area:cab}#lamina{grid-area:lamina}#resto{grid-area:resto}
+@media(min-width:900px){main,body.personal main{grid-template-columns:minmax(0,1fr) 380px;grid-template-rows:auto 1fr;grid-template-areas:"lamina cab" "lamina resto";align-items:start}#lamina{position:sticky;top:24px}}
+h1{font-size:clamp(22px,4vw,38px);line-height:1.1;margin:0 0 8px;font-weight:700;letter-spacing:.01em}
+p.sub{margin:0 0 4px;color:var(--suave);font-size:17px}
 .lamina{background:#fff;padding:14px;box-shadow:0 18px 40px rgba(35,39,43,.18),0 2px 6px rgba(35,39,43,.12);border-radius:2px}
 canvas{display:block;width:100%;height:auto;background:var(--papel)}
-label{display:block;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--suave);margin:18px 0 6px}
-input{width:100%;font:inherit;font-size:18px;padding:12px 14px;border:1.5px solid #CFC8BB;border-radius:6px;background:#fff;color:var(--tinta)}
+label{display:block;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--suave);margin:16px 0 6px}
+.fila{display:grid;grid-template-columns:3fr 2fr;gap:10px}
+input[type=text],input:not([type]){width:100%;font:inherit;font-size:18px;padding:12px 14px;border:1.5px solid #CFC8BB;border-radius:6px;background:#fff;color:var(--tinta)}
+input:disabled{opacity:.45}
 input:focus{outline:none;border-color:var(--acento);box-shadow:0 0 0 3px color-mix(in srgb,var(--acento) 22%,transparent)}
+.check{display:flex;gap:10px;align-items:center;text-transform:none;letter-spacing:0;font-size:15px;font-weight:400;color:var(--tinta);margin:12px 0 0;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--acento);margin:0}
 .dist{display:flex;flex-wrap:wrap;gap:8px}
 .dist button{font:inherit;font-size:15px;padding:9px 13px;border-radius:999px;border:1.5px solid #CFC8BB;background:#fff;color:var(--tinta);cursor:pointer}
 .dist button[aria-pressed=true]{background:var(--tinta);border-color:var(--tinta);color:#fff}
-.dist button:focus-visible,.btn:focus-visible{outline:3px solid var(--acento);outline-offset:2px}
-.btn{display:flex;align-items:center;justify-content:center;width:100%;font:inherit;font-size:18px;font-weight:700;letter-spacing:.02em;padding:15px 18px;border-radius:8px;border:0;cursor:pointer;text-decoration:none;margin-top:22px}
+.dist button:focus-visible,.btn:focus-visible,.check input:focus-visible,.enlace:focus-visible{outline:3px solid var(--acento);outline-offset:2px}
+.precio{margin:20px 0 0;text-align:center}
+.precio p{margin:0}.precio .p1{font-size:16px}.precio .p2{font-size:15px;font-weight:700;margin-top:4px}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;font:inherit;font-size:18px;font-weight:700;letter-spacing:.02em;padding:15px 18px;border-radius:8px;border:0;cursor:pointer;text-decoration:none;margin-top:14px}
 .pedir{background:var(--acento);color:var(--sobre-acento,#fff)}.pedir:hover{filter:brightness(1.07)}
-.compartir{background:transparent;color:var(--tinta);border:1.5px solid var(--tinta);margin-top:10px;font-size:16px}
-.plazo{font-size:15px;font-weight:600;color:var(--tinta);margin:12px 0 0;text-align:center}
+.guia{font-size:14px;color:var(--tinta);margin:10px 0 0}
+.confianza{font-size:14px;color:#3F4347;margin:8px 0 0}
+.wa{background:transparent;color:var(--tinta);border:1.5px solid var(--tinta);margin-top:18px;font-size:16px}
+.enlace{display:block;margin:10px auto 0;background:none;border:0;font:inherit;font-size:14px;color:var(--suave);text-decoration:underline;cursor:pointer}
 .aviso{min-height:1.4em;font-size:14px;color:var(--tinta);margin:10px 0 0}
+.taza{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center;margin-top:20px;padding:12px;background:#fff;border-radius:8px}
+.taza img{width:96px;height:96px;object-fit:cover;border-radius:6px;display:block}.taza p{margin:0;font-size:14px}
 .nota{font-size:13px;color:var(--suave);margin-top:18px}
 .regalo{font-size:14px;color:var(--suave);margin:8px 0 0}
-footer{text-align:center;font-size:12px;color:var(--suave);padding:0 16px 32px;letter-spacing:.04em}
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--papel);box-shadow:0 -1px 0 rgba(35,39,43,.12),0 -6px 18px rgba(35,39,43,.08)}
+.barra span{font-size:14px;font-weight:600}.barra .btn{width:auto;margin:0;padding:11px 16px;font-size:16px;white-space:nowrap}
+@media(min-width:900px){.barra{display:none!important}}
+footer{text-align:center;font-size:12px;color:var(--suave);padding:0 16px 96px;letter-spacing:.04em}
 footer a{color:inherit}
 .error{color:#A4271B}
-.vuelo{margin:0;width:100%;max-width:520px;justify-self:center}.vuelo video{display:block;width:100%;height:auto;border-radius:3px;box-shadow:0 18px 40px rgba(35,39,43,.18)}.vuelo figcaption{font-size:14px;color:var(--suave);text-align:center;margin-top:10px}.vuelo small{display:block;font-size:11px;opacity:.8;margin-top:2px}@media(min-width:900px){.vuelo{grid-column:1}}
 </style>
 </head>
 <body>
 <main>
-<section>
+<section id="lamina">
 <div class="lamina"><canvas id="lienzo" role="img" aria-label="O teu póster oficial do São Macário Ultra Trail"></canvas></div>
 </section>
-<aside>
+<div id="cab">
 <h1>O teu póster oficial do São Macário Ultra Trail</h1>
 <p class="sub" id="sub">Escreve o teu nome e o teu tempo e vê como fica o teu.</p>
-
-<label for="nombre">Nome</label>
-<input id="nombre" autocomplete="name" maxlength="40" placeholder="Ana Silva">
-<label for="tiempo" id="ltiempo">Tempo</label>
-<input id="tiempo" inputmode="text" maxlength="20" placeholder="4:36:20" aria-describedby="regalo">
+<div class="fila">
+<div><label for="nombre">Nome</label><input id="nombre" autocomplete="name" maxlength="40" placeholder="Ana Silva"></div>
+<div id="ctiempo"><label for="tiempo" id="ltiempo">Tempo</label><input id="tiempo" inputmode="text" maxlength="20" placeholder="4:36:20" aria-describedby="regalo"></div>
+</div>
+<label class="check"><input type="checkbox" id="sinnombre"> Quero-o sem nome nem tempo</label>
 <p class="regalo" id="regalo">É uma prenda e não sabes o tempo? Escreve só o nome: procuramos nós na classificação oficial.</p>
-<a class="btn pedir" id="pedir" href="https://mattehaven.etsy.com/listing/4616483284" target="_blank" rel="noopener">Encomendar o meu</a>
-<p class="plazo" id="plazo" hidden>Encomenda até 10 de dezembro e recebes antes do Natal.</p>
-<button class="btn compartir" id="compartir" type="button">Partilhar</button>
+</div>
+<div id="resto">
+
+<div class="precio"><p class="p1">Póster 39 € · emoldurado 69 € · digital 19 €. Portes incluídos.</p><p class="p2" id="plazo"></p></div>
+<a class="btn pedir" id="pedir" href="https://mattehaven.etsy.com/listing/4616483284" target="_blank" rel="noopener">Encomendar o meu na Etsy</a>
+<p class="guia" id="guia"></p>
+<p class="confianza">Enviamos-te a prova antes de imprimir · Se houver um erro, refazemos sem custo · Pagas na Etsy</p>
 <p class="aviso" id="aviso" role="status"></p>
-<p class="nota">Pré-visualização. Cada póster é revisto à mão antes de ser impresso. 30 × 40 cm, 39 € o póster e 69 € emoldurado, portes incluídos. Também em tela (79 €), em metal (89 €) ou em ficheiro digital (19 €).</p>
-</aside>
-<!--vuelo--><figure class="vuelo"><video src="video/saomacario.mp4" poster="video/saomacario.jpg" autoplay muted loop playsinline preload="metadata" aria-label="O teu percurso, visto do ar"></video><figcaption>O teu percurso, visto do ar<small>Ortofotos © Direção-Geral do Território (CC BY 4.0)</small></figcaption></figure><!--/vuelo-->
+<a class="btn wa" id="wa" href="https://wa.me/" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+<button class="enlace" id="descargar" type="button">Descarregar a pré-visualização</button>
+
+<p class="nota">Pré-visualização. Cada póster é revisto à mão antes de ser impresso. Também em tela (79 €) e em metal (89 €), 30 × 40 cm.</p>
+</div>
 </main>
+<div class="barra" id="barra" hidden><span>Desde 19 € · portes incluídos</span><a class="btn pedir" id="pedir2" href="https://mattehaven.etsy.com/listing/4616483284" target="_blank" rel="noopener">Encomendar o meu na Etsy</a></div>
 <footer>Feito em Madrid pelo Antonio, apaixonado pela montanha e pelas corridas · cada póster, revisto à mão · <a href="https://mattehaven.etsy.com">MatteHaven</a></footer>
 <script>
-const D={"productos":[{"slug":"saomacario","etiqueta":"São Macário Ultra Trail","color":"#B23A22","ancho":3543,"s":0.3386960203217612,"yNombre":1240,"yTiempo":1288}],"url":"https://mattehaven.etsy.com/listing/4616483284","ejemplo":["Ana Silva","4:36:20"],"idioma":"pt","fecha":null,"txt":{"copiado":"Copiado: «§». Cola-o na caixa de personalização ao encomendar.","largo":"Nome demasiado longo (máximo 40 letras).","subReserva":"Reserva já o teu com o nome e a distância. Quando cruzares a meta, pomos o teu tempo oficial e enviamos.","notaReserva":"O teu tempo oficial pomo-lo nós quando terminares, da classificação.","reservar":"Reservar o meu","tuTiempo":"O TEU TEMPO OFICIAL"}};
+const D={"productos":[{"slug":"saomacario","etiqueta":"São Macário Ultra Trail","opcion":null,"color":"#B23A22","ancho":3543,"s":0.3386960203217612,"yNombre":1240,"yTiempo":1288}],"url":"https://mattehaven.etsy.com/listing/4616483284","ejemplo":["Ana Silva","4:36:20"],"idioma":"pt","fecha":null,"nombreCarrera":"São Macário Ultra Trail","rebaja":{"pct":25,"hasta":"2026-12-01","texto":"Até terça-feira, 1 de dezembro, menos 25 % na Etsy: o póster fica por 29,25 €."},"navidad":"2026-12-10","hastaCanarias":null,"txt":{"copiado":"Copiado: «§». Cola-o na caixa de personalização ao encomendar.","largo":"Nome demasiado longo (máximo 40 letras).","subReserva":"Reserva já o teu com o nome e a distância. Quando cruzares a meta, pomos o teu tempo oficial e enviamos.","notaReserva":"O teu tempo oficial pomo-lo nós quando terminares, da classificação.","reservar":"Reservar o meu na Etsy","tuTiempo":"O TEU TEMPO OFICIAL","plazoN":"Encomenda até quinta-feira, 10 de dezembro (inclusive), e recebes antes do Natal. §.","queda1":"Falta 1 dia","quedan":"Faltam § dias","ultimo":"Hoje é o último dia para encomendar e receber antes do Natal.","despues":"Em digital recebes em 24 horas, com um cartão para oferecer.","canarias":"Em digital recebes em 24 horas, com um cartão para oferecer.","plazoCanarias":null,"guia":"Ao carregar copiamos «§». Na Etsy escolhe «¶» e o formato, e cola na caixa de personalização.","guiaSin":"Ao carregar copiamos «§». Na Etsy escolhe o formato e cola na caixa de personalização.","guiaVacia":"Escreve acima o teu nome para o levar copiado para a Etsy.","copiaSin":"sem nome","wa":"Olha o meu póster do São Macário Ultra Trail, com o meu nome e o meu tempo:"}};
 const lienzo=document.getElementById('lienzo'),ctx=lienzo.getContext('2d');
-const nombre=document.getElementById('nombre'),tiempo=document.getElementById('tiempo'),aviso=document.getElementById('aviso');
+const nombre=document.getElementById('nombre'),tiempo=document.getElementById('tiempo'),aviso=document.getElementById('aviso'),sin=document.getElementById('sinnombre');
 let actual=0,imgs=[];
 const FUENTE="Bahnschrift,'Barlow Semi Condensed',Arial,sans-serif";
 function cargar(i){if(imgs[i])return imgs[i];imgs[i]=new Promise((ok,mal)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=mal;im.src='img/'+D.productos[i].slug+'.jpg'});return imgs[i]}
@@ -79,11 +101,14 @@ async function dibujar(){
   const p=D.productos[actual],im=await cargar(actual);
   if(lienzo.width!==im.naturalWidth){lienzo.width=im.naturalWidth;lienzo.height=im.naturalHeight}
   ctx.drawImage(im,0,0);
-  const n=(nombre.value.trim()||D.ejemplo[0]).toLocaleUpperCase(D.idioma),tt=tiempo.value.trim()||(RESERVA?D.txt.tuTiempo:(p.ejemplo||D.ejemplo[1]));
-  const A=p.ancho,s=p.s,MX=A*0.055,ls=A*0.004,letras=Math.max(1,[...n].length);
-  const tam=Math.min(A*0.052,((A-2*MX)/letras-ls)/0.64);
-  texto(n,lienzo.width/2,p.yNombre,tam*s,700,'#23272B',ls*s);
-  texto(tt,lienzo.width/2,p.yTiempo,A*0.021*s,400,p.color,A*0.004*s);
+  // «Sin nombre ni tiempo»: la banda queda en blanco, como la imprime pedidos-carrera.mjs.
+  if(!sin.checked){
+    const n=(nombre.value.trim()||D.ejemplo[0]).toLocaleUpperCase(D.idioma),tt=tiempo.value.trim()||(RESERVA?D.txt.tuTiempo:(p.ejemplo||D.ejemplo[1]));
+    const A=p.ancho,s=p.s,MX=A*0.055,ls=A*0.004,letras=Math.max(1,[...n].length);
+    const tam=Math.min(A*0.052,((A-2*MX)/letras-ls)/0.64);
+    texto(n,lienzo.width/2,p.yNombre,tam*s,700,'#23272B',ls*s);
+    texto(tt,lienzo.width/2,p.yTiempo,A*0.021*s,400,p.color,A*0.004*s);
+  }
   // Texto del botón legible sobre el color de cada distancia (el amarillo del MTM de Marão pide letra oscura).
   const [r,g,b]=[1,3,5].map(i=>parseInt(p.color.slice(i,i+2),16)/255).map(v=>v<=0.03928?v/12.92:((v+0.055)/1.055)**2.4);
   const lum=0.2126*r+0.7152*g+0.0722*b;
@@ -92,31 +117,52 @@ async function dibujar(){
 }
 // Reserva (09/11/2026, idea del titular: «después de la carrera se olvidan»): hasta el día de la carrera la página
 // invita a reservarla solo con el nombre y la distancia; el tiempo oficial lo ponemos nosotros de la clasificación.
-const RESERVA=!!D.fecha&&new Date().toLocaleDateString('sv')<D.fecha;
+const HOY=new Date().toLocaleDateString('sv');
+const RESERVA=!!D.fecha&&HOY<D.fecha;
 if(RESERVA){document.getElementById('sub').textContent=D.txt.subReserva;document.getElementById('regalo').textContent=D.txt.notaReserva;
-  document.getElementById('pedir').textContent=D.txt.reservar;tiempo.hidden=true;document.getElementById('ltiempo').hidden=true}
-function personalizacion(){const n=nombre.value.trim(),t=tiempo.value.trim();return [n,t].filter(Boolean).join(' — ')}
-// Enlace personal (09/11/2026): ?nombre=Ana%20Gil&tiempo=5:42:17&d=<distancia> abre la página con la lámina de ese
+  document.getElementById('pedir').textContent=D.txt.reservar;document.getElementById('pedir2').textContent=D.txt.reservar;document.getElementById('ctiempo').hidden=true}
+function personalizacion(){if(sin.checked)return D.txt.copiaSin;const n=nombre.value.trim(),t=tiempo.value.trim();return [n,t].filter(Boolean).join(' — ')}
+// Qué elegir en Etsy y qué se lleva copiado, antes de pulsar (la opción exacta sale del inventario del anuncio).
+function guia(){const t=personalizacion(),op=D.productos[actual].opcion;const g=document.getElementById('guia');
+  g.textContent=!t?D.txt.guiaVacia:(op?D.txt.guia.replace('¶',op):D.txt.guiaSin).replace('§',t)}
+// Precio y plazo encima del botón: la rebaja mientras dura y luego los días que quedan para Navidad (calculados con la
+// fecha del día: es verdad y no es un reloj). Acantilados (Canarias) tiene su propio último día.
+function plazo(){const el=document.getElementById('plazo');let txt='';
+  const dias=(a,b)=>Math.round((Date.parse(b)-Date.parse(a))/864e5);
+  if(D.hastaCanarias){txt=HOY<=D.hastaCanarias?(D.txt.plazoCanarias||''):D.txt.canarias;if(D.rebaja&&HOY<=D.rebaja.hasta)txt=D.rebaja.texto+' '+txt}
+  else if(D.rebaja&&HOY<=D.rebaja.hasta)txt=D.rebaja.texto;
+  else if(HOY<D.navidad){const n=dias(HOY,D.navidad);txt=D.txt.plazoN.replace('§',n===1?D.txt.queda1:D.txt.quedan.replace('§',n))}
+  else if(HOY===D.navidad)txt=D.txt.ultimo;
+  else txt=D.txt.despues;
+  el.textContent=txt.trim()}
+// Enlace personal (09/11/2026): #nombre=Ana%20Gil&tiempo=5:42:17&d=<distancia> (antes ?nombre=…, que sigue valiendo) abre la página con la lámina de ese
 // corredor, para que el club pueda mandar a cada finisher la suya. La dirección se actualiza al escribir, así que
-// «Compartir» manda la lámina de quien comparte y no la de muestra.
+// WhatsApp manda la lámina de quien la comparte y no la de muestra.
 function elegir(i){actual=i;document.querySelectorAll('.dist button').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.i===i))}
-function enlace(){const q=new URLSearchParams();if(nombre.value.trim())q.set('nombre',nombre.value.trim());if(tiempo.value.trim())q.set('tiempo',tiempo.value.trim());if(D.productos.length>1&&(nombre.value.trim()||actual))q.set('d',D.productos[actual].slug);const s=q.toString();try{history.replaceState(null,'',s?'?'+s:location.pathname)}catch(e){}}
-{const Q=new URLSearchParams(location.search),qn=Q.get('nombre')||Q.get('n'),qt=Q.get('tiempo')||Q.get('t'),qd=(Q.get('d')||'').toLowerCase();
-  if(qn)nombre.value=qn.slice(0,40);if(qt)tiempo.value=qt.slice(0,20);
+function enlace(){const q=new URLSearchParams();if(sin.checked)q.set('sin','1');else{if(nombre.value.trim())q.set('nombre',nombre.value.trim());if(tiempo.value.trim())q.set('tiempo',tiempo.value.trim())}
+  if(D.productos.length>1&&(nombre.value.trim()||sin.checked||actual))q.set('d',D.productos[actual].slug);const s=q.toString();try{history.replaceState(null,'',location.pathname+(s?'#'+s:''))}catch(e){}
+  document.getElementById('wa').href='https://wa.me/?text='+encodeURIComponent(D.txt.wa+' '+location.href)}
+// El nombre y el tiempo van detrás de «#» (25/11/2026): el navegador no manda esa parte al servidor, así que no queda
+// en ningún registro. Los enlaces viejos con «?nombre=» siguen funcionando.
+{const Q=new URLSearchParams(location.hash.length>1?location.hash.slice(1):location.search),qn=Q.get('nombre')||Q.get('n'),qt=Q.get('tiempo')||Q.get('t'),qd=(Q.get('d')||'').toLowerCase();
+  if(qn){nombre.value=qn.slice(0,40);document.body.classList.add('personal')}if(qt)tiempo.value=qt.slice(0,20);if(Q.get('sin')==='1')sin.checked=true;
   if(qd){const i=D.productos.findIndex(p=>p.slug===qd||p.etiqueta.toLowerCase().startsWith(qd));if(i>=0)elegir(i)}}
-nombre.addEventListener('input',()=>{aviso.textContent='';aviso.classList.remove('error');enlace();dibujar()});
-tiempo.addEventListener('input',()=>{aviso.textContent='';enlace();dibujar()});
-document.querySelectorAll('.dist button').forEach(b=>b.addEventListener('click',()=>{elegir(+b.dataset.i);enlace();dibujar()}));
-{const h=new Date(),k=h.getMonth()*100+h.getDate();if(k>=900&&k<=1110)document.getElementById('plazo').hidden=false}
-document.getElementById('pedir').addEventListener('click',async()=>{const t=personalizacion();if(!t)return;try{await navigator.clipboard.writeText(t);aviso.textContent=D.txt.copiado.replace('§',t)}catch(e){aviso.textContent=D.txt.copiado.replace('§',t)}});
-document.getElementById('compartir').addEventListener('click',async()=>{
+function sinNombre(){nombre.disabled=sin.checked;tiempo.disabled=sin.checked}
+function todo(){aviso.textContent='';aviso.classList.remove('error');enlace();guia();dibujar()}
+nombre.addEventListener('input',todo);tiempo.addEventListener('input',todo);sin.addEventListener('change',()=>{sinNombre();todo()});
+document.querySelectorAll('.dist button').forEach(b=>b.addEventListener('click',()=>{elegir(+b.dataset.i);todo()}));
+async function copiar(){const t=personalizacion();if(!t)return;try{await navigator.clipboard.writeText(t)}catch(e){}aviso.textContent=D.txt.copiado.replace('§',t)}
+document.getElementById('pedir').addEventListener('click',copiar);document.getElementById('pedir2').addEventListener('click',copiar);
+document.getElementById('descargar').addEventListener('click',async()=>{
   const blob=await new Promise(ok=>lienzo.toBlob(ok,'image/jpeg',0.9));
   const fichero=new File([blob],'mi-lamina.jpg',{type:'image/jpeg'});
   try{if(navigator.canShare&&navigator.canShare({files:[fichero]})){await navigator.share({files:[fichero],url:location.href});return}}catch(e){if(e&&e.name==='AbortError')return}
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mi-lamina.jpg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
 });
+// Barra fija del móvil: aparece cuando el botón principal sale de la pantalla.
+if('IntersectionObserver' in window){const barra=document.getElementById('barra');new IntersectionObserver(([e])=>{barra.hidden=e.isIntersecting},{threshold:0}).observe(document.getElementById('pedir'))}
+sinNombre();plazo();enlace();guia();
 (document.fonts?document.fonts.load("700 40px 'Barlow Semi Condensed'").catch(()=>{}):Promise.resolve()).then(dibujar);
-D.productos.forEach((_,i)=>{if(i)cargar(i)});
 </script>
 </body>
 </html>
