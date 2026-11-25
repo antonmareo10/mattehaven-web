@@ -3,16 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Personalised Camino de Santiago print, a 3D map with your name and date · MatteHaven</title>
-<meta name="description" content="Type your name and your dates and see how yours will look.">
+<title>Camino de Santiago print: a personalised 3D map with your name and dates · MatteHaven</title>
+<meta name="description" content="A personalised Camino de Santiago print: the route in 3D over the real relief, with your name and dates. A gift for anyone who walked it. From €19, shipping included.">
 <meta property="og:title" content="Your Camino de Santiago print">
-<meta property="og:description" content="Type your name and your dates and see how yours will look.">
+<meta property="og:description" content="A personalised Camino de Santiago print: the route in 3D over the real relief, with your name and dates. A gift for anyone who walked it. From €19, shipping included.">
 <meta property="og:image" content="https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/camino-frances.jpg">
 <meta property="og:url" content="https://antonmareo10.github.io/mattehaven-web/tu-lamina/camino">
+<meta property="og:type" content="website"><meta property="og:site_name" content="MatteHaven"><meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://antonmareo10.github.io/mattehaven-web/tu-lamina/camino">
 <link rel="icon" href="../assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="../assets/favicon-180.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Personalised Camino de Santiago print","sku":"mattehaven-camino","image":["https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/camino-frances.jpg","https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/camino-sarria.jpg","https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/camino-porto.jpg","https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/camino-costa.jpg","https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/camino-prim.jpg"],"description":"Type your name and your dates and see how yours will look.","brand":{"@type":"Brand","name":"MatteHaven"},"offers":{"@type":"AggregateOffer","priceCurrency":"EUR","lowPrice":19,"highPrice":69,"offerCount":3,"availability":"https://schema.org/InStock","url":"https://mattehaven.etsy.com/listing/4616606060"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Personalised Camino de Santiago print","sku":"mattehaven-camino","image":["https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/camino-frances.jpg","https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/camino-sarria.jpg","https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/camino-porto.jpg","https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/camino-costa.jpg","https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/camino-prim.jpg"],"description":"A personalised Camino de Santiago print: the route in 3D over the real relief, with your name and dates. A gift for anyone who walked it. From €19, shipping included.","brand":{"@type":"Brand","name":"MatteHaven"},"offers":{"@type":"AggregateOffer","priceCurrency":"EUR","lowPrice":19,"highPrice":69,"offerCount":3,"availability":"https://schema.org/InStock","url":"https://mattehaven.etsy.com/listing/4616606060"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"MatteHaven","item":"https://antonmareo10.github.io/mattehaven-web/"},{"@type":"ListItem","position":2,"name":"Camino de Santiago","item":"https://antonmareo10.github.io/mattehaven-web/tu-lamina/camino"}]}</script>
 <link rel="preload" href="../fuentes/SourceSerif4Display-Regular.otf" as="font" type="font/otf" crossorigin>
 <link rel="preload" href="../fuentes/SourceSans3-Semibold.otf" as="font" type="font/otf" crossorigin>
 <style>
@@ -27,7 +30,6 @@ main{max-width:1100px;margin:0 auto;padding:24px 16px 48px;display:grid;gap:28px
 @media(min-width:900px){main{grid-template-columns:minmax(0,1fr) 380px;align-items:start}aside{position:sticky;top:24px}}
 h1{font-family:'MH Serif',Georgia,serif;font-size:clamp(30px,4.4vw,42px);line-height:1.08;margin:0 0 10px;font-weight:400;letter-spacing:-.005em}
 p.sub{margin:0 0 20px;color:var(--suave);font-size:17px}
-.lamina{background:#fff;padding:14px;box-shadow:0 18px 40px rgba(35,39,43,.18),0 2px 6px rgba(35,39,43,.12);border-radius:2px}
 canvas{display:block;width:100%;height:auto;aspect-ratio:3/4;background:var(--papel)}
 label,.rotulo{display:block;font-size:13px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--suave);margin:18px 0 6px}
 input{width:100%;font:inherit;font-size:18px;padding:12px 14px;border:1.5px solid #CFC8BB;border-radius:6px;background:#fff;color:var(--tinta)}
@@ -48,12 +50,53 @@ input:focus{outline:none;border-color:var(--acento);box-shadow:0 0 0 3px color-m
 footer{text-align:center;font-size:12px;color:var(--suave);padding:0 16px 32px;letter-spacing:.03em}
 footer a{color:inherit}
 .error{color:#A4271B}
+.migas{max-width:1100px;margin:0 auto;padding:14px 16px 0;font-size:14px;color:var(--suave)}.migas a{color:var(--tinta)}
+.mas{max-width:1100px;margin:0 auto;padding:0 16px 28px}.mas h2{font-family:'MH Serif',Georgia,serif;font-weight:400;font-size:24px;line-height:1.2;margin:24px 0 8px}
+.mas h3{font-size:14px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--suave);margin:16px 0 6px}
+.mas p{margin:0 0 10px;max-width:46em;font-size:16px;color:#3F4347}.mas a{color:var(--tinta)}
+.otras{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:16px}.mas .fin{margin-top:20px}
+.vista-sec{container-type:inline-size}
+.vista{margin:0}
+.cuadro{position:relative;background:var(--papel);box-shadow:0 8px 22px rgba(35,39,43,.16),0 1px 3px rgba(35,39,43,.14)}
+.cuadro canvas{display:block;width:100%;height:auto}
+.vista[data-c=madera]{--marco:url(img/marco-madera.jpg)}.vista[data-c=negro],.vista[data-f=grande]{--marco:url(img/marco-negro.jpg)}
+.vista[data-c=blanco]{--marco:url(img/marco-blanco.jpg)}.vista[data-c=oscura]{--marco:url(img/marco-oscura.jpg)}
+.vista[data-f=marco] .cuadro,.vista[data-f=grande] .cuadro{border:14px solid #B99467;border-width:3.7cqw;border-image:var(--marco) 48 stretch;box-shadow:0 22px 44px rgba(35,39,43,.24),0 3px 8px rgba(35,39,43,.16)}
+.vista[data-f=grande] .cuadro{border-width:8px;border-width:1.92cqw}
+.vista[data-f=marco] .cuadro::after,.vista[data-f=grande] .cuadro::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.15),rgba(255,255,255,0) 38%);box-shadow:inset 0 0 0 1px rgba(0,0,0,.18),inset 1px 2px 6px rgba(0,0,0,.2)}
+.vista[data-f=lienzo] .cuadro{box-shadow:0 24px 46px rgba(35,39,43,.26),0 4px 10px rgba(35,39,43,.18)}
+.vista[data-f=lienzo] .cuadro::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(35,39,43,.035) 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,rgba(35,39,43,.035) 0 1px,transparent 1px 3px);box-shadow:inset -3px -3px 8px rgba(0,0,0,.12)}
+.vista[data-f=digital] .cuadro{box-shadow:none;outline:1px solid #CFC8BB}
+.vista figcaption{margin:12px 0 0;text-align:center;font-size:14px;color:var(--suave)}
+.formatos{border:0;margin:0;padding:0;min-width:0}
+.formatos legend{display:block;padding:0;margin:0 0 2px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--suave)}
+.opcion{border:1.5px solid #CFC8BB;border-radius:10px;background:#fff;margin-top:8px;transition:border-color .15s,box-shadow .15s}
+.opcion.activa{border-color:var(--tinta);box-shadow:0 0 0 1px var(--tinta)}
+.formatos .op{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;margin:0;padding:12px 14px;cursor:pointer;text-transform:none;letter-spacing:0;font-size:16px;font-weight:400;color:var(--tinta)}
+.formatos .op input{width:20px;height:20px;margin:0;accent-color:var(--tinta)}
+.formatos .op input:focus-visible{outline:3px solid var(--acento);outline-offset:2px}
+.op .txt{display:flex;flex-direction:column;min-width:0}.op .txt b{font-weight:600;line-height:1.25}
+.op .txt small{font-size:13.5px;color:var(--suave);margin-top:2px;line-height:1.3}
+.op .pr{display:flex;flex-direction:column;align-items:flex-end;white-space:nowrap;line-height:1.2}
+.op .pr b{font-size:17px;font-weight:700}.op .pr s{font-size:13px;color:var(--suave)}
+.principal .op .txt b{font-size:17px}
+.colores{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:0 14px 2px 46px}
+.colores button{width:30px;height:30px;padding:0;border-radius:50%;border:1.5px solid rgba(35,39,43,.28);background:var(--m);cursor:pointer}
+.colores button[aria-pressed=true]{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--tinta)}
+.colores button:focus-visible{outline:3px solid var(--acento);outline-offset:4px}
+.colores span{font-size:14px;color:var(--suave)}
+.beneficio{margin:8px 0 0;padding:0 14px 12px 46px;font-size:14px;line-height:1.4;color:#3F4347}
+.guia .etsy{display:inline-block;padding:0 6px;margin:1px 0;border:1px solid #CFC8BB;border-radius:4px;background:#fff;font-weight:600;white-space:nowrap}
+
+.formatos{margin-top:18px}
+.resumen{font-size:16px;text-align:center;margin:18px 0 0}.resumen+.btn{margin-top:12px}
 </style>
 </head>
-<body>
+<body data-tipo="ruta" data-nombre="Camino de Santiago">
+<nav class="migas" aria-label="Breadcrumb"><a href="../">MatteHaven</a> › <span aria-current="page">Camino de Santiago</span></nav>
 <main>
-<section>
-<div class="lamina"><canvas id="lienzo" width="1200" height="1600" role="img" aria-label="Your Camino de Santiago print"></canvas></div>
+<section class="vista-sec">
+<figure class="vista" id="vista" data-f="marco" data-c="madera"><div class="cuadro"><canvas id="lienzo" width="1200" height="1600" role="img" aria-label="Your Camino de Santiago print"></canvas></div><figcaption id="pie-vista">Framed in natural wood · 30 × 40 cm</figcaption></figure>
 </section>
 <aside>
 <h1>Your Camino de Santiago print</h1>
@@ -64,19 +107,32 @@ footer a{color:inherit}
 <p class="ayuda" id="juntos">Walked it together? Write both names.</p>
 <label for="fechas">Dates</label>
 <input id="fechas" inputmode="text" autocomplete="off" maxlength="40" placeholder="1 September – 6 October 2026">
+<fieldset class="formatos" id="formatos"><legend>Format</legend><div class="opcion principal activa"><label class="op"><input type="radio" name="formato" value="0" checked><span class="txt"><b>Framed · ready to hang</b><small id="submarco">30 × 40 cm · natural wood frame</small></span><span class="pr" data-precio="69"><s hidden></s><b>€69</b></span></label><div class="colores" role="group" aria-label="Frame colour"><button type="button" data-c="madera" aria-pressed="true" aria-label="Natural wood" title="Natural wood" style="--m:#D4B288"></button><button type="button" data-c="negro" aria-pressed="false" aria-label="Black" title="Black" style="--m:#18181A"></button><button type="button" data-c="blanco" aria-pressed="false" aria-label="White" title="White" style="--m:#EEECE7"></button><button type="button" data-c="oscura" aria-pressed="false" aria-label="Dark wood" title="Dark wood" style="--m:#563C2A"></button><span id="nombrecolor">Natural wood</span></div><p class="beneficio">Arrives assembled and ready to hang, with plexiglass. The gift, ready to give.</p></div><div class="opcion"><label class="op"><input type="radio" name="formato" value="1"><span class="txt"><b>Print only</b><small>30 × 40 cm · matte paper</small></span><span class="pr" data-precio="39"><s hidden></s><b>€39</b></span></label></div><div class="opcion"><label class="op"><input type="radio" name="formato" value="2"><span class="txt"><b>Digital</b><small>JPG and PDF file within 24 hours</small></span><span class="pr" data-precio="19"><s hidden></s><b>€19</b></span></label></div></fieldset>
+<p class="resumen" id="resumen"></p>
 <a class="btn pedir" id="pedir" href="https://mattehaven.etsy.com/listing/4616606060" target="_blank" rel="noopener">Order yours on Etsy</a>
+<p class="ayuda guia" id="guia"></p>
+<p class="plazo" id="rebaja" hidden>25% off on Etsy until Tuesday 1 December, on every format.</p>
 <p class="plazo" id="plazo" hidden>Order by 10 December to have it for Christmas (US: 8 December).</p>
 <div class="dos"><button class="btn otro" id="copiar" type="button">Copy my text</button><button class="btn otro" id="compartir" type="button">Share</button></div>
 <p class="aviso" id="aviso" role="status"></p>
-<p class="nota">This is a preview of the real print file. We draw yours and check it by hand before it goes to print. 30 × 40 cm (about 12 × 16 in) on matte paper, framed or print only, shipping included. Also as a digital file.</p>
+<p class="nota">This is a preview of the real print file. We draw yours and check it by hand before it goes to print. 30 × 40 cm is about 12 × 16 in.</p>
 </aside>
 </main>
+<section class="mas" aria-labelledby="sobre">
+<h2 id="sobre">About this print</h2>
+<p>This Camino de Santiago print shows the route you choose (Camino Francés 768 km, Sarria to Santiago 110 km, Camino Portugués 242 km, Portuguese Coastal 270 km and Camino Primitivo 312 km) drawn in 3D over the real relief, from real elevation data and satellite imagery, with your name and dates underneath. It is printed on matte paper at 30 × 40 cm (about 12 × 16 in), framed or print only, and shipped to your door: Etsy shows the delivery date at checkout.</p>
+<h2>More routes, climbs and ski maps</h2>
+<h3>Walking and hiking routes</h3><ul class="otras"><li><a href="whw">West Highland Way</a></li><li><a href="kilimanjaro">Kilimanjaro</a></li><li><a href="tmb">Tour du Mont Blanc</a></li><li><a href="ebc">Everest Base Camp</a></li><li><a href="inca">Inca Trail</a></li><li><a href="c2c">Coast to Coast</a></li><li><a href="jmt">John Muir Trail</a></li><li><a href="grandcanyon">Grand Canyon Rim to Rim</a></li></ul>
+<h3>Cycling climbs</h3><ul class="otras"><li><a href="angliru">Angliru</a></li><li><a href="tourmalet">Col du Tourmalet</a></li><li><a href="alpehuez">Alpe d'Huez</a></li><li><a href="sacalobra">Sa Calobra</a></li><li><a href="rocacorba">Rocacorba</a></li><li><a href="teide">El Teide</a></li></ul>
+<h3>Ski maps</h3><ul class="otras"><li><a href="esqui-tena">Valle de Tena</a></li><li><a href="esqui-rousses">Grandes Rousses</a></li></ul>
+<p class="fin"><a href="../#races">Official finisher prints of trail and cycling races</a> · <a href="../">All MatteHaven prints</a></p>
+</section>
 <footer>3D relief from real elevation data · checked by hand · Satellite imagery Sentinel-2 cloudless by EOX · © OpenStreetMap contributors · <a href="https://mattehaven.etsy.com">MatteHaven</a></footer>
 <script>
-const D={"productos":[{"slug":"camino-frances","etiqueta":"Camino Francés 768 km","w":1200,"h":1600,"prefijo":"","ejemplo":"1 September – 6 October 2026"},{"slug":"camino-sarria","etiqueta":"Sarria to Santiago 110 km","w":1200,"h":1600,"prefijo":"","ejemplo":"14 – 19 June 2026"},{"slug":"camino-porto","etiqueta":"Camino Portugués 242 km","w":1200,"h":1600,"prefijo":"","ejemplo":"3 – 15 May 2026"},{"slug":"camino-costa","etiqueta":"Portuguese Coastal 270 km","w":1200,"h":1600,"prefijo":"","ejemplo":"3 – 15 May 2026"},{"slug":"camino-prim","etiqueta":"Camino Primitivo 312 km","w":1200,"h":1600,"prefijo":"","ejemplo":"3 – 15 May 2026"}],"etsy":"https://mattehaven.etsy.com/listing/4616606060","color":"#B23A22"};
+const D={"productos":[{"slug":"camino-frances","etiqueta":"Camino Francés 768 km","opcion":"Camino Francés 768 km","w":1200,"h":1600,"prefijo":"","ejemplo":"1 September – 6 October 2026"},{"slug":"camino-sarria","etiqueta":"Sarria to Santiago 110 km","opcion":"Sarria to Santiago 110 km","w":1200,"h":1600,"prefijo":"","ejemplo":"14 – 19 June 2026"},{"slug":"camino-porto","etiqueta":"Camino Portugués 242 km","opcion":"Camino Portugués 242 km","w":1200,"h":1600,"prefijo":"","ejemplo":"3 – 15 May 2026"},{"slug":"camino-costa","etiqueta":"Portuguese Coastal 270 km","opcion":"Portuguese Coastal 270 km","w":1200,"h":1600,"prefijo":"","ejemplo":"3 – 15 May 2026"},{"slug":"camino-prim","etiqueta":"Camino Primitivo 312 km","opcion":"Camino Primitivo 312 km","w":1200,"h":1600,"prefijo":"","ejemplo":"3 – 15 May 2026"}],"etsy":"https://mattehaven.etsy.com/listing/4616606060","color":"#B23A22","rebaja":{"pct":25,"hasta":"2026-12-01"},"formatos":[{"id":"marco","etsy":"Wood frame","precio":69,"marcos":[{"color":"madera","etsy":"Wood frame","precio":69,"nombre":"Natural wood","sub":"30 × 40 cm · natural wood frame","corto":"Framed in natural wood","pie":"Framed in natural wood · 30 × 40 cm"},{"color":"negro","etsy":"Black frame","precio":69,"nombre":"Black","sub":"30 × 40 cm · black frame","corto":"Framed in black","pie":"Framed in black · 30 × 40 cm"},{"color":"blanco","etsy":"White frame","precio":69,"nombre":"White","sub":"30 × 40 cm · white frame","corto":"Framed in white","pie":"Framed in white · 30 × 40 cm"},{"color":"oscura","etsy":"Dark wood frame","precio":69,"nombre":"Dark wood","sub":"30 × 40 cm · dark wood frame","corto":"Framed in dark wood","pie":"Framed in dark wood · 30 × 40 cm"}],"label":"Framed · ready to hang","barra":"Framed","sub":"30 × 40 cm · natural wood frame","corto":"Framed in natural wood","pie":"Framed in natural wood · 30 × 40 cm"},{"id":"lamina","etsy":"No frame (print only)","precio":39,"label":"Print only","sub":"30 × 40 cm · matte paper","corto":"Print only, 30 × 40 cm","pie":"Print only · 30 × 40 cm · matte paper","barra":"Print"},{"id":"digital","etsy":"Digital file (print it yourself)","precio":19,"label":"Digital","sub":"JPG and PDF file within 24 hours","corto":"Digital file","pie":"Digital · JPG and PDF file within 24 hours","barra":"Digital"}],"txtF":{"envio":"shipping included","entrega":"by Etsy message within 24 hours","antes":"(was §)","elige":"On Etsy choose §.","y":" and ","pre":"€","post":"","dec":"."}};
 const lienzo=document.getElementById('lienzo'),ctx=lienzo.getContext('2d');
 const nombre=document.getElementById('nombre'),fechas=document.getElementById('fechas'),aviso=document.getElementById('aviso');
-let actual=0,imgs=[];
+let actual=0,imgs=[],FMT=null;
 // La maqueta del motor (topo-3d.mjs, estilo atlas), en píxeles de la lámina impresa: 3543 × 4724.
 const A=3543,H=4724,MX=A*0.055;
 // El nombre va bajo el pie del mapa, que en las láminas sin recorrido (estaciones de esquí) queda más abajo («pie»).
@@ -120,7 +176,48 @@ async function copiar(){const t=personalizacion();aviso.classList.remove('error'
   return true}
 // Enlace personal: ?name=Laura%20Gil&dates=4–14%20July%202026&route=<ruta> abre la página con esa lámina. La dirección
 // se actualiza al escribir, así que «Share» manda la lámina de quien comparte y no la de muestra.
-function elegir(i){actual=i;fechas.placeholder=D.productos[i].ejemplo;document.querySelectorAll('.rutas button').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.i===i))}
+function elegir(i){actual=i;fechas.placeholder=D.productos[i].ejemplo;document.querySelectorAll('.rutas button').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.i===i));guia()}
+// Qué elegir en Etsy (la ruta y el formato, letra por letra como en sus desplegables) y el formato con su precio.
+function escribirGuia(el, T, opciones, cola) {
+  el.textContent = ''
+  const [antes, despues] = T.elige.split('§')
+  el.append(antes)
+  opciones.filter(Boolean).forEach((o, k) => { if (k) el.append(T.y); const s = document.createElement('span'); s.className = 'etsy'; s.textContent = o; el.append(s) })
+  el.append(despues + (cola ? ' ' + cola : ''))
+}
+function iniciarFormatos(D, alCambiar) {
+  const F = D.formatos || [], T = D.txtF, vista = document.getElementById('vista')
+  const pct = D.rebaja && new Date().toLocaleDateString('sv') <= D.rebaja.hasta ? D.rebaja.pct : 0
+  const dinero = (v) => T.pre + (Number.isInteger(v) ? String(v) : v.toFixed(2).replace('.', T.dec)) + T.post
+  const rebajado = (v) => (pct ? Math.round(v * (100 - pct)) / 100 : v)
+  let i = F.findIndex((f) => f.id === 'marco'), color = ''
+  if (i < 0) i = 0; else color = F[i].marcos[0].color
+  const actual = () => { const f = F[i]; if (!f) return null; const m = f.marcos ? (f.marcos.find((x) => x.color === color) || f.marcos[0]) : null; return m ? { ...f, ...m, id: f.id } : f }
+  const precio = (el, v) => { if (!el) return; const s = el.querySelector('s'); el.querySelector('b').textContent = dinero(rebajado(v)); s.textContent = pct ? dinero(v) : ''; s.hidden = !pct }
+  function pintar() {
+    const a = actual(); if (!a) return
+    document.querySelectorAll('#formatos input[name=formato]').forEach((r) => { const si = +r.value === i; r.checked = si; r.closest('.opcion').classList.toggle('activa', si) })
+    const fm = F.find((f) => f.marcos)
+    if (fm) {
+      const m = fm.marcos.find((x) => x.color === color) || fm.marcos[0]
+      document.querySelectorAll('#formatos .colores button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.c === m.color)))
+      document.getElementById('nombrecolor').textContent = m.nombre; document.getElementById('submarco').textContent = m.sub
+      precio(document.querySelector('#formatos .principal .pr'), m.precio)
+    }
+    vista.dataset.f = a.id; vista.dataset.c = a.color || ''
+    const pie = document.getElementById('pie-vista'); if (pie) pie.textContent = a.pie
+    const r = document.getElementById('resumen')
+    if (r) r.textContent = a.corto + ' · ' + dinero(rebajado(a.precio)) + (pct ? ' ' + T.antes.replace('§', dinero(a.precio)) : '') + ' · ' + (a.id === 'digital' ? T.entrega : T.envio)
+    const bt = document.getElementById('barratxt'); if (bt) bt.textContent = a.barra + ' · ' + dinero(rebajado(a.precio))
+    if (alCambiar) alCambiar(a)
+  }
+  document.querySelectorAll('#formatos .pr').forEach((el) => precio(el, +el.dataset.precio))
+  document.querySelectorAll('#formatos input[name=formato]').forEach((r) => r.addEventListener('change', () => { i = +r.value; pintar() }))
+  document.querySelectorAll('#formatos .colores button').forEach((b) => b.addEventListener('click', () => { color = b.dataset.c; i = F.findIndex((f) => f.marcos); pintar() }))
+  pintar()
+  return { actual }
+}
+function guia(){const g=document.getElementById('guia'),a=FMT&&FMT.actual();if(g&&a)escribirGuia(g,D.txtF,[D.productos[actual].opcion,a.etsy],'')}
 function enlace(){const q=new URLSearchParams(),n=nombre.value.trim(),f=fechas.value.trim();if(n)q.set('name',n);if(f)q.set('dates',f);if(D.productos.length>1&&(n||f||actual))q.set('route',D.productos[actual].slug);const s=q.toString();try{history.replaceState(null,'',s?'?'+s:location.pathname)}catch(e){}}
 {const Q=new URLSearchParams(location.search),qn=Q.get('name'),qf=Q.get('dates'),qr=(Q.get('route')||'').toLowerCase();
   if(qn)nombre.value=qn.slice(0,56);if(qf)fechas.value=qf.slice(0,40);
@@ -140,6 +237,7 @@ document.getElementById('compartir').addEventListener('click',async()=>{
 // Primero las dos fuentes de la lámina: sin ellas el nombre saldría con otra letra y otro ancho.
 (document.fonts?Promise.all([document.fonts.load("40px 'MH Serif'"),document.fonts.load("600 40px 'MH Sans'")]).catch(()=>{}):Promise.resolve()).then(dibujar);
 D.productos.forEach((_,i)=>{if(i!==actual)cargar(i).catch(()=>{})});
+if(D.formatos.length){FMT=iniciarFormatos(D,()=>guia());guia();if(D.rebaja&&new Date().toLocaleDateString('sv')<=D.rebaja.hasta)document.getElementById('rebaja').hidden=false}
 </script>
 </body>
 </html>

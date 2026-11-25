@@ -3,12 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About · MatteHaven</title>
+<title>About MatteHaven · 3D race and route prints made in Madrid</title>
 <meta name="description" content="MatteHaven makes official finisher prints of trail and cycling races: the real course in 3D over the real mountains, with each finisher's name and time.">
 <link rel="canonical" href="https://antonmareo10.github.io/mattehaven-web/about.html">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="assets/favicon-180.png">
-<meta property="og:title" content="About · MatteHaven"><meta property="og:description" content="MatteHaven makes official finisher prints of trail and cycling races: the real course in 3D over the real mountains, with each finisher's name and time.">
-<meta property="og:image" content="https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/canfranc3d-45k.jpg"><meta property="og:type" content="website">
+<meta property="og:title" content="About MatteHaven · 3D race and route prints made in Madrid"><meta property="og:description" content="MatteHaven makes official finisher prints of trail and cycling races: the real course in 3D over the real mountains, with each finisher's name and time.">
+<meta property="og:image" content="https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/canfranc3d-45k.jpg"><meta property="og:url" content="https://antonmareo10.github.io/mattehaven-web/about.html"><meta property="og:type" content="website">
+<meta property="og:site_name" content="MatteHaven"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://antonmareo10.github.io/mattehaven-web/#organizacion","name":"MatteHaven","url":"https://antonmareo10.github.io/mattehaven-web/","logo":"https://antonmareo10.github.io/mattehaven-web/assets/favicon-180.png","sameAs":["https://www.etsy.com/shop/MatteHaven","https://www.instagram.com/mattehaven.studio/","https://www.pinterest.com/MatteHaven/"],"description":"Personalised 3D prints of races, hiking routes and cycling climbs: the real course drawn over the real relief, with your name and your time."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"MatteHaven","item":"https://antonmareo10.github.io/mattehaven-web/"},{"@type":"ListItem","position":2,"name":"About","item":"https://antonmareo10.github.io/mattehaven-web/about.html"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>:root{--papel:#F2EEE6;--tinta:#23272B;--suave:#5E6266;--linea:#D9D2C5;--acento:#C8381E;--blanco:#FFFFFF}
@@ -61,12 +64,46 @@ h2{font-size:clamp(26px,3.4vw,36px);line-height:1.1;margin:0 0 10px}
 .texto{max-width:44em}.texto h1{font-size:clamp(30px,4.4vw,44px)}.texto h2{font-size:24px;margin-top:36px}.texto p,.texto li{color:#34383C}
 footer.pie{border-top:1px solid var(--linea);padding:28px 0 40px;font-size:14px;color:var(--suave)}
 footer.pie .envoltura{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between}
-footer.pie nav a{color:var(--suave)}</style>
+footer.pie nav a{color:var(--suave)}
+.rutas{display:grid;gap:28px;grid-template-columns:1fr}
+@media(min-width:760px){.rutas{grid-template-columns:repeat(3,1fr)}}
+.rutas h3{margin:0 0 10px;font-size:20px;padding-top:12px;border-top:2px solid var(--tinta)}
+.rutas ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.rutas a{text-decoration:none;border-bottom:1.5px solid var(--linea)}.rutas a:hover,.rutas a:focus-visible{border-bottom-color:var(--acento)}
+.nota-rutas{margin:18px 0 0;font-size:14px;color:var(--suave)}
+.pide{display:grid;gap:22px;padding:24px 16px 48px;border-top:0;grid-template-areas:"texto" "form" "puntos"}
+@media(min-width:880px){.pide{grid-template-columns:1fr minmax(0,500px);column-gap:56px;row-gap:8px;padding:56px 16px 72px;grid-template-rows:auto 1fr;grid-template-areas:"texto form" "puntos form";align-items:start}.pide-muestra{display:block!important}}
+.pide-texto{grid-area:texto}.pide-form{grid-area:form}.pide-puntos{grid-area:puntos}
+.pide h1{font-size:clamp(30px,4.6vw,52px);margin:0 0 12px}
+.pide .antetitulo{color:#B8331B}
+.pide .entrada{margin:0}
+.pide-form{background:var(--blanco);border-radius:10px;padding:20px 18px 18px;box-shadow:0 18px 40px rgba(35,39,43,.14),0 2px 6px rgba(35,39,43,.10)}
+@media(min-width:880px){.pide-form{padding:28px 28px 24px}}
+.pide-form h2{font-size:22px;margin:0 0 4px}.pide-form .sub{margin:0 0 14px;color:var(--suave);font-size:15px}
+.campo{margin:0 0 12px}.campo label{display:block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--suave);margin:0 0 5px}
+.campo label .ob{text-transform:none;letter-spacing:0;font-weight:400}
+.campo input,.campo textarea{width:100%;font:inherit;font-size:17px;padding:11px 13px;border:1.5px solid #CFC8BB;border-radius:6px;background:var(--blanco);color:var(--tinta)}
+.campo textarea{min-height:84px;resize:vertical}
+.campo input:focus,.campo textarea:focus{outline:none;border-color:var(--tinta);box-shadow:0 0 0 3px rgba(200,56,30,.28)}
+.campo [aria-invalid=true]{border-color:#A4271B}
+.campo .fallo{margin:6px 0 0;font-size:14px;color:#A4271B;font-weight:600}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.pide-form button{font:inherit;cursor:pointer}
+.pide-form .btn.lleno{width:100%;margin-top:4px;font-size:18px;padding:15px 18px}
+.pide-form .btn:focus-visible,.copiar:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+.pide-form .nota{margin:10px 0 0;font-size:14px;color:var(--suave)}
+.pide-form .estado{margin:10px 0 0;font-size:15px;min-height:0}.pide-form .estado:empty{display:none}
+.pide-dir{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--linea);font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+.pide-dir strong{font-size:16px;user-select:all;word-break:break-all}
+.copiar{background:transparent;border:1.5px solid var(--tinta);color:var(--tinta);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600}
+.copiar:hover{background:var(--tinta);color:var(--papel)}
+.pide-puntos{margin-top:6px}
+.pide-muestra{display:none;max-width:280px;margin:40px 0 0 10px}</style>
 </head>
 <body>
 <header class="top"><div class="envoltura">
 <a class="marca" href="./">MatteHaven</a>
-<nav aria-label="Main"><a href="./#races">Races</a><a href="./#how">How it works</a><a href="./#organisers">For organisers</a><a href="organizadores">Organizadores (ES)</a><a href="https://mattehaven.etsy.com">Shop</a></nav>
+<nav aria-label="Main"><a href="./#races">Races</a><a href="./#routes">Routes &amp; climbs</a><a href="./#organisers">For organisers</a><a href="regalos" hreflang="es">Español</a><a href="https://mattehaven.etsy.com">Shop</a></nav>
 </div></header>
 <main><div class="envoltura texto" style="padding:48px 16px 64px">
 <h1>About MatteHaven</h1>
@@ -78,10 +115,12 @@ footer.pie nav a{color:var(--suave)}</style>
 <p>Official prints are made together with each race's organisers. The race sends one email to its finishers, and we take care of the rest: design, preview pages, printing, delivery and customer service.</p>
 <h2>Contact</h2>
 <p>Write to us through our <a href="https://mattehaven.etsy.com">Etsy shop</a> and we will get back to you quickly.</p>
+<h2>See the prints</h2>
+<p><a href="./#races">Official race prints</a> · <a href="./#routes">Hiking routes, cycling climbs and ski maps</a> · <a href="regalos" hreflang="es">En español</a></p>
 </div></main>
 <footer class="pie"><div class="envoltura">
 <span>Made in Madrid by Antonio, who loves mountains, races and the outdoors · every print checked by hand · delivered across Europe, the UK and North America</span>
-<nav aria-label="Footer"><a href="about.html">About</a><a href="shipping.html">Delivery &amp; returns</a><a href="privacy.html">Privacy</a><a href="https://mattehaven.etsy.com">Etsy shop</a></nav>
+<nav aria-label="Footer"><a href="about.html">About</a><a href="shipping.html">Delivery &amp; returns</a><a href="privacy.html">Privacy</a><a href="organizadores#pide" hreflang="es" lang="es">¿Organizas una carrera?</a><a href="regalos" hreflang="es">Español</a><a href="https://mattehaven.etsy.com">Etsy shop</a></nav>
 </div></footer>
 </body>
 </html>

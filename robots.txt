@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://antonmareo10.github.io/mattehaven-web/sitemap.xml

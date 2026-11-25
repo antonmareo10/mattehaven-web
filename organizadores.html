@@ -3,12 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lámina oficial de finisher para tu carrera, sin coste · MatteHaven</title>
-<meta name="description" content="La lámina oficial de finisher de tu carrera de trail o de ciclismo: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de cada corredor. Sin coste para la organización.">
+<title>Lámina oficial de finisher para tu carrera de trail o ciclismo, sin coste · MatteHaven</title>
+<meta name="description" content="La lámina oficial de finisher de tu carrera de trail o ciclismo: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de cada corredor. Sin coste.">
 <link rel="canonical" href="https://antonmareo10.github.io/mattehaven-web/organizadores">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="assets/favicon-180.png">
-<meta property="og:title" content="Lámina oficial de finisher para tu carrera, sin coste · MatteHaven"><meta property="og:description" content="La lámina oficial de finisher de tu carrera de trail o de ciclismo: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de cada corredor. Sin coste para la organización.">
-<meta property="og:image" content="https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/canfranc3d-45k.jpg"><meta property="og:type" content="website">
+<meta property="og:title" content="Lámina oficial de finisher para tu carrera de trail o ciclismo, sin coste · MatteHaven"><meta property="og:description" content="La lámina oficial de finisher de tu carrera de trail o ciclismo: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de cada corredor. Sin coste.">
+<meta property="og:image" content="https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/mijas.jpg"><meta property="og:url" content="https://antonmareo10.github.io/mattehaven-web/organizadores"><meta property="og:type" content="website">
+<meta property="og:site_name" content="MatteHaven"><meta property="og:locale" content="es_ES"><meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"MatteHaven","item":"https://antonmareo10.github.io/mattehaven-web/"},{"@type":"ListItem","position":2,"name":"Organizadores","item":"https://antonmareo10.github.io/mattehaven-web/organizadores"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>:root{--papel:#F2EEE6;--tinta:#23272B;--suave:#5E6266;--linea:#D9D2C5;--acento:#C8381E;--blanco:#FFFFFF}
@@ -61,18 +63,117 @@ h2{font-size:clamp(26px,3.4vw,36px);line-height:1.1;margin:0 0 10px}
 .texto{max-width:44em}.texto h1{font-size:clamp(30px,4.4vw,44px)}.texto h2{font-size:24px;margin-top:36px}.texto p,.texto li{color:#34383C}
 footer.pie{border-top:1px solid var(--linea);padding:28px 0 40px;font-size:14px;color:var(--suave)}
 footer.pie .envoltura{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between}
-footer.pie nav a{color:var(--suave)}</style>
+footer.pie nav a{color:var(--suave)}
+.rutas{display:grid;gap:28px;grid-template-columns:1fr}
+@media(min-width:760px){.rutas{grid-template-columns:repeat(3,1fr)}}
+.rutas h3{margin:0 0 10px;font-size:20px;padding-top:12px;border-top:2px solid var(--tinta)}
+.rutas ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.rutas a{text-decoration:none;border-bottom:1.5px solid var(--linea)}.rutas a:hover,.rutas a:focus-visible{border-bottom-color:var(--acento)}
+.nota-rutas{margin:18px 0 0;font-size:14px;color:var(--suave)}
+.pide{display:grid;gap:22px;padding:24px 16px 48px;border-top:0;grid-template-areas:"texto" "form" "puntos"}
+@media(min-width:880px){.pide{grid-template-columns:1fr minmax(0,500px);column-gap:56px;row-gap:8px;padding:56px 16px 72px;grid-template-rows:auto 1fr;grid-template-areas:"texto form" "puntos form";align-items:start}.pide-muestra{display:block!important}}
+.pide-texto{grid-area:texto}.pide-form{grid-area:form}.pide-puntos{grid-area:puntos}
+.pide h1{font-size:clamp(30px,4.6vw,52px);margin:0 0 12px}
+.pide .antetitulo{color:#B8331B}
+.pide .entrada{margin:0}
+.pide-form{background:var(--blanco);border-radius:10px;padding:20px 18px 18px;box-shadow:0 18px 40px rgba(35,39,43,.14),0 2px 6px rgba(35,39,43,.10)}
+@media(min-width:880px){.pide-form{padding:28px 28px 24px}}
+.pide-form h2{font-size:22px;margin:0 0 4px}.pide-form .sub{margin:0 0 14px;color:var(--suave);font-size:15px}
+.campo{margin:0 0 12px}.campo label{display:block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--suave);margin:0 0 5px}
+.campo label .ob{text-transform:none;letter-spacing:0;font-weight:400}
+.campo input,.campo textarea{width:100%;font:inherit;font-size:17px;padding:11px 13px;border:1.5px solid #CFC8BB;border-radius:6px;background:var(--blanco);color:var(--tinta)}
+.campo textarea{min-height:84px;resize:vertical}
+.campo input:focus,.campo textarea:focus{outline:none;border-color:var(--tinta);box-shadow:0 0 0 3px rgba(200,56,30,.28)}
+.campo [aria-invalid=true]{border-color:#A4271B}
+.campo .fallo{margin:6px 0 0;font-size:14px;color:#A4271B;font-weight:600}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.pide-form button{font:inherit;cursor:pointer}
+.pide-form .btn.lleno{width:100%;margin-top:4px;font-size:18px;padding:15px 18px}
+.pide-form .btn:focus-visible,.copiar:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+.pide-form .nota{margin:10px 0 0;font-size:14px;color:var(--suave)}
+.pide-form .estado{margin:10px 0 0;font-size:15px;min-height:0}.pide-form .estado:empty{display:none}
+.pide-dir{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--linea);font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+.pide-dir strong{font-size:16px;user-select:all;word-break:break-all}
+.copiar{background:transparent;border:1.5px solid var(--tinta);color:var(--tinta);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600}
+.copiar:hover{background:var(--tinta);color:var(--papel)}
+.pide-puntos{margin-top:6px}
+.pide-muestra{display:none;max-width:280px;margin:40px 0 0 10px}</style>
 </head>
 <body>
 <header class="top"><div class="envoltura">
 <a class="marca" href="./">MatteHaven</a>
-<nav aria-label="Principal"><a href="organizadores#carreras">Carreras</a><a href="organizadores#como">Cómo funciona</a><a href="organizadores#preguntas">Preguntas</a><a href="./">English</a></nav>
+<nav aria-label="Principal"><a href="organizadores#carreras">Carreras</a><a href="organizadores#como">Cómo funciona</a><a href="organizadores#preguntas">Preguntas</a><a href="regalos">Regalos</a><a href="./" hreflang="en">English</a></nav>
 </div></header>
 <main>
-<div class="envoltura portada">
-<div>
+<section id="pide" class="envoltura pide" aria-labelledby="pide-titulo">
+<div class="pide-texto">
 <p class="antetitulo">Para organizadores de carreras</p>
-<h1>La lámina oficial de finisher de vuestra carrera. Sin coste para la organización.</h1>
+<h1 id="pide-titulo">¿Organizas una carrera? Te hacemos la lámina oficial de tu prueba</h1>
+<p class="entrada">Sin coste para el club y con comisión por cada venta. Cuéntanos cuál es y en 48 horas te enseñamos la vuestra.</p>
+</div>
+<form class="pide-form" id="pide-form" novalidate>
+<h2>Pide la lámina de tu carrera</h2>
+<p class="sub">Con la carrera y tu correo nos basta. Lo demás nos ayuda a tenerla antes.</p>
+<div class="campo"><label for="p-carrera">Nombre de la carrera <span class="ob">(obligatorio)</span></label><input id="p-carrera" name="carrera" required maxlength="120" autocomplete="off"><p class="fallo" id="f-carrera" hidden>Escribe el nombre de la carrera.</p></div>
+<div class="campo"><label for="p-web">Web o enlace a la clasificación</label><input id="p-web" name="web" inputmode="url" maxlength="300" autocomplete="url" placeholder="https://"></div>
+<div class="dos">
+<div class="campo"><label for="p-fecha">Fecha</label><input id="p-fecha" name="fecha" type="date"></div>
+<div class="campo"><label for="p-finishers">Finishers (aprox.)</label><input id="p-finishers" name="finishers" inputmode="numeric" maxlength="10" placeholder="p. ej. 600"></div>
+</div>
+<div class="campo"><label for="p-distancias">Distancias</label><input id="p-distancias" name="distancias" maxlength="200" placeholder="p. ej. 42 km, 21 km y 10 km"></div>
+<div class="campo"><label for="p-nombre">Tu nombre</label><input id="p-nombre" name="nombre" maxlength="80" autocomplete="name"></div>
+<div class="campo"><label for="p-correo">Tu correo <span class="ob">(obligatorio)</span></label><input id="p-correo" name="correo" type="email" required maxlength="120" autocomplete="email" placeholder="nombre@club.es"><p class="fallo" id="f-correo" hidden>Escribe un correo válido, por ejemplo nombre@club.es</p></div>
+<div class="campo"><label for="p-mensaje">Mensaje <span class="ob">(opcional)</span></label><textarea id="p-mensaje" name="mensaje" maxlength="1500" rows="3"></textarea></div>
+<button class="btn lleno" type="submit">Pedir mi lámina</button>
+<p class="nota">Al pulsar se abre tu correo con todo escrito para antonio@mattehaven.com: solo falta darle a Enviar. Esta página no guarda nada.</p>
+<p class="estado" id="p-estado" role="status" aria-live="polite"></p>
+<button class="copiar" type="button" id="p-copiar-msj" hidden>Copiar el mensaje</button>
+<p class="pide-dir">¿No tienes programa de correo? Escríbenos a <strong id="p-dir">antonio@mattehaven.com</strong> <button class="copiar" type="button" id="p-copiar">Copiar</button></p>
+</form>
+<div class="pide-puntos"><ul class="lista">
+<li>Vuestra versión, con vuestro logo y el track oficial de cada distancia, en 48 horas. Sin compromiso.</li>
+<li>Para el club, 8 € por cada lámina enmarcada, 4 € por cada lámina sin marco y 2 € por cada digital.</li>
+<li>Ni pagáis nada ni gestionáis pedidos: la revisamos a mano, la imprimimos y la enviamos nosotros.</li>
+</ul>
+<div class="marco pide-muestra" aria-hidden="true"><img src="tu-lamina/img/mijas.jpg" alt="" width="1200" height="1600" loading="lazy"></div></div>
+</section>
+<script>
+(function(){
+var DIR='antonio@mattehaven.com',NL=String.fromCharCode(13,10),f=document.getElementById('pide-form'),est=document.getElementById('p-estado'),msj=document.getElementById('p-copiar-msj'),ultimo='';
+function el(id){return document.getElementById('p-'+id)}
+function v(id){return el(id).value.trim()}
+function malo(id){return id==='carrera'?!v('carrera'):(!v('correo')||!el('correo').checkValidity())}
+function marca(id,si){var c=el(id),e=document.getElementById('f-'+id);e.hidden=!si;if(si){c.setAttribute('aria-invalid','true');c.setAttribute('aria-describedby','f-'+id)}else{c.removeAttribute('aria-invalid');c.removeAttribute('aria-describedby')}}
+function fecha(x){var p=x.split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:x}
+function mensaje(){
+  var c=v('carrera'),l=['Hola, Antonio:','','Organizo '+c+' y me gustaría tener su lámina oficial de finisher.',''];
+  [['Carrera',c],['Web o clasificación',v('web')],['Fecha',fecha(v('fecha'))],['Distancias',v('distancias')],['Finishers (aprox.)',v('finishers')],['Contacto',[v('nombre'),v('correo')].filter(Boolean).join(' · ')]]
+    .forEach(function(x){if(x[1])l.push(x[0]+': '+x[1])});
+  if(v('mensaje'))l.push('',el('mensaje').value.trim().split(String.fromCharCode(10)).join(NL));
+  l.push('','Gracias.');if(v('nombre'))l.push(v('nombre'));
+  return {asunto:'Lámina oficial para '+c,cuerpo:l.join(NL)}}
+// Se puede cambiar desde fuera para probar sin abrir el correo.
+window.abrirCorreo=window.abrirCorreo||function(u){location.href=u};
+function aMano(t){var a=document.createElement('textarea'),ok=false;a.value=t;a.setAttribute('readonly','');a.style.position='fixed';a.style.top='0';a.style.opacity='0';document.body.appendChild(a);a.select();try{ok=document.execCommand('copy')}catch(e){}a.remove();return ok}
+function copiar(t,bien,mal){
+  function fin(ok){est.textContent=ok?bien:mal}
+  if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(function(){fin(true)},function(){fin(aMano(t))});else fin(aMano(t))}
+['carrera','correo'].forEach(function(id){el(id).addEventListener('input',function(){if(el(id).hasAttribute('aria-invalid')&&!malo(id))marca(id,false)})});
+f.addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var mc=malo('carrera'),me=malo('correo');marca('carrera',mc);marca('correo',me);
+  if(mc||me){est.textContent='';el(mc?'carrera':'correo').focus();return}
+  var m=mensaje();ultimo='Para: '+DIR+NL+'Asunto: '+m.asunto+NL+NL+m.cuerpo;
+  window.abrirCorreo('mailto:'+DIR+'?subject='+encodeURIComponent(m.asunto)+'&body='+encodeURIComponent(m.cuerpo));
+  est.textContent='Se ha abierto tu correo con todo escrito: solo falta darle a Enviar. Si no se ha abierto nada, copia el mensaje y pégalo en un correo a '+DIR+'.';
+  msj.hidden=false});
+msj.addEventListener('click',function(){copiar(ultimo,'Mensaje copiado: pégalo en un correo nuevo a '+DIR+'.','No se ha podido copiar: escríbenos a '+DIR+'.')});
+document.getElementById('p-copiar').addEventListener('click',function(){copiar(DIR,'Dirección copiada: '+DIR,'No se ha podido copiar: selecciona la dirección y cópiala a mano.')});
+})();
+</script>
+<div class="envoltura portada" id="lamina">
+<div>
+<h2>La lámina oficial de finisher de vuestra carrera. Sin coste para la organización.</h2>
 <p class="entrada">Dibujamos vuestro recorrido en 3D sobre el relieve real, con vuestro logo, y cada corredor la pide con su nombre y su tiempo. Nosotros la revisamos a mano, la imprimimos y se la mandamos a casa. Vosotros solo mandáis un correo a vuestros finishers.</p>
 <div class="botones"><a class="btn lleno" href="tu-lamina/mijas">Ver una de verdad</a><a class="btn vacio" href="#como">Cómo funciona</a></div>
 </div>
@@ -84,57 +185,57 @@ footer.pie nav a{color:var(--suave)}</style>
 <p class="intro">Trail y ciclismo, en España, Portugal y el Pirineo francés. En cada página, cualquiera escribe su nombre y su tiempo y ve su lámina antes de pedirla.</p>
 <div class="socias">
 <article class="ficha">
-<img src="tu-lamina/img/canfranc3d-45k.jpg" alt="CanfrancCanfranc Marathon 45K finisher print in 3D" width="1200" height="1600" loading="lazy">
+<img src="tu-lamina/img/canfranc3d-45k.jpg" alt="Lámina oficial de CanfrancCanfranc: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
 <div class="cuerpo"><h3>CanfrancCanfranc</h3><p class="lugar">Canfranc · Pyrenees, Spain</p>
 <div class="acciones"><a href="tu-lamina/canfranc">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4599445739">En la tienda</a></div></div>
 </article>
 <article class="ficha">
-<img src="tu-lamina/img/marao-utme.jpg" alt="Ultra Trail do Marão finisher print in 3D" width="1200" height="1600" loading="lazy">
+<img src="tu-lamina/img/marao-utme.jpg" alt="Lámina oficial de Ultra Trail do Marão: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
 <div class="cuerpo"><h3>Ultra Trail do Marão</h3><p class="lugar">Serra do Marão, Portugal</p>
 <div class="acciones"><a href="tu-lamina/marao">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4603336295">En la tienda</a></div></div>
 </article>
 <article class="ficha">
-<img src="tu-lamina/img/acantilados-3d.jpg" alt="Acantilados del Norte finisher print in 3D" width="1200" height="1600" loading="lazy">
+<img src="tu-lamina/img/acantilados-3d.jpg" alt="Lámina oficial de Acantilados del Norte: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
 <div class="cuerpo"><h3>Acantilados del Norte</h3><p class="lugar">La Palma · Skyrunner World Series</p>
 <div class="acciones"><a href="tu-lamina/acantilados">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4603495923">En la tienda</a></div></div>
 </article>
 <article class="ficha">
-<img src="tu-lamina/img/remences.jpg" alt="La Remences cycling finisher print in 3D" width="1200" height="1600" loading="lazy">
+<img src="tu-lamina/img/remences.jpg" alt="Lámina oficial de La Remences: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
 <div class="cuerpo"><h3>La Remences</h3><p class="lugar">Garrotxa · Catalonia, cycling</p>
 <div class="acciones"><a href="tu-lamina/remences">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4609614500">En la tienda</a></div></div>
 </article>
 <article class="ficha">
-<img src="tu-lamina/img/mijas.jpg" alt="Maratón Sierra de Mijas finisher print: the 42 km course in 3D over the real Sierra de Mijas, with the runner's name and time" width="1200" height="1600" loading="lazy">
+<img src="tu-lamina/img/mijas.jpg" alt="Lámina oficial de Maratón Sierra de Mijas: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
 <div class="cuerpo"><h3>Maratón Sierra de Mijas</h3><p class="lugar">Mijas · Málaga, Spain</p>
 <div class="acciones"><a href="tu-lamina/mijas">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4615722754">En la tienda</a></div></div>
 </article>
 <article class="ficha">
-<img src="tu-lamina/img/falco-ultra.jpg" alt="FalcoTrail Ultra finisher print: the course in 3D over the real relief, with the runner's name and time" width="1200" height="1600" loading="lazy">
+<img src="tu-lamina/img/falco-ultra.jpg" alt="Lámina oficial de FalcoTrail: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
 <div class="cuerpo"><h3>FalcoTrail</h3><p class="lugar">Sierra del Quípar · Murcia, Spain</p>
 <div class="acciones"><a href="tu-lamina/falcotrail">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4613207576">En la tienda</a></div></div>
 </article>
 <article class="ficha">
-<img src="tu-lamina/img/saomacario.jpg" alt="São Macário Ultra Trail finisher poster: the Trail course in 3D over the real Serra de São Macário, with the runner's name and time" width="1200" height="1600" loading="lazy">
+<img src="tu-lamina/img/saomacario.jpg" alt="Lámina oficial de São Macário Ultra Trail: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
 <div class="cuerpo"><h3>São Macário Ultra Trail</h3><p class="lugar">São Pedro do Sul, Portugal</p>
 <div class="acciones"><a href="tu-lamina/saomacario">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4616483284">En la tienda</a></div></div>
 </article>
 <article class="ficha">
-<img src="tu-lamina/img/pitchfork.jpg" alt="The Devil's Pitchfork print by PyrActif Cycling: a 178 km ride over five Pyrenees cols in 3D, with the rider's name and time" width="1200" height="1600" loading="lazy">
+<img src="tu-lamina/img/pitchfork.jpg" alt="Lámina oficial de The Devil's Pitchfork: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
 <div class="cuerpo"><h3>The Devil's Pitchfork</h3><p class="lugar">PyrActif Cycling · Pyrenees, France</p>
 <div class="acciones"><a href="https://mattehaven.etsy.com/listing/4622376624">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4622376624">En la tienda</a></div></div>
 </article>
 <article class="ficha">
-<img src="tu-lamina/img/ancares-gf.jpg" alt="Ancares Cycling Marathon finisher print in 3D" width="1200" height="1600" loading="lazy">
+<img src="tu-lamina/img/ancares-gf.jpg" alt="Lámina oficial de Ancares Cycling Marathon: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
 <div class="cuerpo"><h3>Ancares Cycling Marathon</h3><p class="lugar">Os Ancares · Galicia, cycling</p>
 <div class="acciones"><a href="tu-lamina/ancares">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4610455741">En la tienda</a></div></div>
 </article>
 <article class="ficha">
-<img src="tu-lamina/img/fudenas.jpg" alt="FudeNaS finisher print: Fuerteventura from Corralejo to Morro Jable in 3D, with the rider's name and time" width="1200" height="1600" loading="lazy">
+<img src="tu-lamina/img/fudenas.jpg" alt="Lámina oficial de FudeNaS: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
 <div class="cuerpo"><h3>FudeNaS</h3><p class="lugar">Fuerteventura · Canary Islands, MTB</p>
 <div class="acciones"><a href="tu-lamina/fudenas">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4625583788">En la tienda</a></div></div>
 </article>
 <article class="ficha">
-<img src="tu-lamina/img/umadeira-55k.jpg" alt="Ultra Madeira 55K finisher poster: from Encumeada to Caniçal in 3D, with the runner's name and time" width="1200" height="1600" loading="lazy">
+<img src="tu-lamina/img/umadeira-55k.jpg" alt="Lámina oficial de Ultra Madeira: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
 <div class="cuerpo"><h3>Ultra Madeira</h3><p class="lugar">Madeira Island, Portugal</p>
 <div class="acciones"><a href="tu-lamina/ultramadeira">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4625584552">En la tienda</a></div></div>
 </article>
@@ -150,6 +251,18 @@ footer.pie nav a{color:var(--suave)}</style>
 <li><h3>Del resto nos encargamos</h3><p>Revisamos cada lámina a mano con la clasificación oficial, la imprimimos cerca de cada corredor, la enviamos y atendemos cualquier duda.</p></li>
 </ol>
 <div class="precios"><div><strong>39 €</strong><span>lámina de 30 × 40 cm</span></div><div><strong>69 €</strong><span>enmarcada, lista para colgar</span></div><div><strong>19 €</strong><span>archivo digital en 24 horas</span></div><div><strong>Envío</strong><span>incluido</span></div></div>
+</div></section>
+
+<section id="enlace-personal"><div class="envoltura organizadores">
+<div>
+<h2>Un enlace para cada finisher</h2>
+<p class="intro">Cada corredor puede recibir su propio enlace: al abrirlo ve su lámina ya hecha, con su nombre y su tiempo, y la pide desde ahí. <a href="tu-lamina/mijas#nombre=Ana%20Gil&amp;tiempo=3%3A12%3A40&amp;d=mijas-media">Así lo vería Ana Gil en la Media de Mijas</a>.</p>
+</div>
+<ul class="lista">
+<li>Es la página de vuestra carrera con el nombre, el tiempo y la distancia en la dirección. Se monta con los campos de combinación de vuestro programa de correo (Mailchimp, Brevo, MailerLite, Acumbamail…) o con una columna en la hoja de cálculo, y os mandamos la guía paso a paso.</li>
+<li>¿Sin programa de correo? Pasadnos la clasificación pública (nombre, tiempo y distancia) y os devolvemos una hoja con el enlace de cada finisher, lista para combinar. Vuestra lista de correos no sale de vuestra casa.</li>
+<li>El nombre y el tiempo van detrás del «#» del enlace: nuestra web no los recibe ni los guarda.</li>
+</ul>
 </div></section>
 
 <section id="club"><div class="envoltura organizadores">
@@ -173,11 +286,12 @@ footer.pie nav a{color:var(--suave)}</style>
 <p><strong>¿Y si la carrera fue hace meses?</strong> También vale, sobre todo como regalo de Navidad. Pero el mejor momento es la semana de después: si nos escribís antes, la tenemos lista para ese correo.</p>
 <p><strong>¿A dónde se envía?</strong> Se imprime cerca de cada corredor: España, Portugal, el resto de Europa, Reino Unido, Estados Unidos, Canadá y Australia. A Canarias llega el digital en 24 horas y la impresa tarda más.</p>
 <p><strong>¿Cómo empezamos?</strong> Contestad al correo que os mandamos, o escribidnos por la <a href="https://mattehaven.etsy.com">tienda de Etsy</a>, con el nombre de la carrera. En 48 horas tenéis vuestra versión.</p>
+<p><strong>¿Cómo lo ven los corredores?</strong> Así: <a href="regalos">la página de regalos para corredores y ciclistas</a>, con todas las carreras que ya la tienen.</p>
 </div></section>
 </main>
 <footer class="pie"><div class="envoltura">
-<span>Made in Madrid by Antonio, who loves mountains, races and the outdoors · every print checked by hand · delivered across Europe, the UK and North America</span>
-<nav aria-label="Footer"><a href="about.html">About</a><a href="shipping.html">Delivery &amp; returns</a><a href="privacy.html">Privacy</a><a href="https://mattehaven.etsy.com">Etsy shop</a></nav>
+<span>Hecha en Madrid por Antonio, amante de la montaña, de las carreras y del campo · cada lámina, revisada a mano · envíos a Europa, Reino Unido y Norteamérica</span>
+<nav aria-label="Pie"><a href="regalos">Regalos</a><a href="organizadores#pide">¿Organizas una carrera?</a><a href="about.html" hreflang="en">About</a><a href="shipping.html" hreflang="en">Envíos</a><a href="https://mattehaven.etsy.com">Tienda en Etsy</a></nav>
 </div></footer>
 </body>
 </html>
