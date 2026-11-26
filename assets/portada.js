@@ -161,3 +161,16 @@
     d.head.appendChild(s)
   }
 })()
+
+// «¿No está tu carrera?» (26/11/2026): el visitante deja carrera, nombre y tiempo y su correo; se abre SU programa de
+// correo con el mensaje listo para antonio@mattehaven.com (como el formulario de organizadores). Sin servidor ni
+// terceros. window.abrirCorreo se puede sustituir en las pruebas para no abrir nada.
+;(function(){var f=document.getElementById('otra-form');if(!f)return;var est=f.querySelector('.otra-estado');
+window.abrirCorreo=window.abrirCorreo||function(u){location.href=u};
+f.addEventListener('submit',function(ev){ev.preventDefault();
+  var c=f.carrera.value.trim(),q=f.quien.value.trim(),m=f.correo.value.trim(),mal=!c||!m||!f.correo.checkValidity();
+  f.carrera.setAttribute('aria-invalid',!c);f.correo.setAttribute('aria-invalid',!m||!f.correo.checkValidity());
+  if(mal){est.textContent=f.dataset.falta;(c?f.correo:f.carrera).focus();return}
+  var NL=String.fromCharCode(13,10),cuerpo=[f.dataset.hola,'',c,q,'',m].filter(function(x,i){return x||i===1||i===4}).join(NL);
+  window.abrirCorreo('mailto:'+f.dataset.correo+'?subject='+encodeURIComponent(f.dataset.asunto+c)+'&body='+encodeURIComponent(cuerpo));
+  est.textContent=f.dataset.ok+f.dataset.correo+'.'})})();

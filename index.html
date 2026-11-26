@@ -290,7 +290,18 @@ html.mov .dibujable.visto .traza,html.mov .dibujable.visto .traza-brillo,html.mo
 html.mov .dibujable.visto .area,html.mov .dibujable.visto .cima,html.mov .dibujable.visto .salida{opacity:1}
 html.mov .firma path{stroke-dasharray:1;stroke-dashoffset:1;fill-opacity:0;transition:stroke-dashoffset 2.2s cubic-bezier(.45,.05,.3,1),fill-opacity .8s ease 1.7s}
 html.mov .firma.visto path{stroke-dashoffset:0;fill-opacity:1}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}</style>
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.obra.otra .otra-form{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.obra.otra .otra-form label{display:flex;flex-direction:column;gap:3px;font-size:12.5px;color:var(--gris-osc)}
+.obra.otra .otra-form input{font:inherit;font-size:15px;padding:9px 11px;border-radius:8px;border:1px solid var(--linea-osc);background:var(--noche2);color:var(--papel)}
+.obra.otra .otra-form input:focus{outline:2px solid var(--ruta);outline-offset:1px}
+.obra.otra .otra-form input[aria-invalid="true"]{border-color:var(--ruta)}
+.obra.otra .otra-form button{font:inherit;font-weight:700;cursor:pointer;margin-top:4px;padding:11px 14px;border:0;border-radius:999px;background:var(--ruta);color:#fff}
+.obra.otra .otra-form button:hover{filter:brightness(1.08)}
+.obra.otra .otra-estado{min-height:1em;font-size:13px;color:var(--papel)}
+.obra.otra .otra-mas{margin-top:auto;font-size:13.5px}
+.obra.otra .otra-mas a{color:var(--ruta);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.obra.otra .otra-mas svg{display:inline;width:14px;height:14px;vertical-align:-2px;margin-left:4px}</style>
 <script src="assets/portada.js" defer></script>
 </head>
 <body>
@@ -379,7 +390,7 @@ html.mov .firma.visto path{stroke-dashoffset:0;fill-opacity:1}
 <div class="marco"><img src="assets/portada/umadeira-55k-360.webp" srcset="assets/portada/umadeira-55k-360.webp 360w, assets/portada/umadeira-55k-640.webp 640w" sizes="(min-width: 1120px) 300px, (min-width: 720px) 30vw, 46vw" alt="Ultra Madeira 55K finisher poster: from Encumeada to Caniçal in 3D, with the runner's name and time" width="1200" height="1600" loading="lazy" decoding="async"></div>
 <h3>Ultra Madeira</h3><p class="lugar">Madeira Island, Portugal</p></a>
 <div class="acc"><a class="suya" href="tu-lamina/ultramadeira" data-tu="tu-lamina/ultramadeira" aria-label="See yours · Ultra Madeira">See yours</a><a class="etsy" href="https://mattehaven.etsy.com/listing/4625584552" aria-label="Order on Etsy · Ultra Madeira">Order on Etsy</a></div></li>
-<li class="obra otra" data-rev style="--i:3"><a class="ver" href="https://mattehaven.etsy.com/listing/4599636351"><div class="marco"><h3>Your race isn’t here?</h3><p>Tell us the race on Etsy: we draw it from its official track, with your name and time, and send you a proof first.</p><span>Order it made to measure<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a></li>
+<li class="obra otra" data-rev style="--i:3"><div class="marco"><h3>Your race isn’t here?</h3><p>Tell us which one and your time: we send you a free preview with your name, and if you like it you order it made to measure.</p><form class="otra-form" id="otra-form" novalidate data-correo="antonio@mattehaven.com" data-asunto="Preview: " data-hola="Hi Antonio, I’d like a preview of my print." data-falta="Tell us the race and your email." data-ok="Your email app is open with the message ready: just press send. If it didn’t open, write to "><label><span>Race, distance and year</span><input name="carrera" required autocomplete="off" maxlength="90"></label><label><span>Name and time on the print</span><input name="quien" autocomplete="off" maxlength="70"></label><label><span>Your email</span><input name="correo" type="email" required autocomplete="email" maxlength="90"></label><button type="submit">Send me my preview</button><p class="otra-estado" role="status" aria-live="polite"></p></form><p class="otra-mas"><a href="https://ig.me/m/mattehaven.studio" rel="noopener">or message us on Instagram</a> · <a href="https://mattehaven.etsy.com/listing/4599636351">Order it made to measure<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p></div></li>
 </ul>
 <article class="tarjeta" aria-labelledby="tarjeta-titulo">
 <div class="tarjeta-datos" data-mano>
