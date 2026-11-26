@@ -14,187 +14,416 @@
 <meta property="og:image" content="https://antonmareo10.github.io/mattehaven-web/tu-lamina/img/mijas.jpg"><meta property="og:url" content="https://antonmareo10.github.io/mattehaven-web/regalos"><meta property="og:type" content="website">
 <meta property="og:site_name" content="MatteHaven"><meta property="og:locale" content="es_ES"><meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"MatteHaven","item":"https://antonmareo10.github.io/mattehaven-web/"},{"@type":"ListItem","position":2,"name":"Regalos para corredores y ciclistas","item":"https://antonmareo10.github.io/mattehaven-web/regalos"}]}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
-<style>:root{--papel:#F2EEE6;--tinta:#23272B;--suave:#5E6266;--linea:#D9D2C5;--acento:#C8381E;--blanco:#FFFFFF}
-*{box-sizing:border-box}html,body{margin:0}
-html,body{overflow-x:hidden}body{background:var(--papel);color:var(--tinta);font-family:Bahnschrift,'Barlow Semi Condensed',Arial,sans-serif;line-height:1.5;font-size:17px}
+<meta name="theme-color" content="#111417">
+<link rel="preload" href="fuentes/archivo-web.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fuentes/mano-web.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(h){try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){h.classList.add('mov');setTimeout(function(){if(!window.MH)h.classList.remove('mov')},3000)}}catch(e){}})(document.documentElement)</script>
+<style>@font-face{font-family:'Archivo MH';src:url(fuentes/archivo-web.woff2) format('woff2');font-weight:400 900;font-stretch:62% 100%;font-display:swap}
+@font-face{font-family:'Mano MH';src:url(fuentes/mano-web.woff2) format('woff2');font-display:swap}
+:root{--noche:#111417;--noche2:#181C20;--linea-osc:#2C3238;--papel:#F2EEE6;--papel2:#E7E0D3;--tinta:#1C2024;--gris-osc:#AEB4B9;--gris-claro:#565B60;--ruta:#FF5533;--ruta-papel:#B3301A;--rojo:#C8381E;--crema:#FFF6EF;
+--ease:cubic-bezier(.22,1,.36,1);--letra:'Archivo MH','Arial Narrow',Bahnschrift,'Roboto Condensed',Arial,sans-serif;--mano:'Mano MH','Segoe Print','Bradley Hand',cursive;--ancho:1360px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:12px}
+body{margin:0;background:var(--noche);color:var(--papel);font-family:var(--letra);font-size:17px;line-height:1.5;overflow-x:clip}
+img,svg{display:block;max-width:100%}
 a{color:inherit}
-.envoltura{max-width:1120px;margin:0 auto;padding:0 16px}
-header.top{border-bottom:1px solid var(--linea)}
-header.top .envoltura{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
-.marca{font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;font-size:18px}
-nav{display:flex;gap:18px;flex-wrap:wrap;font-size:15px}
-@media(max-width:560px){header.top .envoltura{flex-direction:column;align-items:flex-start;gap:4px;padding-top:12px;padding-bottom:12px}nav{gap:16px}}
-nav a{text-decoration:none;color:var(--suave)}nav a:hover,nav a:focus-visible{color:var(--tinta)}
-.portada{display:grid;gap:32px;padding:40px 16px 56px;align-items:center}
-@media(min-width:880px){.portada{grid-template-columns:1.05fr .95fr;padding:64px 16px 80px}}
-.antetitulo{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--acento);margin:0 0 12px}
-h1{font-size:clamp(34px,5.2vw,58px);line-height:1.04;margin:0 0 18px;font-weight:700;letter-spacing:-.005em}
-.entrada{font-size:19px;color:var(--suave);max-width:34em;margin:0 0 28px}
-.botones{display:flex;flex-wrap:wrap;gap:12px}
-.btn{display:inline-flex;align-items:center;justify-content:center;font:inherit;font-weight:700;font-size:17px;padding:14px 22px;border-radius:8px;text-decoration:none;border:1.5px solid var(--tinta)}
-.btn.lleno{background:var(--acento);border-color:var(--acento);color:var(--blanco)}.btn.lleno:hover{filter:brightness(1.07)}
-.btn.vacio{background:transparent;color:var(--tinta)}.btn.vacio:hover{background:var(--tinta);color:var(--papel)}
-.btn:focus-visible,a:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
-.marco{background:var(--blanco);padding:16px;box-shadow:0 24px 50px rgba(35,39,43,.20),0 2px 8px rgba(35,39,43,.12);border-radius:2px;max-width:460px;margin:0 auto;transform:rotate(-1.2deg)}
-.marco img{display:block;width:100%;height:auto;background:var(--papel)}
-section{padding:56px 0;border-top:1px solid var(--linea)}
-h2{font-size:clamp(26px,3.4vw,36px);line-height:1.1;margin:0 0 10px}
-.intro{color:var(--suave);max-width:40em;margin:0 0 32px}
-.socias{display:grid;gap:22px;grid-template-columns:1fr}
-@media(min-width:600px){.socias{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1000px){.socias{grid-template-columns:repeat(4,1fr)}}
-.ficha{background:var(--blanco);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 3px rgba(35,39,43,.10)}
-.ficha img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;background:var(--papel)}
-.ficha .cuerpo{padding:14px 16px 18px;display:flex;flex-direction:column;gap:4px;flex:1}
-.ficha h3{margin:0;font-size:20px;line-height:1.15}
-.ficha .lugar{margin:0 0 12px;color:var(--suave);font-size:14px}
-.ficha .acciones{margin-top:auto;display:flex;gap:14px;font-size:15px;font-weight:600}
-.ficha .acciones a{text-decoration:none;border-bottom:1.5px solid var(--acento);padding-bottom:1px}
-.pasos{display:grid;gap:24px;grid-template-columns:1fr;counter-reset:paso;margin:0;padding:0;list-style:none}
-@media(min-width:760px){.pasos{grid-template-columns:repeat(3,1fr)}}
-.pasos li{counter-increment:paso;padding-top:12px;border-top:2px solid var(--tinta)}
-.pasos li::before{content:counter(paso,decimal-leading-zero);display:block;font-weight:700;color:var(--acento);letter-spacing:.08em;font-size:14px;margin-bottom:6px}
-.pasos h3{margin:0 0 6px;font-size:20px}.pasos p{margin:0;color:var(--suave)}
-.precios{display:flex;flex-wrap:wrap;gap:12px 28px;margin:32px 0 0;padding:18px 20px;background:var(--blanco);border-radius:6px}
-.precios strong{font-size:22px}.precios span{color:var(--suave);font-size:15px;display:block}
-.organizadores{display:grid;gap:28px}
-@media(min-width:880px){.organizadores{grid-template-columns:1fr 1fr;align-items:start}}
-.lista{margin:0;padding:0;list-style:none;display:grid;gap:12px}
-.lista li{padding-left:22px;position:relative}.lista li::before{content:'';position:absolute;left:0;top:.62em;width:10px;height:2px;background:var(--acento)}
-.texto{max-width:44em}.texto h1{font-size:clamp(30px,4.4vw,44px)}.texto h2{font-size:24px;margin-top:36px}.texto p,.texto li{color:#34383C}
-footer.pie{border-top:1px solid var(--linea);padding:28px 0 40px;font-size:14px;color:var(--suave)}
-footer.pie .envoltura{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between}
-footer.pie nav a{color:var(--suave)}
-.rutas{display:grid;gap:28px;grid-template-columns:1fr}
-@media(min-width:760px){.rutas{grid-template-columns:repeat(3,1fr)}}
-.rutas h3{margin:0 0 10px;font-size:20px;padding-top:12px;border-top:2px solid var(--tinta)}
-.rutas ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
-.rutas a{text-decoration:none;border-bottom:1.5px solid var(--linea)}.rutas a:hover,.rutas a:focus-visible{border-bottom-color:var(--acento)}
-.nota-rutas{margin:18px 0 0;font-size:14px;color:var(--suave)}
-.pide{display:grid;gap:22px;padding:24px 16px 48px;border-top:0;grid-template-areas:"texto" "form" "puntos"}
-@media(min-width:880px){.pide{grid-template-columns:1fr minmax(0,500px);column-gap:56px;row-gap:8px;padding:56px 16px 72px;grid-template-rows:auto 1fr;grid-template-areas:"texto form" "puntos form";align-items:start}.pide-muestra{display:block!important}}
-.pide-texto{grid-area:texto}.pide-form{grid-area:form}.pide-puntos{grid-area:puntos}
-.pide h1{font-size:clamp(30px,4.6vw,52px);margin:0 0 12px}
-.pide .antetitulo{color:#B8331B}
-.pide .entrada{margin:0}
-.pide-form{background:var(--blanco);border-radius:10px;padding:20px 18px 18px;box-shadow:0 18px 40px rgba(35,39,43,.14),0 2px 6px rgba(35,39,43,.10)}
-@media(min-width:880px){.pide-form{padding:28px 28px 24px}}
-.pide-form h2{font-size:22px;margin:0 0 4px}.pide-form .sub{margin:0 0 14px;color:var(--suave);font-size:15px}
-.campo{margin:0 0 12px}.campo label{display:block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--suave);margin:0 0 5px}
-.campo label .ob{text-transform:none;letter-spacing:0;font-weight:400}
-.campo input,.campo textarea{width:100%;font:inherit;font-size:17px;padding:11px 13px;border:1.5px solid #CFC8BB;border-radius:6px;background:var(--blanco);color:var(--tinta)}
-.campo textarea{min-height:84px;resize:vertical}
-.campo input:focus,.campo textarea:focus{outline:none;border-color:var(--tinta);box-shadow:0 0 0 3px rgba(200,56,30,.28)}
-.campo [aria-invalid=true]{border-color:#A4271B}
-.campo .fallo{margin:6px 0 0;font-size:14px;color:#A4271B;font-weight:600}
-.dos{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
-.pide-form button{font:inherit;cursor:pointer}
-.pide-form .btn.lleno{width:100%;margin-top:4px;font-size:18px;padding:15px 18px}
-.pide-form .btn:focus-visible,.copiar:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
-.pide-form .nota{margin:10px 0 0;font-size:14px;color:var(--suave)}
-.pide-form .estado{margin:10px 0 0;font-size:15px;min-height:0}.pide-form .estado:empty{display:none}
-.pide-dir{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--linea);font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
-.pide-dir strong{font-size:16px;user-select:all;word-break:break-all}
-.copiar{background:transparent;border:1.5px solid var(--tinta);color:var(--tinta);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600}
-.copiar:hover{background:var(--tinta);color:var(--papel)}
-.pide-puntos{margin-top:6px}
-.pide-muestra{display:none;max-width:280px;margin:40px 0 0 10px}</style>
+:focus-visible{outline:3px solid var(--ruta);outline-offset:3px}
+.claro :focus-visible{outline-color:var(--tinta)}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.saltar{position:absolute;left:16px;top:-80px;z-index:50;background:var(--papel);color:var(--tinta);padding:12px 16px;font-weight:700}
+.saltar:focus{top:12px}
+.caja{width:min(100% - 2 * clamp(16px,4vw,64px),var(--ancho));margin-inline:auto}
+.claro{background:var(--papel);color:var(--tinta)}
+.mano{font-family:var(--mano);font-weight:400;color:var(--ruta);display:block;width:max-content;max-width:100%;line-height:1.1;transform:rotate(-4deg);transform-origin:left bottom;padding-left:.12em}
+.claro .mano{color:var(--ruta-papel)}
+.cartel{margin:0;font-weight:850;font-stretch:66%;text-transform:uppercase;line-height:.86;letter-spacing:-.01em;word-spacing:.08em;text-wrap:balance}
+@media(max-width:599px){.cartel{line-height:.92}}
+.lin{display:block;overflow:hidden;padding-top:.1em;margin-top:-.1em;padding-bottom:.04em}
+.lin>span{display:block}
+.botones{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.boton{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:14px 24px;border-radius:999px;font:inherit;font-weight:700;font-size:17px;text-decoration:none;border:1.5px solid currentColor;transition:transform .35s var(--ease),background-color .2s,color .2s;will-change:transform}
+.boton svg{width:18px;height:18px;transition:transform .3s var(--ease)}
+.boton:hover svg{transform:translateX(4px)}
+.boton.lleno{background:var(--ruta);border-color:var(--ruta);color:#16090A}
+.boton.lleno:hover{background:#FF6B4D}
+.boton.linea{color:var(--papel)}
+.boton.linea:hover{background:var(--papel);color:var(--tinta)}
+.claro .boton.linea{color:var(--tinta)}
+.claro .boton.linea:hover{background:var(--tinta);color:var(--papel)}
+.boton:active{transform:scale(.97)}
+.cab{position:absolute;inset:0 0 auto;z-index:20}
+.cab .caja{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px}
+.logo{font-weight:800;font-stretch:70%;letter-spacing:.08em;text-transform:uppercase;font-size:22px;text-decoration:none}
+.cab nav{display:flex;align-items:center;gap:6px 22px;font-size:15px}
+.cab nav a{text-decoration:none;color:var(--gris-osc);padding:10px 0}
+.cab nav a:hover{color:var(--papel)}
+.cab nav a.pildora{color:var(--papel);border:1.5px solid rgba(242,238,230,.55);border-radius:999px;padding:9px 16px;font-weight:600}
+.cab nav a.pildora:hover{background:var(--papel);color:var(--tinta)}
+@media(max-width:899px){.cab nav .sec{display:none}.cab nav{gap:14px}}
+.heroe{position:relative;isolation:isolate;overflow:hidden;padding:104px 0 56px}
+@media(min-width:960px){.heroe{min-height:min(100svh,1000px);display:flex;align-items:center;padding:84px 0 118px}}
+.heroe-rej{display:grid;gap:26px;position:relative;grid-template-columns:minmax(0,1fr);grid-template-areas:"titulo" "lamina" "cuerpo"}
+.heroe-titulo{grid-area:titulo}.heroe-lamina{grid-area:lamina}.heroe-cuerpo{grid-area:cuerpo;display:flex;flex-direction:column}
+@media(min-width:960px){.heroe-rej{grid-template-columns:minmax(0,1.32fr) minmax(0,.68fr);grid-template-areas:"titulo lamina" "cuerpo lamina";grid-template-rows:auto 1fr;column-gap:32px;row-gap:0;align-items:start}.heroe-lamina{align-self:center}}
+@media(max-width:959px){.precio-heroe{order:1}.plazo-heroe{order:2}.heroe-form{order:2}.heroe-cuerpo .entrada{order:3}.promos{order:4}.heroe .heroe-lamina figcaption{display:none}}
+.heroe-traza{position:absolute;z-index:-1;left:50%;top:47%;width:178%;transform:translate(-50%,-50%);pointer-events:none;-webkit-mask-image:radial-gradient(closest-side,#000 64%,transparent 98%);mask-image:radial-gradient(closest-side,#000 64%,transparent 98%)}
+.heroe-traza svg{width:100%;height:auto;opacity:.8}
+@media(max-width:959px){.heroe-traza{width:150%}.heroe-traza svg{opacity:.6}}
+.traza-brillo{fill:none;stroke:var(--ruta);stroke-width:9;opacity:.22;stroke-linecap:round;stroke-linejoin:round}
+.traza{fill:none;stroke:var(--ruta);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.heroe h1{margin:0;font-weight:400}
+.heroe .mano{font-size:clamp(38px,5.4vw,78px);margin:0 0 .2em .02em;position:relative}
+.garabato{position:absolute;left:2%;bottom:-.24em;width:100%;height:.4em;overflow:visible}
+.garabato path{fill:none;stroke:var(--ruta);stroke-width:3.2;stroke-linecap:round}
+.h-gigante{display:block;font-weight:850;font-stretch:64%;text-transform:uppercase;font-size:clamp(66px,12vw,192px);line-height:.84;letter-spacing:-.012em;word-spacing:.05em}
+.h-gigante em{font-style:normal;color:var(--ruta)}
+.h-resto{display:block;font-weight:600;font-stretch:84%;font-size:clamp(21px,2.3vw,32px);line-height:1.12;margin-top:20px;max-width:20em;text-wrap:balance}
+.precio-heroe{margin:0 0 6px;font-size:clamp(17px,1.4vw,19px);font-weight:600;font-stretch:90%}
+.plazo-heroe{margin:0 0 18px;font-size:15px;color:var(--gris-osc)}
+.plazo-heroe b{color:var(--ruta);font-weight:700}
+.precio-heroe b{font-weight:850;font-stretch:70%;font-size:1.3em;color:var(--papel)}
+.heroe-form{gap:10px}
+.heroe-form input{flex:1 1 150px;min-width:0;max-width:260px;height:52px;padding:0 20px;font:inherit;font-size:17px;color:var(--papel);background:rgba(255,255,255,.04);border:1.5px solid rgba(242,238,230,.6);border-radius:999px}
+.heroe-form input::placeholder{color:#8F969C}
+.heroe-form input:focus{outline:none;border-color:var(--ruta)}
+.heroe-form input:focus-visible{outline:3px solid var(--ruta);outline-offset:3px}
+.heroe-form button{font:inherit;font-weight:700;cursor:pointer}
+@media(max-width:599px){.heroe-form input{max-width:none}.heroe-form .boton{padding:14px 18px}}
+.entrada{color:var(--gris-osc);font-size:clamp(17px,1.35vw,19px);max-width:34em;margin:20px 0 22px}
+.promos{list-style:none;margin:0 0 24px;padding:3px 0 3px 16px;display:grid;gap:4px;border-left:3px solid var(--ruta)}
+.promos li{font-size:14px;line-height:1.4}
+.promos b{font-weight:800;font-stretch:80%;letter-spacing:.04em;text-transform:uppercase;color:var(--ruta)}
+.heroe-lamina{position:relative;justify-self:center;width:min(76vw,430px);perspective:1100px;margin:0}
+@media(max-width:959px){.heroe-lamina{width:min(44vw,250px)}}
+.marco3d{position:relative;background:#08090A;padding:clamp(7px,1vw,11px);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) rotate(-1.6deg);transition:transform .7s var(--ease);box-shadow:0 46px 90px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.07)}
+.marco3d img{width:100%;height:auto;aspect-ratio:3/4;background:#2a2d30}
+.marco3d::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.10) 50%,rgba(255,255,255,0) 60%);background-size:250% 100%;background-position:var(--brillo,60%) 0;opacity:.9}
+.heroe-lamina figcaption{position:relative;z-index:1;display:table;margin:14px auto 0;padding:3px 10px;background:var(--noche);font-size:13px;letter-spacing:.05em;color:#C3C8CC;text-align:center}
+.cinta{overflow:hidden;border-block:1px solid var(--linea-osc);padding:18px 0}
+.cinta-pista{display:flex;width:max-content}
+.cinta-grupo{display:flex;align-items:center;gap:28px;padding-right:28px}
+.cinta-grupo span{font-weight:800;font-stretch:66%;text-transform:uppercase;font-size:clamp(28px,3.6vw,52px);line-height:1;color:transparent;-webkit-text-stroke:1.2px #8E959B;white-space:nowrap}
+.cinta-grupo i{width:10px;height:10px;border-radius:50%;background:var(--ruta);flex:none}
+.sec-pad{padding:clamp(72px,10vw,128px) 0}
+.titulo .mano,.tarjeta-datos .mano{font-size:clamp(30px,3.4vw,50px);margin:0 0 .14em .02em}
+.titulo h2{font-size:clamp(54px,9.4vw,150px)}
+.intro{font-size:clamp(17px,1.4vw,20px);max-width:36em;margin:22px 0 0;color:var(--gris-osc)}
+.claro .intro{color:var(--gris-claro)}
+.oferta-rej{display:grid;gap:36px}
+@media(min-width:960px){.oferta-rej{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px}.oferta-izq{position:sticky;top:40px;align-self:start}}
+.lineas{list-style:none;margin:0;padding:0;counter-reset:l;border-bottom:1.5px solid var(--tinta)}
+.lineas li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:6px 14px;padding:24px 0 26px;border-top:1.5px solid var(--tinta)}
+.lineas li::before{counter-increment:l;content:counter(l,decimal-leading-zero);font-weight:800;font-stretch:70%;font-size:19px;line-height:1.5;color:var(--ruta-papel)}
+.lineas strong{display:block;font-weight:850;font-stretch:68%;text-transform:uppercase;font-size:clamp(28px,3.5vw,50px);line-height:.92}
+.lineas p{grid-column:2;margin:6px 0 0;color:var(--gris-claro);font-size:17px;max-width:34em}
+.precios{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 24px;margin:34px 0 0;padding:20px 0 0;list-style:none;border-top:1.5px solid var(--tinta);max-width:30em}
+.precios li{display:flex;flex-direction:column}
+.precios b{font-weight:850;font-stretch:70%;font-size:clamp(34px,3.4vw,48px);line-height:1}
+.precios span{font-size:15px;color:var(--gris-claro)}
+.nota-precios{margin:18px 0 0;font-size:15px;color:var(--gris-claro)}
+.fama-cab{display:grid;gap:28px;margin-bottom:44px}
+@media(min-width:960px){.fama-cab{grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);align-items:end}}
+.tu-nombre label{display:block;font-size:14px;font-weight:600;letter-spacing:.04em;color:var(--gris-osc);margin-bottom:6px}
+.tu-nombre input{width:100%;height:58px;font:inherit;font-weight:700;font-stretch:80%;font-size:24px;color:var(--papel);background:rgba(255,255,255,.04);border:1.5px solid var(--gris-osc);padding:0 18px;border-radius:0}
+.tu-nombre input::placeholder{color:#6F767C}
+.tu-nombre input:focus{outline:none;border-color:var(--ruta)}
+.tu-nombre input:focus-visible{outline:3px solid var(--ruta);outline-offset:4px}
+.tu-nombre p{margin:8px 0 0;font-size:14px;color:var(--gris-osc)}
+.rejilla{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 16px;list-style:none;margin:0;padding:0}
+@media(min-width:720px){.rejilla{grid-template-columns:repeat(3,minmax(0,1fr));gap:44px 28px}}
+@media(min-width:1120px){.rejilla{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.obra{display:flex;flex-direction:column}
+.obra .ver{display:block;text-decoration:none;perspective:900px}
+.obra .marco{position:relative;background:#08090A;padding:clamp(5px,.7vw,8px);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .55s var(--ease);box-shadow:0 24px 48px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06)}
+.obra .marco::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.16),rgba(255,255,255,0) 55%);opacity:0;transition:opacity .4s}
+.obra .ver:hover .marco::after{opacity:1}
+.obra img{width:100%;height:auto;aspect-ratio:3/4;background:#24282B}
+.obra h3{margin:16px 0 4px;font-weight:800;font-stretch:72%;text-transform:uppercase;font-size:clamp(19px,1.7vw,24px);line-height:1}
+.obra .ver:hover h3,.obra .ver:focus-visible h3{color:var(--ruta)}
+.obra .lugar{margin:0;font-size:14px;color:var(--gris-osc)}
+.obra .acc{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:12px;font-size:15px;font-weight:600}
+.obra .acc a{text-decoration:none}
+.obra .acc a.suya{display:inline-flex;align-items:center;min-height:42px;padding:0 18px;border-radius:999px;background:var(--ruta);color:#16090A;font-weight:700;transition:background-color .2s}
+.obra .acc a.suya:hover{background:#FF6B4D}
+.obra .acc a.etsy{border-bottom:1.5px solid #5A6168;padding:6px 0 1px;color:var(--gris-osc);font-size:14px}
+@media(max-width:719px){.obra h3{min-height:2em}.obra .lugar{min-height:2.7em}}
+.obra.otra .ver{flex:1;display:flex}
+.obra.otra .marco{flex:1;display:flex;flex-direction:column;gap:12px;padding:clamp(16px,2vw,26px);background:#0D1013;border:1.5px dashed rgba(255,85,51,.75);box-shadow:none}
+.obra.otra h3{margin:0;font-size:clamp(24px,2.4vw,34px);line-height:.95;color:var(--papel)}
+.obra.otra p{margin:0;font-size:15px;line-height:1.4;color:var(--gris-osc)}
+.obra.otra span{margin-top:auto;font-weight:700;color:var(--ruta)}
+.obra.otra span svg{display:inline;width:16px;height:16px;vertical-align:-2px;margin-left:6px}
+@media(max-width:599px){.obra.otra p{font-size:13.5px}}
+.obra .acc a.etsy:hover{color:var(--papel)}
+.tarjeta{margin-top:clamp(64px,8vw,110px);display:grid;grid-template-columns:minmax(0,1fr);border:1px solid var(--linea-osc);background:var(--noche2)}
+@media(min-width:960px){.tarjeta{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}}
+.tarjeta-datos{padding:clamp(24px,3vw,44px)}
+.tarjeta-datos h2{font-size:clamp(32px,3.4vw,58px);margin-top:4px}
+.tarjeta-datos .lugar{margin:12px 0 0;color:var(--gris-osc)}
+.datos{display:grid;grid-template-columns:1fr 1fr;gap:22px 18px;margin:30px 0 0;padding:24px 0 0;border-top:1px solid var(--linea-osc)}
+.datos dt{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--gris-osc)}
+.datos dd{margin:2px 0 0;font-weight:850;font-stretch:66%;font-size:clamp(40px,4.4vw,64px);line-height:.95;font-variant-numeric:tabular-nums}
+.datos dd small{font-size:.42em;font-weight:700;font-stretch:80%;margin-left:4px}
+.datos .nota{display:block;font-family:var(--mano);font-size:17px;font-weight:400;color:var(--ruta);margin-top:8px;line-height:1.35;font-stretch:100%}
+.cumbres{grid-column:1/-1}
+.cumbres ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px}
+.cumbres li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--linea-osc);padding:6px 0;font-size:16px}
+.cumbres li span:last-child{font-variant-numeric:tabular-nums;color:var(--gris-osc)}
+.tarjeta-datos .botones{margin-top:30px}
+.tarjeta-mapa{position:relative;background:#0C0F12;border-top:1px solid var(--linea-osc);display:flex;flex-direction:column;justify-content:center;padding:clamp(16px,2.4vw,36px)}
+@media(min-width:960px){.tarjeta-mapa{border-top:0;border-left:1px solid var(--linea-osc)}}
+.tarjeta-mapa svg.mapa{width:100%;height:auto}
+.mapa .traza{stroke-width:2.4}
+.mapa .traza-brillo{stroke-width:9;opacity:.22}
+@media(max-width:599px){.mapa .cima text{display:none}}
+.mapa .cima path{fill:var(--papel)}
+.mapa .cima text{fill:var(--papel);font-family:var(--letra);font-size:19px;font-weight:600}
+.mapa .cima text tspan{fill:var(--gris-osc);font-weight:400}
+.mapa .salida{fill:var(--ruta);stroke:var(--noche2);stroke-width:4}
+.perfil{width:100%;height:auto;margin-top:10px}
+.perfil .area{fill:rgba(255,85,51,.16)}
+.perfil .borde{fill:none;stroke:var(--ruta);stroke-width:2}
+.perfil text{fill:var(--gris-osc);font-family:var(--letra);font-size:22px}
+@media(max-width:599px){.perfil text{font-size:44px}}
+.pie-mapa{margin:12px 0 0;font-size:14px;color:var(--gris-osc)}
+.cifras-rej{display:grid;gap:36px}
+.cifras-rej .titulo h2{font-size:clamp(54px,7vw,104px)}
+@media(min-width:960px){.cifras-rej{grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:48px}}
+.hoja{list-style:none;margin:0;padding:0;border-top:2px solid var(--tinta)}
+.hoja li{display:grid;grid-template-columns:36px minmax(0,1fr);grid-template-areas:"pos num" "pos que";gap:0 12px;padding:18px 0 20px;border-bottom:1px solid #CBC3B4}
+@media(min-width:720px){.hoja li{grid-template-columns:48px minmax(0,1fr) auto;grid-template-areas:"pos que num";align-items:baseline;gap:18px}}
+.hoja .pos{grid-area:pos;font-weight:800;font-stretch:70%;color:var(--ruta-papel);font-size:18px;line-height:1.6}
+.hoja .que{grid-area:que;font-size:clamp(16px,1.5vw,19px);max-width:26em}
+.hoja .num{grid-area:num;font-weight:850;font-stretch:64%;font-size:clamp(48px,6vw,96px);line-height:.88;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(min-width:720px){.hoja .num{text-align:right}}
+.hoja .num small{font-size:.36em;font-weight:700;font-stretch:80%;margin-left:6px}
+.sellos{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:10px}
+.sellos li{padding-left:28px;position:relative}
+.sellos li::before{content:'';position:absolute;left:0;top:.62em;width:16px;height:2px;background:var(--ruta-papel)}
+.regalo{background:var(--rojo);color:var(--crema)}
+.regalo .cartel{font-size:clamp(46px,7.6vw,124px)}
+.nombres{margin:18px 0 0;font-weight:800;font-stretch:70%;text-transform:uppercase;font-size:clamp(22px,2.6vw,40px);line-height:1.12;max-width:30em}
+.nombres a{text-decoration:none;color:var(--crema);background-image:linear-gradient(currentColor,currentColor);background-size:0 2px;background-repeat:no-repeat;background-position:0 92%;transition:background-size .4s var(--ease)}
+.nombres a:hover,.nombres a:focus-visible{background-size:100% 2px;color:#fff}
+.nombres i{font-style:normal;opacity:.55}
+@media(min-width:600px){.nombres a{white-space:nowrap}}
+.regalo :focus-visible{outline-color:var(--crema)}
+.regalo-rej{display:grid;gap:28px;margin-top:40px;max-width:780px}
+.puntos{list-style:none;margin:0;padding:0;display:grid;gap:14px;font-size:18px}
+.puntos li{padding-left:28px;position:relative}
+.puntos li::before{content:'';position:absolute;left:0;top:.66em;width:16px;height:2px;background:currentColor}
+.regalo .boton.lleno{background:var(--crema);border-color:var(--crema);color:#5A1608}
+.regalo .boton.lleno:hover{background:#fff}
+.regalo .boton.linea{color:var(--crema)}
+.regalo .boton.linea:hover{background:var(--crema);color:#5A1608}
+.rutas{display:grid;gap:30px;grid-template-columns:1fr;margin-top:40px}
+@media(min-width:760px){.rutas{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.rutas h3{margin:0 0 12px;padding-top:12px;border-top:2px solid var(--tinta);font-weight:800;font-stretch:72%;text-transform:uppercase;font-size:24px}
+.rutas ul{margin:0;padding:0;list-style:none;display:grid;gap:4px}
+.rutas a{display:inline-block;padding:6px 0;text-decoration:none;border-bottom:1.5px solid #C9C1B2}
+.rutas a:hover,.rutas a:focus-visible{border-bottom-color:var(--ruta-papel);color:var(--ruta-papel)}
+.nota-rutas{margin:20px 0 0;font-size:15px;color:var(--gris-claro)}
+.quien-rej{display:grid;gap:36px}
+@media(min-width:960px){.quien-rej{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:start}}
+.quien-texto p{font-size:clamp(20px,1.9vw,27px);line-height:1.4;margin:0 0 18px;max-width:30em}
+.firma{margin:28px 0 0;display:flex;flex-direction:column;gap:6px}
+.firma svg{width:min(300px,68vw);height:auto;overflow:visible}
+.firma path{fill:var(--papel);stroke:var(--papel);stroke-width:5}
+.firma span{font-size:14px;letter-spacing:.06em;color:var(--gris-osc);text-transform:uppercase}
+.quien-datos{list-style:none;margin:30px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 26px;font-size:15px;color:var(--gris-osc)}
+.quien-datos a{color:var(--papel)}
+.org-rej{display:grid;gap:30px;margin-top:36px}
+@media(min-width:960px){.org-rej{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:start}}
+.lista{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.lista li{padding-left:28px;position:relative}
+.lista li::before{content:'';position:absolute;left:0;top:.66em;width:16px;height:2px;background:var(--ruta-papel)}
+.preguntas{max-width:46em}
+.preguntas p{margin:0 0 16px}
+.manifiesto{padding:clamp(96px,14vw,190px) 0 clamp(72px,9vw,120px);overflow:hidden}
+.manifiesto .cartel{font-size:clamp(84px,19vw,330px);line-height:.8;font-stretch:62%}
+.manifiesto .cartel .rojo{color:var(--ruta)}
+.manifiesto .botones{margin-top:44px}
+.pie{border-top:1px solid var(--linea-osc);padding:28px 0 96px;font-size:14px;color:var(--gris-osc)}
+.pie .caja{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
+.pie nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.pie nav a{color:var(--gris-osc);padding:6px 0}
+.pie nav a:hover{color:var(--papel)}
+.navidad{position:fixed;left:16px;bottom:16px;z-index:30;display:grid;grid-template-columns:12px auto;column-gap:12px;align-items:center;max-width:calc(100vw - 32px);padding:11px 18px 12px 14px;background:#0B0D0F;border:1px solid #343B42;color:var(--papel);text-decoration:none;box-shadow:0 12px 30px rgba(0,0,0,.45);transition:opacity .3s,transform .3s var(--ease)}
+.navidad .punto{position:relative;grid-row:1/span 3;width:10px;height:10px;border-radius:50%;background:var(--ruta)}
+.navidad .punto::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--ruta);opacity:0}
+.navidad .et{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ruta)}
+.navidad .dias{font-weight:850;font-stretch:70%;font-size:22px;line-height:1.05;text-transform:uppercase}
+.navidad .plazo{font-size:13px;color:var(--gris-osc)}
+.navidad:hover .dias{color:var(--ruta)}
+.navidad.fuera,.navidad.tapa{opacity:0;transform:translateY(12px);pointer-events:none;visibility:hidden;transition:opacity .3s,transform .3s var(--ease),visibility 0s .3s}
+@media(max-width:599px){.navidad{grid-template-columns:10px auto auto;column-gap:10px;padding:9px 14px;bottom:12px;left:12px;max-width:calc(100vw - 24px)}.navidad .punto{grid-row:auto}.navidad .et{display:none}.navidad .dias{font-size:17px}.navidad .plazo{font-size:13px}}
+html.mov{scroll-behavior:smooth}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+@keyframes sube{from{transform:translateY(105%)}to{transform:none}}
+@keyframes aparece{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes escribe{from{clip-path:inset(-30% 100% -40% -8%)}to{clip-path:inset(-30% -8% -40% -8%)}}
+@keyframes dibuja{to{stroke-dashoffset:0}}
+@keyframes llega{from{opacity:0;transform:translateY(26px) rotateX(10deg)}to{opacity:1;transform:none}}
+@keyframes late{0%{transform:scale(1);opacity:.7}80%,100%{transform:scale(3.2);opacity:0}}
+@keyframes cinta{to{transform:translateX(-50%)}}
+html.mov .heroe .lin>span{animation:sube .9s var(--ease) both;animation-delay:calc(.12s + var(--i,0) * 90ms)}
+html.mov .heroe .mano{animation:escribe 1.1s cubic-bezier(.45,.05,.3,1) .35s both}
+html.mov .garabato path{stroke-dasharray:1;stroke-dashoffset:1;animation:dibuja .8s var(--ease) 1.25s forwards}
+html.mov .heroe .traza,html.mov .heroe .traza-brillo{stroke-dasharray:1;stroke-dashoffset:1;animation:dibuja 2.6s cubic-bezier(.5,0,.2,1) .15s forwards}
+html.mov .heroe-anima{animation:aparece .8s var(--ease) both;animation-delay:calc(.45s + var(--i,0) * 80ms)}
+html.mov .heroe-lamina{animation:llega 1.1s var(--ease) .3s both}
+html.mov .navidad .punto::after{animation:late 2.2s ease-out infinite}
+html.mov .cinta-pista{animation:cinta 46s linear infinite}
+html.mov .cinta:hover .cinta-pista{animation-play-state:paused}
+html.mov [data-rev]{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--i,0) * 70ms)}
+html.mov [data-rev].visto{opacity:1;transform:none}
+html.mov .lin[data-rev]{opacity:1;transform:none}
+html.mov .lin[data-rev]>span{transform:translateY(105%);transition:transform .9s var(--ease);transition-delay:calc(var(--i,0) * 90ms)}
+html.mov .lin[data-rev].visto>span{transform:none}
+html.mov [data-mano] .mano{clip-path:inset(-30% 100% -40% 0);transition:clip-path 1s cubic-bezier(.45,.05,.3,1) .15s}
+html.mov [data-mano].visto .mano{clip-path:inset(-30% -8% -40% -8%)}
+html.mov .dibujable .traza,html.mov .dibujable .traza-brillo,html.mov .dibujable .borde{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.4s cubic-bezier(.5,0,.2,1) .2s}
+html.mov .dibujable .area,html.mov .dibujable .cima,html.mov .dibujable .salida{opacity:0;transition:opacity .6s ease 1.4s}
+html.mov .dibujable.visto .traza,html.mov .dibujable.visto .traza-brillo,html.mov .dibujable.visto .borde{stroke-dashoffset:0}
+html.mov .dibujable.visto .area,html.mov .dibujable.visto .cima,html.mov .dibujable.visto .salida{opacity:1}
+html.mov .firma path{stroke-dasharray:1;stroke-dashoffset:1;fill-opacity:0;transition:stroke-dashoffset 2.2s cubic-bezier(.45,.05,.3,1),fill-opacity .8s ease 1.7s}
+html.mov .firma.visto path{stroke-dashoffset:0;fill-opacity:1}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}</style>
+<script src="assets/portada.js" defer></script>
 </head>
 <body>
-<header class="top"><div class="envoltura">
-<a class="marca" href="./">MatteHaven</a>
-<nav aria-label="Principal"><a href="regalos#carreras">Carreras</a><a href="regalos#rutas">Rutas y puertos</a><a href="organizadores">Organizadores</a><a href="./" hreflang="en">English</a><a href="https://mattehaven.etsy.com">Tienda</a></nav>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab"><div class="caja">
+<a class="logo" href="./">MatteHaven</a>
+<nav aria-label="Principal"><a class="sec" href="#carreras">Carreras</a><a class="sec" href="#rutas">Rutas y puertos</a><a class="sec" href="organizadores">Organizadores</a><a href="./" hreflang="en" lang="en">English</a><a class="pildora" href="https://mattehaven.etsy.com">Tienda en Etsy</a></nav>
 </div></header>
-<main>
-<div class="envoltura portada">
-<div>
-<p class="antetitulo">Láminas oficiales de finisher</p>
-<h1>El regalo para un corredor o un ciclista: su carrera en 3D, con su nombre y su tiempo.</h1>
-<p class="entrada">Dibujamos el recorrido oficial de su carrera sobre el relieve real de las montañas que cruza, con datos reales de elevación e imágenes aéreas, y debajo su nombre y su tiempo de la clasificación oficial. Cada lámina se revisa a mano antes de imprimirla y llega a casa con el envío incluido.</p>
-<div class="botones"><a class="btn lleno" href="#carreras">Buscar su carrera</a><a class="btn vacio" href="#regalo">Si es un regalo</a></div>
+<main id="contenido">
+<section class="heroe" aria-labelledby="h1">
+<div class="caja heroe-rej">
+<h1 id="h1" class="heroe-titulo"><span class="mano">El regalo<svg class="garabato" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" vector-effect="non-scaling-stroke" d="M4 24C62 12 158 6 296 16"/><path pathLength="1" vector-effect="non-scaling-stroke" d="M46 34C118 25 196 23 270 28"/></svg></span><span class="vh">: </span> <span class="h-gigante" style="font-size:clamp(56px,7.4vw,132px)"><span class="lin"><span style="--i:0">su carrera</span></span> <span class="lin"><span style="--i:1">en <em>3D</em>,</span></span></span> <span class="h-resto heroe-anima" style="--i:1">para un corredor o un ciclista, con su nombre y su tiempo.</span></h1>
+<div class="heroe-cuerpo">
+<p class="entrada heroe-anima" style="--i:2">Una lámina plana de 30 × 40 cm en papel mate: el recorrido oficial de su carrera en 3D sobre el relieve real, con su nombre y su tiempo de la clasificación oficial.</p>
+<p class="precio-heroe heroe-anima" style="--i:2">Desde <b>39 €</b> · enmarcada <b>69 €</b> · digital <b>19 €</b> · envío incluido</p>
+<p class="plazo-heroe heroe-anima" style="--i:3" id="plazo-heroe" data-txt="{&quot;antes&quot;:&quot;&lt;b&gt;Navidad:&lt;/b&gt; pídela hasta el jueves 10 de diciembre. Quedan § días.&quot;,&quot;uno&quot;:&quot;&lt;b&gt;Navidad:&lt;/b&gt; pídela hasta el jueves 10 de diciembre. Queda 1 día.&quot;,&quot;hoy&quot;:&quot;&lt;b&gt;Navidad:&lt;/b&gt; hoy es el último día para pedirla.&quot;,&quot;despues&quot;:&quot;&lt;b&gt;¿Vas con prisa?&lt;/b&gt; En digital la tienes en 24 horas, con una tarjeta para regalarla.&quot;}"><b>Navidad:</b> pídela hasta el jueves 10 de diciembre. Quedan 14 días.</p>
+<ul class="promos heroe-anima" style="--i:3"><li data-hasta="2026-11-30"><b>Black Friday</b> Hasta el lunes 30 de noviembre, con la lámina impresa te regalamos también la versión digital.</li><li data-hasta="2026-12-01">Hasta el martes 1 de diciembre, un 25 % menos sobre estos precios en Etsy, en todos los formatos.</li></ul>
+<form class="botones heroe-form heroe-anima" style="--i:4" action="#carreras"><label class="vh" for="nombre-heroe">Su nombre (opcional)</label><input id="nombre-heroe" name="nombre" type="text" maxlength="40" autocomplete="off" placeholder="Su nombre"><button class="boton lleno iman" type="submit">Elegir su carrera<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><a class="boton linea" href="https://mattehaven.etsy.com">Tienda en Etsy<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></form>
 </div>
-<div class="marco"><img src="tu-lamina/img/mijas.jpg" alt="Lámina de finisher de la Maratón Sierra de Mijas: el recorrido en 3D sobre la sierra real, con el nombre y el tiempo del corredor" width="1200" height="1600"></div>
+<figure class="heroe-lamina">
+<div class="heroe-traza" aria-hidden="true"><svg viewBox="0 0 1000 1000"><defs><path id="traza-heroe" pathLength="1" vector-effect="non-scaling-stroke" d="M559 764L558 770L550 772L549 775L547 785L549 797L544 817L544 837L534 854L534 857L537 859L538 862L538 867L540 869L542 868L543 864L546 868L548 864L550 868L555 863L558 865L554 872L559 870L560 872L556 875L561 875L553 879L558 880L564 880L562 880L562 881L564 881L560 883L566 883L561 887L566 888L567 892L573 900L578 901L574 904L586 908L582 909L586 910L585 911L586 912L589 910L591 911L589 913L592 914L591 916L593 918L604 918L600 920L601 922L603 922L597 925L595 928L597 931L597 929L599 932L601 930L602 932L609 931L610 932L608 937L612 936L613 935L616 939L618 937L619 939L621 937L622 941L624 939L625 940L625 943L626 942L626 944L634 943L633 945L630 948L631 949L632 949L632 950L640 949L641 952L643 952L650 946L650 948L654 948L655 950L656 948L658 950L662 949L663 950L664 950L666 955L669 951L669 952L672 951L673 954L679 952L679 959L681 956L686 955L684 960L686 967L683 972L683 978L683 980L686 980L689 975L709 960L711 962L715 962L720 961L723 958L726 959L735 957L739 957L742 955L749 956L752 955L755 950L762 949L767 946L772 947L777 944L778 941L786 938L793 937L797 938L797 936L798 936L806 937L821 931L821 929L828 922L824 922L815 925L814 924L818 895L818 882L821 880L835 875L836 881L841 885L863 886L869 888L871 895L874 892L889 885L891 877L897 875L899 872L899 860L904 855L908 853L914 855L930 833L930 827L928 825L920 824L913 820L905 816L907 809L901 804L897 799L898 796L895 792L893 778L891 775L890 771L893 757L893 751L889 745L889 741L895 745L900 752L902 760L900 770L902 778L904 781L909 782L908 779L913 779L911 774L918 775L917 772L919 772L921 772L921 770L927 769L934 765L932 764L930 760L932 759L931 757L936 750L938 742L948 740L953 742L960 741L959 732L958 730L954 732L954 726L952 722L960 721L959 719L962 719L963 717L968 716L967 710L963 706L947 703L937 704L934 706L929 703L924 697L903 689L901 690L868 675L849 669L841 663L833 661L832 659L823 654L815 651L808 652L806 650L802 650L794 646L792 641L788 639L776 638L764 634L762 632L763 627L761 624L754 615L752 616L733 610L717 610L711 608L707 609L699 604L689 600L679 603L673 602L665 597L677 599L677 597L674 591L676 591L675 589L668 584L657 571L648 567L637 571L629 571L620 567L615 560L611 543L611 536L618 518L626 510L635 490L639 466L638 463L638 454L634 454L631 459L630 459L627 456L629 454L627 452L636 441L640 432L640 431L626 440L617 440L623 439L632 425L629 426L629 424L636 419L636 418L634 418L635 413L641 408L635 410L636 401L633 396L632 391L626 392L625 397L623 396L622 390L623 379L615 383L612 390L594 384L590 386L589 385L588 386L589 382L582 388L580 382L575 379L582 376L577 373L580 371L580 370L578 370L579 369L591 369L584 365L592 366L598 362L596 355L606 350L600 347L601 346L610 345L608 344L615 338L615 337L610 335L610 333L614 330L608 325L611 324L605 319L599 315L594 310L606 315L612 319L621 315L620 313L622 310L626 307L623 306L624 304L620 301L622 300L619 298L620 298L619 294L621 295L619 290L614 286L616 284L627 287L629 280L632 276L630 269L632 271L632 263L634 263L634 262L634 260L629 256L631 256L631 254L633 254L629 251L625 253L623 252L623 251L629 249L623 247L619 245L622 244L621 243L614 241L623 234L630 230L636 223L644 219L645 211L650 202L653 188L655 185L665 179L665 176L658 161L660 142L665 125L672 113L678 106L678 96L681 91L677 86L669 71L657 66L653 51L654 39L653 38L645 40L635 38L620 45L607 47L598 44L596 41L600 21L598 21L595 26L572 24L565 22L565 20L551 25L521 60L512 73L498 112L492 123L486 141L479 153L474 157L461 159L455 167L451 168L449 171L442 174L441 176L444 178L444 180L443 184L440 187L440 193L429 195L424 198L421 202L414 205L413 206L414 211L410 216L409 223L406 228L387 233L383 232L378 235L359 239L346 239L343 240L341 241L340 248L342 251L342 256L327 256L325 261L324 263L331 275L329 288L327 293L318 295L309 301L300 301L276 308L246 322L235 324L229 327L222 327L221 330L207 331L200 353L197 355L192 361L184 363L176 370L162 372L150 370L145 364L139 354L138 356L137 364L135 365L126 363L122 364L114 364L113 365L116 370L127 380L123 384L116 386L105 382L97 383L90 386L87 391L79 397L69 399L59 405L55 414L55 420L58 423L57 430L58 433L54 437L45 440L35 446L32 453L32 457L38 451L44 450L49 450L63 455L76 464L85 466L90 470L94 474L95 477L102 484L102 486L105 490L103 493L107 501L115 507L120 508L131 502L141 501L142 505L146 509L147 515L151 519L156 518L161 520L158 525L158 528L160 530L157 533L158 537L166 543L170 544L174 544L178 539L180 540L181 539L183 540L190 538L195 539L199 534L205 534L211 529L230 533L235 536L241 536L240 530L244 525L253 523L251 519L254 517L260 518L263 516L273 517L276 518L287 526L291 539L300 547L303 553L300 559L301 561L309 561L314 562L313 568L308 574L310 579L306 583L310 590L312 590L308 600L313 608L314 612L318 613L318 617L332 628L336 627L340 631L346 632L357 628L363 633L360 651L362 652L358 660L360 661L357 663L353 662L352 670L347 680L334 693L333 701L334 701L339 695L344 695L348 693L348 694L351 693L351 696L354 694L362 688L373 675L378 672L392 668L399 668L391 671L406 670L408 671L408 673L409 674L408 675L414 676L412 677L414 677L416 676L416 677L418 676L419 675L420 675L420 677L416 681L416 682L408 682L402 684L411 687L400 690L411 691L415 690L416 690L415 691L416 691L415 692L417 692L416 693L420 693L407 699L422 697L417 700L423 698L420 702L425 701L420 706L408 709L417 711L409 713L414 714L409 717L413 716L418 717L403 722L400 727L404 724L403 728L406 725L407 727L409 728L409 731L411 730L412 731L424 722L422 724L423 724L431 720L432 720L431 722L432 723L436 720L441 714L443 713L442 716L446 715L444 718L446 718L444 720L446 719L442 725L437 728L441 729L433 732L440 733L438 735L448 731L443 736L451 732L457 733L461 725L463 725L466 723L463 728L468 724L467 727L469 726L468 728L469 732L467 736L471 736L478 731L479 727L480 727L481 729L479 742L489 728L487 734L488 747L490 743L492 737L496 733L494 737L496 743L495 752L500 744L501 744L500 756L502 753L504 756L509 748L510 758L511 758L514 753L516 754L520 752L532 759L534 755L535 755L538 758L539 752L542 748L543 750L548 767L549 770L555 771L559 768L560 759"/></defs><use href="#traza-heroe" class="traza-brillo"/><use href="#traza-heroe" class="traza"/></svg></div>
+<div class="marco3d"><img src="assets/portada/canfranc3d-45k-480.webp" srcset="assets/portada/canfranc3d-45k-480.webp 480w, assets/portada/canfranc3d-45k-720.webp 720w, assets/portada/canfranc3d-45k-960.webp 960w" sizes="(min-width: 960px) 430px, 76vw" alt="Lámina de finisher de CanfrancCanfranc, Maratón 45K: el recorrido en 3D sobre el Pirineo real, con el nombre y el tiempo del corredor" width="1200" height="1600" fetchpriority="high" decoding="async"></div>
+<figcaption>CanfrancCanfranc · Maratón 45K · 45 km · 3.700 m D+</figcaption>
+</figure>
 </div>
+</section>
 
-<section id="carreras"><div class="envoltura">
-<h2>Carreras con lámina oficial</h2>
-<p class="intro">Trail y ciclismo, en España, Portugal y el Pirineo francés, hechas con cada organización (parte de cada venta es para el club). En la página de cada carrera escribes el nombre y el tiempo y ves la lámina antes de pedirla.</p>
-<div class="socias">
-<article class="ficha">
-<img src="tu-lamina/img/canfranc3d-45k.jpg" alt="Lámina oficial de CanfrancCanfranc: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
-<div class="cuerpo"><h3>CanfrancCanfranc</h3><p class="lugar">Canfranc · Pyrenees, Spain</p>
-<div class="acciones"><a href="tu-lamina/canfranc">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4599445739">En la tienda</a></div></div>
-</article>
-<article class="ficha">
-<img src="tu-lamina/img/marao-utme.jpg" alt="Lámina oficial de Ultra Trail do Marão: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
-<div class="cuerpo"><h3>Ultra Trail do Marão</h3><p class="lugar">Serra do Marão, Portugal</p>
-<div class="acciones"><a href="tu-lamina/marao">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4603336295">En la tienda</a></div></div>
-</article>
-<article class="ficha">
-<img src="tu-lamina/img/acantilados-3d.jpg" alt="Lámina oficial de Acantilados del Norte: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
-<div class="cuerpo"><h3>Acantilados del Norte</h3><p class="lugar">La Palma · Skyrunner World Series</p>
-<div class="acciones"><a href="tu-lamina/acantilados">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4603495923">En la tienda</a></div></div>
-</article>
-<article class="ficha">
-<img src="tu-lamina/img/remences.jpg" alt="Lámina oficial de La Remences: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
-<div class="cuerpo"><h3>La Remences</h3><p class="lugar">Garrotxa · Catalonia, cycling</p>
-<div class="acciones"><a href="tu-lamina/remences">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4609614500">En la tienda</a></div></div>
-</article>
-<article class="ficha">
-<img src="tu-lamina/img/mijas.jpg" alt="Lámina oficial de Maratón Sierra de Mijas: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
-<div class="cuerpo"><h3>Maratón Sierra de Mijas</h3><p class="lugar">Mijas · Málaga, Spain</p>
-<div class="acciones"><a href="tu-lamina/mijas">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4615722754">En la tienda</a></div></div>
-</article>
-<article class="ficha">
-<img src="tu-lamina/img/falco-ultra.jpg" alt="Lámina oficial de FalcoTrail: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
-<div class="cuerpo"><h3>FalcoTrail</h3><p class="lugar">Sierra del Quípar · Murcia, Spain</p>
-<div class="acciones"><a href="tu-lamina/falcotrail">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4613207576">En la tienda</a></div></div>
-</article>
-<article class="ficha">
-<img src="tu-lamina/img/saomacario.jpg" alt="Lámina oficial de São Macário Ultra Trail: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
-<div class="cuerpo"><h3>São Macário Ultra Trail</h3><p class="lugar">São Pedro do Sul, Portugal</p>
-<div class="acciones"><a href="tu-lamina/saomacario">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4616483284">En la tienda</a></div></div>
-</article>
-<article class="ficha">
-<img src="tu-lamina/img/pitchfork.jpg" alt="Lámina oficial de The Devil's Pitchfork: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
-<div class="cuerpo"><h3>The Devil's Pitchfork</h3><p class="lugar">PyrActif Cycling · Pyrenees, France</p>
-<div class="acciones"><a href="https://mattehaven.etsy.com/listing/4622376624">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4622376624">En la tienda</a></div></div>
-</article>
-<article class="ficha">
-<img src="tu-lamina/img/ancares-gf.jpg" alt="Lámina oficial de Ancares Cycling Marathon: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
-<div class="cuerpo"><h3>Ancares Cycling Marathon</h3><p class="lugar">Os Ancares · Galicia, cycling</p>
-<div class="acciones"><a href="tu-lamina/ancares">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4610455741">En la tienda</a></div></div>
-</article>
-<article class="ficha">
-<img src="tu-lamina/img/fudenas.jpg" alt="Lámina oficial de FudeNaS: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
-<div class="cuerpo"><h3>FudeNaS</h3><p class="lugar">Fuerteventura · Canary Islands, MTB</p>
-<div class="acciones"><a href="tu-lamina/fudenas">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4625583788">En la tienda</a></div></div>
-</article>
-<article class="ficha">
-<img src="tu-lamina/img/umadeira-55k.jpg" alt="Lámina oficial de Ultra Madeira: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy">
-<div class="cuerpo"><h3>Ultra Madeira</h3><p class="lugar">Madeira Island, Portugal</p>
-<div class="acciones"><a href="tu-lamina/ultramadeira">Ver la suya</a><a href="https://mattehaven.etsy.com/listing/4625584552">En la tienda</a></div></div>
-</article>
+<div class="cinta" aria-hidden="true"><div class="cinta-pista"><div class="cinta-grupo"><span>CanfrancCanfranc</span><i></i><span>Ultra Trail do Marão</span><i></i><span>Acantilados del Norte</span><i></i><span>La Remences</span><i></i><span>Maratón Sierra de Mijas</span><i></i><span>FalcoTrail</span><i></i><span>São Macário Ultra Trail</span><i></i><span>The Devil's Pitchfork</span><i></i><span>Ancares Cycling Marathon</span><i></i><span>FudeNaS</span><i></i><span>Ultra Madeira</span><i></i></div><div class="cinta-grupo"><span>CanfrancCanfranc</span><i></i><span>Ultra Trail do Marão</span><i></i><span>Acantilados del Norte</span><i></i><span>La Remences</span><i></i><span>Maratón Sierra de Mijas</span><i></i><span>FalcoTrail</span><i></i><span>São Macário Ultra Trail</span><i></i><span>The Devil's Pitchfork</span><i></i><span>Ancares Cycling Marathon</span><i></i><span>FudeNaS</span><i></i><span>Ultra Madeira</span><i></i></div></div></div>
+
+<section class="claro sec-pad" id="como"><div class="caja oferta-rej">
+<div class="oferta-izq">
+<div class="titulo" data-mano><span class="mano">en cuatro líneas</span><h2 class="cartel"><span class="lin" data-rev><span style="--i:0">Lo que</span></span> <span class="lin" data-rev><span style="--i:1">regalas</span></span></h2></div>
+<ul class="precios"><li><b>39 €</b><span>lámina de 30 × 40 cm</span></li><li><b>69 €</b><span>enmarcada, lista para colgar</span></li><li><b>19 €</b><span>archivo digital en 24 horas</span></li><li><b>Envío</b><span>incluido</span></li></ul>
+<p class="nota-precios">La mayoría de las láminas, también en lienzo (79 €) y en metal (89 €).</p>
 </div>
+<ol class="lineas"><li data-rev style="--i:0"><strong>Su carrera, con su nombre y su tiempo oficial.</strong><p>El recorrido que corrió, en 3D sobre el relieve real, dibujado con el track oficial.</p></li><li data-rev style="--i:1"><strong>Ves la prueba antes de imprimirla.</strong><p>Si hay un error, la rehacemos gratis.</p></li><li data-rev style="--i:2"><strong>En casa en 6-7 días.</strong><p><span data-hasta="2026-12-10">Para Navidad, pídela hasta el jueves 10 de diciembre. </span>En digital la tienes en 24 horas, con una tarjeta para regalarla. Etsy te dice la fecha de entrega para tu dirección antes de pagar.</p></li><li data-rev style="--i:3"><strong>Solo escribe su nombre.</strong><p>El tiempo lo buscamos nosotros en la clasificación oficial.</p></li></ol>
 </div></section>
 
-<section id="regalo"><div class="envoltura organizadores">
-<div>
-<h2>Si es un regalo</h2>
-<p class="intro">Llegar a meta merece algo más que una medalla en un cajón: la carrera para la que entrenó, en su pared y con su nombre.</p>
+<section class="sec-pad" id="carreras"><div class="caja">
+<div class="fama-cab">
+<div><div class="titulo" data-mano><span class="mano">salón de la fama</span><h2 class="cartel"><span class="lin" data-rev><span style="--i:0">Carreras con</span></span> <span class="lin" data-rev><span style="--i:1">lámina oficial</span></span></h2></div><p class="intro">Trail y ciclismo, en España, Portugal y el Pirineo francés, hechas con cada organización (parte de cada venta es para el club). Escribe su nombre, elige la carrera y mira la lámina antes de pedirla.</p></div>
+<div class="tu-nombre"><label for="tu-nombre">Su nombre</label><input id="tu-nombre" type="text" maxlength="40" autocomplete="name" placeholder="p. ej. Ana Gil" aria-describedby="tu-nombre-ayuda"><p id="tu-nombre-ayuda">Escribe su nombre y pulsa «Ver la suya» en su carrera: la lámina se abre ya con el nombre. No se envía ni se guarda.</p></div>
 </div>
-<ul class="lista">
-<li>¿No sabes su tiempo? Escribe solo su nombre: lo buscamos nosotros en la clasificación oficial.</li>
-<li>Antes de imprimirla te mandamos la prueba, y si hay un error la rehacemos gratis.</li>
-<li>¿Vas con prisa? En archivo digital la tienes en 24 horas, con una tarjeta para regalarla.</li>
-<li>Lámina de 30 × 40 cm por 39 €, enmarcada por 69 € o en digital por 19 €, con el envío incluido. Casi todas las carreras, también en lienzo y en metal.</li>
+<ul class="rejilla">
+<li class="obra" data-rev style="--i:0"><a class="ver" href="tu-lamina/canfranc" data-tu="tu-lamina/canfranc">
+<div class="marco"><img src="assets/portada/canfranc3d-45k-360.webp" srcset="assets/portada/canfranc3d-45k-360.webp 360w, assets/portada/canfranc3d-45k-640.webp 640w" sizes="(min-width: 1120px) 300px, (min-width: 720px) 30vw, 46vw" alt="Lámina oficial de CanfrancCanfranc: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<h3>CanfrancCanfranc</h3><p class="lugar">Canfranc · Pirineo aragonés</p></a>
+<div class="acc"><a class="suya" href="tu-lamina/canfranc" data-tu="tu-lamina/canfranc" aria-label="Ver la suya · CanfrancCanfranc">Ver la suya</a><a class="etsy" href="https://mattehaven.etsy.com/listing/4599445739" aria-label="En la tienda · CanfrancCanfranc">En la tienda</a></div></li>
+<li class="obra" data-rev style="--i:1"><a class="ver" href="tu-lamina/marao" data-tu="tu-lamina/marao">
+<div class="marco"><img src="assets/portada/marao-utme-360.webp" srcset="assets/portada/marao-utme-360.webp 360w, assets/portada/marao-utme-640.webp 640w" sizes="(min-width: 1120px) 300px, (min-width: 720px) 30vw, 46vw" alt="Lámina oficial de Ultra Trail do Marão: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<h3>Ultra Trail do Marão</h3><p class="lugar">Serra do Marão · Portugal</p></a>
+<div class="acc"><a class="suya" href="tu-lamina/marao" data-tu="tu-lamina/marao" aria-label="Ver la suya · Ultra Trail do Marão">Ver la suya</a><a class="etsy" href="https://mattehaven.etsy.com/listing/4603336295" aria-label="En la tienda · Ultra Trail do Marão">En la tienda</a></div></li>
+<li class="obra" data-rev style="--i:2"><a class="ver" href="tu-lamina/acantilados" data-tu="tu-lamina/acantilados">
+<div class="marco"><img src="assets/portada/acantilados-3d-360.webp" srcset="assets/portada/acantilados-3d-360.webp 360w, assets/portada/acantilados-3d-640.webp 640w" sizes="(min-width: 1120px) 300px, (min-width: 720px) 30vw, 46vw" alt="Lámina oficial de Acantilados del Norte: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<h3>Acantilados del Norte</h3><p class="lugar">La Palma · Skyrunner World Series</p></a>
+<div class="acc"><a class="suya" href="tu-lamina/acantilados" data-tu="tu-lamina/acantilados" aria-label="Ver la suya · Acantilados del Norte">Ver la suya</a><a class="etsy" href="https://mattehaven.etsy.com/listing/4603495923" aria-label="En la tienda · Acantilados del Norte">En la tienda</a></div></li>
+<li class="obra" data-rev style="--i:3"><a class="ver" href="tu-lamina/remences" data-tu="tu-lamina/remences">
+<div class="marco"><img src="assets/portada/remences-360.webp" srcset="assets/portada/remences-360.webp 360w, assets/portada/remences-640.webp 640w" sizes="(min-width: 1120px) 300px, (min-width: 720px) 30vw, 46vw" alt="Lámina oficial de La Remences: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<h3>La Remences</h3><p class="lugar">Garrotxa · Cataluña, ciclismo</p></a>
+<div class="acc"><a class="suya" href="tu-lamina/remences" data-tu="tu-lamina/remences" aria-label="Ver la suya · La Remences">Ver la suya</a><a class="etsy" href="https://mattehaven.etsy.com/listing/4609614500" aria-label="En la tienda · La Remences">En la tienda</a></div></li>
+<li class="obra" data-rev style="--i:0"><a class="ver" href="tu-lamina/mijas" data-tu="tu-lamina/mijas">
+<div class="marco"><img src="assets/portada/mijas-360.webp" srcset="assets/portada/mijas-360.webp 360w, assets/portada/mijas-640.webp 640w" sizes="(min-width: 1120px) 300px, (min-width: 720px) 30vw, 46vw" alt="Lámina oficial de Maratón Sierra de Mijas: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<h3>Maratón Sierra de Mijas</h3><p class="lugar">Mijas · Málaga</p></a>
+<div class="acc"><a class="suya" href="tu-lamina/mijas" data-tu="tu-lamina/mijas" aria-label="Ver la suya · Maratón Sierra de Mijas">Ver la suya</a><a class="etsy" href="https://mattehaven.etsy.com/listing/4615722754" aria-label="En la tienda · Maratón Sierra de Mijas">En la tienda</a></div></li>
+<li class="obra" data-rev style="--i:1"><a class="ver" href="tu-lamina/falcotrail" data-tu="tu-lamina/falcotrail">
+<div class="marco"><img src="assets/portada/falco-ultra-360.webp" srcset="assets/portada/falco-ultra-360.webp 360w, assets/portada/falco-ultra-640.webp 640w" sizes="(min-width: 1120px) 300px, (min-width: 720px) 30vw, 46vw" alt="Lámina oficial de FalcoTrail: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<h3>FalcoTrail</h3><p class="lugar">Sierra del Quípar · Murcia</p></a>
+<div class="acc"><a class="suya" href="tu-lamina/falcotrail" data-tu="tu-lamina/falcotrail" aria-label="Ver la suya · FalcoTrail">Ver la suya</a><a class="etsy" href="https://mattehaven.etsy.com/listing/4613207576" aria-label="En la tienda · FalcoTrail">En la tienda</a></div></li>
+<li class="obra" data-rev style="--i:2"><a class="ver" href="tu-lamina/saomacario" data-tu="tu-lamina/saomacario">
+<div class="marco"><img src="assets/portada/saomacario-360.webp" srcset="assets/portada/saomacario-360.webp 360w, assets/portada/saomacario-640.webp 640w" sizes="(min-width: 1120px) 300px, (min-width: 720px) 30vw, 46vw" alt="Lámina oficial de São Macário Ultra Trail: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<h3>São Macário Ultra Trail</h3><p class="lugar">São Pedro do Sul · Portugal</p></a>
+<div class="acc"><a class="suya" href="tu-lamina/saomacario" data-tu="tu-lamina/saomacario" aria-label="Ver la suya · São Macário Ultra Trail">Ver la suya</a><a class="etsy" href="https://mattehaven.etsy.com/listing/4616483284" aria-label="En la tienda · São Macário Ultra Trail">En la tienda</a></div></li>
+<li class="obra" data-rev style="--i:3"><a class="ver" href="https://mattehaven.etsy.com/listing/4622376624">
+<div class="marco"><img src="assets/portada/pitchfork-360.webp" srcset="assets/portada/pitchfork-360.webp 360w, assets/portada/pitchfork-640.webp 640w" sizes="(min-width: 1120px) 300px, (min-width: 720px) 30vw, 46vw" alt="Lámina oficial de The Devil's Pitchfork: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<h3>The Devil's Pitchfork</h3><p class="lugar">PyrActif Cycling · Pirineo francés</p></a>
+<div class="acc"><a class="suya" href="https://mattehaven.etsy.com/listing/4622376624">Verla en la tienda</a></div></li>
+<li class="obra" data-rev style="--i:0"><a class="ver" href="tu-lamina/ancares" data-tu="tu-lamina/ancares">
+<div class="marco"><img src="assets/portada/ancares-gf-360.webp" srcset="assets/portada/ancares-gf-360.webp 360w, assets/portada/ancares-gf-640.webp 640w" sizes="(min-width: 1120px) 300px, (min-width: 720px) 30vw, 46vw" alt="Lámina oficial de Ancares Cycling Marathon: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<h3>Ancares Cycling Marathon</h3><p class="lugar">Os Ancares · Galicia, ciclismo</p></a>
+<div class="acc"><a class="suya" href="tu-lamina/ancares" data-tu="tu-lamina/ancares" aria-label="Ver la suya · Ancares Cycling Marathon">Ver la suya</a><a class="etsy" href="https://mattehaven.etsy.com/listing/4610455741" aria-label="En la tienda · Ancares Cycling Marathon">En la tienda</a></div></li>
+<li class="obra" data-rev style="--i:1"><a class="ver" href="tu-lamina/fudenas" data-tu="tu-lamina/fudenas">
+<div class="marco"><img src="assets/portada/fudenas-360.webp" srcset="assets/portada/fudenas-360.webp 360w, assets/portada/fudenas-640.webp 640w" sizes="(min-width: 1120px) 300px, (min-width: 720px) 30vw, 46vw" alt="Lámina oficial de FudeNaS: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<h3>FudeNaS</h3><p class="lugar">Fuerteventura · Canarias, BTT</p></a>
+<div class="acc"><a class="suya" href="tu-lamina/fudenas" data-tu="tu-lamina/fudenas" aria-label="Ver la suya · FudeNaS">Ver la suya</a><a class="etsy" href="https://mattehaven.etsy.com/listing/4625583788" aria-label="En la tienda · FudeNaS">En la tienda</a></div></li>
+<li class="obra" data-rev style="--i:2"><a class="ver" href="tu-lamina/ultramadeira" data-tu="tu-lamina/ultramadeira">
+<div class="marco"><img src="assets/portada/umadeira-55k-360.webp" srcset="assets/portada/umadeira-55k-360.webp 360w, assets/portada/umadeira-55k-640.webp 640w" sizes="(min-width: 1120px) 300px, (min-width: 720px) 30vw, 46vw" alt="Lámina oficial de Ultra Madeira: el recorrido en 3D sobre el relieve real, con el nombre y el tiempo de quien la terminó" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<h3>Ultra Madeira</h3><p class="lugar">Isla de Madeira · Portugal</p></a>
+<div class="acc"><a class="suya" href="tu-lamina/ultramadeira" data-tu="tu-lamina/ultramadeira" aria-label="Ver la suya · Ultra Madeira">Ver la suya</a><a class="etsy" href="https://mattehaven.etsy.com/listing/4625584552" aria-label="En la tienda · Ultra Madeira">En la tienda</a></div></li>
+<li class="obra otra" data-rev style="--i:3"><a class="ver" href="https://mattehaven.etsy.com/listing/4599636351"><div class="marco"><h3>¿No está su carrera?</h3><p>Dinos la carrera en Etsy: la dibujamos con su track oficial, con su nombre y su tiempo, y te mandamos la prueba antes.</p><span>Pedirla a medida<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a></li>
 </ul>
+<article class="tarjeta" aria-labelledby="tarjeta-titulo">
+<div class="tarjeta-datos" data-mano>
+<span class="mano">el recorrido</span>
+<h2 class="cartel" id="tarjeta-titulo">CanfrancCanfranc <br>Ultra 100K</h2>
+<p class="lugar">Canfranc · Pirineo aragonés</p>
+<dl class="datos">
+<div><dt>Distancia</dt><dd>100<small>km</small></dd></div>
+<div><dt>Desnivel positivo</dt><dd>8.848<small>m</small><span class="nota">la altura del Everest</span></dd></div>
+<div class="cumbres"><dt>Cumbres en la lámina</dt><dd><ul><li><span>Peña Collarada</span><span>2.886 m</span></li><li><span>Pico de Aspe</span><span>2.645 m</span></li><li><span>La Moleta</span><span>2.572 m</span></li><li><span>Vértice de Anayet</span><span>2.559 m</span></li><li><span>Larraca</span><span>2.278 m</span></li></ul></dd></div>
+</dl>
+<div class="botones"><a class="boton lleno iman" href="tu-lamina/canfranc#d=canfranc3d-100k" data-tu="tu-lamina/canfranc#d=canfranc3d-100k">Ver la suya, con su nombre<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="boton linea" href="https://mattehaven.etsy.com/listing/4599445739">En la tienda<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+</div>
+<div class="tarjeta-mapa">
+<svg class="mapa dibujable" viewBox="0 0 1000 720" role="img" aria-label="CanfrancCanfranc Ultra 100K: 100 km">
+<defs><path id="traza-tarjeta" pathLength="1" vector-effect="non-scaling-stroke" d="M420 430L420 432L417 433L414 444L413 437L413 441L409 437L410 440L408 439L406 444L407 440L404 445L403 439L402 444L402 441L401 444L401 442L399 448L400 455L402 460L399 457L400 459L399 457L400 461L398 457L397 461L396 456L395 458L393 455L391 449L390 450L390 448L389 450L390 447L388 449L388 453L387 451L386 453L380 455L382 448L377 451L381 446L378 448L380 442L377 438L375 432L370 429L367 423L367 424L365 423L367 424L363 423L366 425L362 425L362 426L359 424L355 431L352 434L351 438L348 441L349 442L342 458L337 464L333 465L333 467L330 469L326 479L320 484L320 486L317 490L308 489L301 494L296 500L295 506L282 517L282 523L288 526L289 529L296 537L298 537L302 541L303 554L316 575L315 579L319 579L321 583L321 587L318 591L322 603L327 607L329 609L330 608L331 610L334 610L333 612L337 611L334 613L337 612L335 614L338 614L337 615L338 614L339 616L343 616L346 619L346 617L352 616L355 621L361 622L363 624L362 619L359 618L359 615L364 616L363 614L365 615L369 614L367 615L371 614L377 620L376 623L377 624L376 626L378 628L376 631L379 632L383 624L380 611L382 598L381 587L388 584L389 586L391 586L393 585L394 583L397 585L396 584L404 565L410 562L414 563L413 565L418 567L423 566L423 569L425 569L425 574L420 577L422 580L424 581L424 582L434 589L435 594L439 596L444 597L448 594L450 595L453 597L455 597L457 600L459 599L466 599L475 602L491 605L518 604L533 611L535 613L535 615L537 616L544 618L548 617L551 618L553 621L563 627L567 625L576 612L578 615L582 617L585 622L589 622L592 624L609 628L614 631L619 637L626 639L627 638L630 641L635 640L638 641L641 648L643 648L645 651L655 655L656 658L660 660L666 657L666 655L663 653L660 648L662 641L665 640L667 638L678 638L686 636L694 628L701 626L703 622L708 618L710 611L708 605L709 599L707 596L704 596L703 591L703 588L698 583L697 575L689 571L687 566L683 566L680 560L670 558L669 561L665 560L664 563L656 568L649 564L646 564L643 565L641 563L636 565L631 564L627 570L622 571L615 570L610 567L606 568L604 566L603 567L597 566L595 563L596 553L606 534L605 530L602 531L598 527L602 521L599 521L599 519L603 517L603 514L606 507L605 497L602 496L593 503L582 508L560 502L546 502L521 490L517 486L513 487L514 472L520 469L521 472L530 473L533 474L533 476L540 473L540 470L543 468L543 463L546 461L549 461L554 454L554 451L545 448L546 445L542 441L540 433L541 424L539 421L543 424L544 434L547 436L546 434L548 434L547 432L550 433L549 432L555 429L555 425L557 421L565 420L562 414L568 412L568 409L571 409L580 404L597 407L611 408L620 404L624 401L644 403L646 401L652 400L664 406L673 408L677 411L697 413L704 417L706 418L710 417L710 415L725 406L733 405L736 406L740 412L744 414L744 423L746 425L747 428L750 429L753 422L752 418L756 404L754 397L749 392L750 387L758 383L758 378L761 377L765 376L771 378L777 370L776 360L773 358L776 349L780 343L778 336L775 330L775 325L778 319L777 315L779 312L782 313L785 310L785 308L786 307L783 298L778 301L770 310L768 322L766 325L761 326L751 324L742 325L732 322L719 317L706 319L696 318L689 313L683 314L679 311L672 309L654 308L647 306L645 304L639 303L634 300L627 301L625 297L623 296L622 297L621 304L612 317L605 319L598 323L591 322L583 323L582 322L584 312L580 303L571 300L558 302L552 299L537 298L526 289L528 284L532 284L532 281L529 279L528 276L522 277L517 271L518 266L524 263L522 260L522 256L525 256L528 253L531 248L530 245L520 249L514 249L506 251L502 256L494 261L492 267L488 270L485 272L486 271L480 271L471 282L468 283L465 291L461 297L458 298L459 302L457 304L453 305L450 309L445 313L441 312L444 312L446 306L448 305L447 304L450 301L447 301L449 297L447 294L444 296L443 290L440 291L440 294L433 291L431 292L432 291L429 293L427 290L429 289L427 288L428 287L432 287L430 285L435 284L434 281L437 280L436 279L439 278L438 277L441 275L439 274L441 273L439 271L433 266L440 269L443 267L445 264L443 262L444 262L442 261L443 259L441 257L446 257L448 248L446 246L447 245L444 244L446 243L441 241L451 232L456 223L471 219L488 210L490 208L497 208L503 205L514 191L517 189L522 184L532 179L533 165L540 160L545 151L550 149L547 135L542 134L528 126L519 125L511 127L509 126L506 127L501 123L493 122L490 120L484 113L481 111L478 106L473 103L468 96L464 94L462 75L475 76L473 67L466 60L455 61L440 71L435 72L436 73L432 76L432 80L425 87L425 94L423 103L410 110L407 119L400 120L394 124L393 130L386 135L389 144L389 148L392 156L399 155L404 151L410 149L411 152L407 158L406 163L397 172L394 185L390 195L391 199L389 204L386 209L383 209L385 212L380 216L381 218L379 219L377 223L374 224L368 228L366 236L342 241L343 246L338 246L337 248L339 252L338 258L341 256L343 256L343 257L331 262L318 265L312 268L294 273L291 281L283 287L274 287L269 281L268 285L260 285L265 290L264 292L254 292L248 297L240 300L239 303L240 310L232 314L230 317L231 324L227 337L227 341L223 351L220 357L220 364L214 376L218 377L223 374L229 373L235 375L236 374L234 374L232 372L234 368L238 365L238 362L235 362L239 352L252 347L265 352L272 350L279 351L281 351L284 348L289 348L295 345L307 347L312 343L314 340L319 341L321 343L323 347L328 353L327 356L332 357L330 360L330 366L332 374L338 379L345 383L345 384L349 389L349 392L347 392L344 399L340 403L340 405L346 404L357 396L366 395L366 397L371 397L364 400L367 402L364 402L369 402L369 403L370 403L366 405L371 405L369 406L372 406L366 409L370 409L366 410L368 411L366 412L370 412L365 413L363 416L365 415L364 416L366 415L367 418L372 414L377 413L379 411L378 412L380 412L378 412L380 413L376 416L378 416L375 418L381 417L379 419L384 418L385 415L387 414L386 416L388 415L388 419L390 419L392 416L391 422L395 416L394 419L395 423L397 418L398 420L397 424L399 421L399 426L400 425L401 426L402 423L403 426L406 424L410 426L412 424L413 426L414 423L417 430L421 432L421 433"/></defs><use href="#traza-tarjeta" class="traza-brillo"/><use href="#traza-tarjeta" class="traza"/>
+<g class="cima"><path d="M569.2 620.2L577.2 605.2L585.2 620.2Z"/><text x="591.2" y="601.2">Peña Collarada <tspan>2.886 m</tspan></text></g>
+<g class="cima"><path d="M228.8 380.1L236.8 365.1L244.8 380.1Z"/><text x="250.8" y="361.1">Pico de Aspe <tspan>2.645 m</tspan></text></g>
+<g class="cima"><path d="M508.4 491.9L516.4 476.9L524.4 491.9Z"/><text x="530.4" y="472.9">La Moleta <tspan>2.572 m</tspan></text></g>
+<g class="cima"><path d="M604.3 324.0L612.3 309.0L620.3 324.0Z"/><text x="626.3" y="305.0">Vértice de Anayet <tspan>2.559 m</tspan></text></g>
+<g class="cima"><path d="M447.5 231.1L455.5 216.1L463.5 231.1Z"/><text x="469.5" y="212.1">Larraca <tspan>2.278 m</tspan></text></g>
+<circle class="salida" cx="420.4" cy="429.7" r="9"/>
+</svg>
+<svg class="perfil dibujable" viewBox="0 0 1000 190" aria-hidden="true"><path class="area" d="M0 150L0.0 138.3L5.0 137.0L10.1 133.8L15.1 130.8L20.1 128.3L25.1 123.6L30.2 118.9L35.2 114.1L40.2 110.0L45.2 105.4L50.3 102.8L55.3 99.7L60.3 91.7L65.3 77.6L70.4 73.2L75.4 85.6L80.4 97.7L85.4 103.8L90.5 106.0L95.5 109.9L100.5 114.9L105.5 114.6L110.6 114.5L115.6 113.4L120.6 118.1L125.6 124.0L130.7 129.3L135.7 135.2L140.7 141.4L145.7 146.6L150.8 150.0L155.8 148.8L160.8 147.8L165.8 142.6L170.9 135.3L175.9 127.9L180.9 117.6L185.9 107.8L191.0 94.5L196.0 77.5L201.0 66.5L206.0 58.9L211.1 50.0L216.1 43.9L221.1 41.0L226.1 30.2L231.2 20.0L236.2 33.6L241.2 36.1L246.2 32.0L251.3 33.9L256.3 36.9L261.3 42.4L266.3 49.1L271.4 58.5L276.4 61.5L281.4 54.8L286.4 48.6L291.5 41.4L296.5 44.3L301.5 56.7L306.5 65.9L311.6 67.0L316.6 70.7L321.6 70.0L326.6 64.2L331.7 54.5L336.7 41.8L341.7 31.1L346.7 33.3L351.8 36.7L356.8 40.6L361.8 40.3L366.8 50.2L371.9 60.8L376.9 66.3L381.9 72.5L386.9 81.4L392.0 86.7L397.0 91.9L402.0 97.6L407.0 104.5L412.1 103.1L417.1 99.6L422.1 95.8L427.1 92.2L432.2 87.8L437.2 84.7L442.2 80.9L447.2 76.6L452.3 72.9L457.3 66.2L462.3 61.1L467.3 58.1L472.4 59.4L477.4 68.2L482.4 76.4L487.4 83.2L492.5 89.8L497.5 95.1L502.5 94.3L507.5 91.7L512.6 86.8L517.6 81.4L522.6 74.3L527.6 65.5L532.7 62.8L537.7 59.1L542.7 53.0L547.7 44.7L552.8 44.4L557.8 53.2L562.8 61.8L567.8 67.4L572.9 73.5L577.9 81.1L582.9 91.8L587.9 100.6L593.0 108.5L598.0 112.1L603.0 114.6L608.0 116.5L613.1 119.3L618.1 122.8L623.1 124.0L628.1 120.0L633.2 113.3L638.2 106.2L643.2 99.7L648.2 92.5L653.3 87.7L658.3 82.1L663.3 74.1L668.3 65.8L673.4 59.7L678.4 62.7L683.4 64.4L688.4 69.1L693.5 69.3L698.5 63.2L703.5 61.3L708.5 66.2L713.6 69.2L718.6 69.1L723.6 69.9L728.6 69.9L733.7 71.4L738.7 65.8L743.7 59.4L748.7 61.1L753.8 62.3L758.8 59.8L763.8 61.7L768.8 66.7L773.9 73.8L778.9 79.4L783.9 89.9L788.9 94.5L794.0 98.0L799.0 103.0L804.0 104.8L809.0 102.2L814.1 105.3L819.1 108.8L824.1 109.5L829.1 108.0L834.2 105.0L839.2 100.3L844.2 93.0L849.2 85.4L854.3 77.8L859.3 75.2L864.3 72.6L869.3 66.5L874.4 53.6L879.4 39.3L884.4 42.4L889.4 56.4L894.5 68.9L899.5 71.4L904.5 75.7L909.5 83.0L914.6 87.1L919.6 95.0L924.6 96.1L929.6 84.9L934.7 76.2L939.7 76.6L944.7 83.2L949.7 88.5L954.8 92.0L959.8 95.9L964.8 100.1L969.8 106.2L974.9 111.6L979.9 116.3L984.9 121.2L989.9 127.3L995.0 132.8L1000.0 137.9L1000 150Z"/><path class="borde" pathLength="1" vector-effect="non-scaling-stroke" d="M0.0 138.3L5.0 137.0L10.1 133.8L15.1 130.8L20.1 128.3L25.1 123.6L30.2 118.9L35.2 114.1L40.2 110.0L45.2 105.4L50.3 102.8L55.3 99.7L60.3 91.7L65.3 77.6L70.4 73.2L75.4 85.6L80.4 97.7L85.4 103.8L90.5 106.0L95.5 109.9L100.5 114.9L105.5 114.6L110.6 114.5L115.6 113.4L120.6 118.1L125.6 124.0L130.7 129.3L135.7 135.2L140.7 141.4L145.7 146.6L150.8 150.0L155.8 148.8L160.8 147.8L165.8 142.6L170.9 135.3L175.9 127.9L180.9 117.6L185.9 107.8L191.0 94.5L196.0 77.5L201.0 66.5L206.0 58.9L211.1 50.0L216.1 43.9L221.1 41.0L226.1 30.2L231.2 20.0L236.2 33.6L241.2 36.1L246.2 32.0L251.3 33.9L256.3 36.9L261.3 42.4L266.3 49.1L271.4 58.5L276.4 61.5L281.4 54.8L286.4 48.6L291.5 41.4L296.5 44.3L301.5 56.7L306.5 65.9L311.6 67.0L316.6 70.7L321.6 70.0L326.6 64.2L331.7 54.5L336.7 41.8L341.7 31.1L346.7 33.3L351.8 36.7L356.8 40.6L361.8 40.3L366.8 50.2L371.9 60.8L376.9 66.3L381.9 72.5L386.9 81.4L392.0 86.7L397.0 91.9L402.0 97.6L407.0 104.5L412.1 103.1L417.1 99.6L422.1 95.8L427.1 92.2L432.2 87.8L437.2 84.7L442.2 80.9L447.2 76.6L452.3 72.9L457.3 66.2L462.3 61.1L467.3 58.1L472.4 59.4L477.4 68.2L482.4 76.4L487.4 83.2L492.5 89.8L497.5 95.1L502.5 94.3L507.5 91.7L512.6 86.8L517.6 81.4L522.6 74.3L527.6 65.5L532.7 62.8L537.7 59.1L542.7 53.0L547.7 44.7L552.8 44.4L557.8 53.2L562.8 61.8L567.8 67.4L572.9 73.5L577.9 81.1L582.9 91.8L587.9 100.6L593.0 108.5L598.0 112.1L603.0 114.6L608.0 116.5L613.1 119.3L618.1 122.8L623.1 124.0L628.1 120.0L633.2 113.3L638.2 106.2L643.2 99.7L648.2 92.5L653.3 87.7L658.3 82.1L663.3 74.1L668.3 65.8L673.4 59.7L678.4 62.7L683.4 64.4L688.4 69.1L693.5 69.3L698.5 63.2L703.5 61.3L708.5 66.2L713.6 69.2L718.6 69.1L723.6 69.9L728.6 69.9L733.7 71.4L738.7 65.8L743.7 59.4L748.7 61.1L753.8 62.3L758.8 59.8L763.8 61.7L768.8 66.7L773.9 73.8L778.9 79.4L783.9 89.9L788.9 94.5L794.0 98.0L799.0 103.0L804.0 104.8L809.0 102.2L814.1 105.3L819.1 108.8L824.1 109.5L829.1 108.0L834.2 105.0L839.2 100.3L844.2 93.0L849.2 85.4L854.3 77.8L859.3 75.2L864.3 72.6L869.3 66.5L874.4 53.6L879.4 39.3L884.4 42.4L889.4 56.4L894.5 68.9L899.5 71.4L904.5 75.7L909.5 83.0L914.6 87.1L919.6 95.0L924.6 96.1L929.6 84.9L934.7 76.2L939.7 76.6L944.7 83.2L949.7 88.5L954.8 92.0L959.8 95.9L964.8 100.1L969.8 106.2L974.9 111.6L979.9 116.3L984.9 121.2L989.9 127.3L995.0 132.8L1000.0 137.9"/><text x="0" y="184">0 km</text><text x="1000" y="184" text-anchor="end">100 km</text></svg>
+<p class="pie-mapa">La línea es el track GPS oficial. La lámina añade el relieve real, la imagen aérea, las cumbres y el nombre.</p>
+</div>
+</article>
 </div></section>
 
-<section id="rutas"><div class="envoltura">
-<h2>Rutas, puertos y estaciones de esquí</h2>
+<section class="claro sec-pad" id="cifras"><div class="caja cifras-rej">
+<div><div class="titulo" data-mano><span class="mano">de momento</span><h2 class="cartel"><span class="lin" data-rev><span style="--i:0">En</span></span> <span class="lin" data-rev><span style="--i:1">cifras</span></span></h2></div><ul class="sellos"><li>Relieve del Instituto Geográfico Nacional, de Copernicus y de otros institutos cartográficos.</li><li>Cada lámina, revisada a mano antes de imprimirla.</li></ul></div>
+<ol class="hoja"><li data-rev style="--i:0"><span class="pos">01</span><span class="num"><span data-cuenta="11">11</span></span><span class="que">carreras con lámina oficial, hechas con su organización</span></li><li data-rev style="--i:1"><span class="pos">02</span><span class="num"><span data-cuenta="27">27</span></span><span class="que">recorridos dibujados, uno por distancia</span></li><li data-rev style="--i:2"><span class="pos">03</span><span class="num"><span data-cuenta="1650">1.650</span><small>km</small></span><span class="que">de carrera en esas láminas</span></li><li data-rev style="--i:3"><span class="pos">04</span><span class="num"><span data-cuenta="73000">73.000</span>+<small>m</small></span><span class="que">de desnivel positivo en esos recorridos: más de 8 veces el Everest</span></li><li data-rev style="--i:4"><span class="pos">05</span><span class="num"><span data-cuenta="17">17</span></span><span class="que">rutas a pie, puertos y estaciones de esquí, además</span></li></ol>
+</div></section>
+
+<section class="regalo sec-pad" id="regalo"><div class="caja">
+<h2 class="cartel" data-rev>¿Conoces a alguien que corrió…</h2>
+<p class="nombres"><a href="tu-lamina/canfranc">CanfrancCanfranc</a> <i aria-hidden="true">/</i> <a href="tu-lamina/marao">Ultra Trail do Marão</a> <i aria-hidden="true">/</i> <a href="tu-lamina/acantilados">Acantilados del Norte</a> <i aria-hidden="true">/</i> <a href="tu-lamina/remences">La Remences</a> <i aria-hidden="true">/</i> <a href="tu-lamina/mijas">Maratón Sierra de Mijas</a> <i aria-hidden="true">/</i> <a href="tu-lamina/falcotrail">FalcoTrail</a> <i aria-hidden="true">/</i> <a href="tu-lamina/saomacario">São Macário Ultra Trail</a> <i aria-hidden="true">/</i> <a href="https://mattehaven.etsy.com/listing/4622376624">The Devil's Pitchfork</a> <i aria-hidden="true">/</i> <a href="tu-lamina/ancares">Ancares Cycling Marathon</a> <i aria-hidden="true">/</i> <a href="tu-lamina/fudenas">FudeNaS</a> <i aria-hidden="true">/</i> <a href="tu-lamina/ultramadeira">Ultra Madeira</a>?</p>
+<div class="regalo-rej">
+<ul class="puntos"><li>¿No sabes su tiempo? Escribe solo su nombre: lo buscamos nosotros en la clasificación oficial.</li><li>Antes de imprimirla te mandamos la prueba, y si hay un error la rehacemos gratis.</li><li>¿Vas con prisa? En archivo digital la tienes en 24 horas, con una tarjeta para regalarla.</li><li>Lámina de 30 × 40 cm por 39 €, enmarcada por 69 € o en digital por 19 €, con el envío incluido. La mayoría, también en lienzo y en metal.</li></ul>
+<div class="botones"><a class="boton lleno iman" href="#carreras">Elegir su carrera<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+</div>
+</div></section>
+
+<section class="claro sec-pad" id="rutas"><div class="caja">
+<h2 class="cartel" style="font-size:clamp(40px,6vw,92px)"><span class="lin" data-rev><span style="--i:0">Rutas, puertos y estaciones de esquí</span></span></h2>
 <p class="intro">Para quien hizo el Camino, subió el Angliru o esquía cada invierno en el mismo valle: la misma lámina en 3D, con su nombre y sus fechas o su tiempo.</p>
 <div class="rutas">
 <div><h3>Rutas a pie</h3><ul><li><a href="tu-lamina/c2c">Coast to Coast</a></li><li><a href="tu-lamina/camino">Camino de Santiago</a></li><li><a href="tu-lamina/ebc">Everest Base Camp</a></li><li><a href="tu-lamina/grandcanyon">Grand Canyon Rim to Rim</a></li><li><a href="tu-lamina/inca">Inca Trail</a></li><li><a href="tu-lamina/jmt">John Muir Trail</a></li><li><a href="tu-lamina/kilimanjaro">Kilimanjaro</a></li><li><a href="tu-lamina/tmb">Tour du Mont Blanc</a></li><li><a href="tu-lamina/whw">West Highland Way</a></li></ul></div>
@@ -204,14 +433,30 @@ footer.pie nav a{color:var(--suave)}
 <p class="nota-rutas">Estas páginas están en inglés: el nombre y las fechas se escriben igual.</p>
 </div></section>
 
-<section id="preguntas"><div class="envoltura texto">
-<h2>Preguntas</h2>
-<p><strong>¿Es una maqueta?</strong> No: es una lámina plana, impresa en papel mate. El relieve está dibujado en 3D a partir de datos reales de elevación, con luz y sombra, y los lugares clave van rotulados.</p>
+<section class="sec-pad" id="quien"><div class="caja quien-rej">
+<div class="titulo" data-mano><span class="mano">detrás de las láminas</span><h2 class="cartel"><span class="lin" data-rev><span style="--i:0">Quién</span></span> <span class="lin" data-rev><span style="--i:1">las hace</span></span></h2></div>
+<div class="quien-texto">
+<p data-rev style="--i:0">Soy Antonio y hago cada lámina desde Madrid. Me gustan la montaña y las carreras, y creo que llegar a meta merece algo más que una medalla en un cajón.</p>
+<p data-rev style="--i:1">Dibujo cada recorrido con el track oficial de la carrera, rotulo las cumbres del mapa y reviso cada lámina a mano, con su nombre y su tiempo, antes de imprimirla. Si algo está mal, la rehago.</p>
+<div class="firma"><svg viewBox="-120 -730 2660 780" role="img" aria-label="Firma de Antonio"><path pathLength="1" vector-effect="non-scaling-stroke" d="M133 -274Q133 -249 224 -226Q276 -214 350 -206Q257 -289 166 -289Q133 -289 133 -274ZM529 -7Q550 -7 633 -172Q521 -170 493.5 -170.0Q466 -170 416 -172Q475 -101 512 -21Q518 -7 529 -7ZM842 -684Q809 -684 754.0 -613.5Q699 -543 608.5 -414.0Q518 -285 440 -200Q510 -198 562.5 -198.0Q615 -198 647 -200Q718 -340 785.5 -496.0Q853 -652 853 -675Q853 -684 842 -684ZM701 -202 909 -217Q917 -217 917.0 -209.0Q917 -201 903.5 -192.0Q890 -183 851.0 -180.0Q812 -177 686 -174Q584 25 542 25Q514 25 502 0Q458 -89 399 -156L370 -128Q222 10 25 10Q-25 10 -62.5 2.5Q-100 -5 -100 -18Q-100 -27 -89 -27Q-82 -27 -72 -23Q-42 -11 41 -11Q190 -11 323 -128Q371 -173 372 -174Q278 -181 214 -199Q100 -231 100 -275Q100 -290 116.5 -300.0Q133 -310 160 -310Q279 -310 386 -203Q395 -203 399 -202Q488 -298 616 -474Q661 -535 706 -592Q800 -710 860 -710Q899 -710 899 -676Q899 -653 834.5 -496.5Q770 -340 701 -202ZM1318 -163Q1107 13 1057 13Q1028 13 1028.0 -11.0Q1028 -35 1049.5 -68.0Q1071 -101 1092.5 -126.5Q1114 -152 1114.0 -157.0Q1114 -162 1111 -162Q1018 -100 1000.5 -86.0Q983 -72 943.5 -40.0Q904 -8 892.0 0.0Q880 8 866 8Q852 8 852 -4Q852 -18 908 -92Q962 -166 962 -175Q962 -177 958.5 -177.0Q955 -177 872 -116L868 -131Q939 -188 964.0 -204.0Q989 -220 1004.5 -220.0Q1020 -220 1020 -205Q1020 -195 963.5 -123.5Q907 -52 907.0 -46.5Q907 -41 910.5 -41.0Q914 -41 1024.5 -121.5Q1135 -202 1159 -202Q1166 -202 1172.5 -196.5Q1179 -191 1179 -186Q1179 -174 1126.0 -106.5Q1073 -39 1073.0 -30.0Q1073 -21 1085.5 -21.0Q1098 -21 1139 -48Q1214 -97 1277 -149L1299 -167Q1306 -172 1312.0 -172.0Q1318 -172 1318 -166ZM1837 -424 1694 -431Q1606 -431 1519 -424L1524 -404Q1524 -393 1459.0 -320.5Q1394 -248 1329.0 -162.5Q1264 -77 1264 -36Q1264 -20 1275.5 -20.0Q1287 -20 1328 -48Q1404 -98 1467 -149L1489 -167Q1496 -172 1501.0 -172.0Q1506 -172 1506 -166V-163Q1510 -163 1452.5 -119.0Q1395 -75 1329.5 -31.0Q1264 13 1247 13Q1218 13 1218 -13Q1218 -51 1260.5 -118.0Q1303 -185 1353.5 -244.5Q1404 -304 1449.5 -357.0Q1495 -410 1499 -422Q1389 -412 1330 -398L1310 -394Q1302 -393 1302 -379Q1302 -373 1288.0 -373.0Q1274 -373 1253.5 -379.5Q1233 -386 1233.0 -398.0Q1233 -410 1253 -414Q1401 -440 1463.0 -445.5Q1525 -451 1545.5 -452.5Q1566 -454 1609.5 -455.0Q1653 -456 1668 -456Q1713 -458 1773.5 -458.0Q1834 -458 1847.0 -453.0Q1860 -448 1860 -434Q1860 -424 1837 -424ZM1564 -86Q1620 -86 1698 -149L1715 -144Q1617 -62 1546 -62Q1538 -62 1534 -63Q1507 -30 1475.0 -9.5Q1443 11 1419 11Q1381 11 1381.0 -31.5Q1381 -74 1452 -145Q1440 -174 1440.0 -206.0Q1440 -238 1463.0 -258.0Q1486 -278 1516.5 -278.0Q1547 -278 1568.0 -258.0Q1589 -238 1589 -201Q1589 -144 1552 -87Q1556 -86 1564 -86ZM1532 -96Q1563 -148 1563.0 -184.5Q1563 -221 1545.0 -238.5Q1527 -256 1510 -256Q1475 -256 1475.0 -220.0Q1475 -184 1491.0 -148.5Q1507 -113 1532 -96ZM1422 -37Q1422 -17 1448.0 -17.0Q1474 -17 1514 -70Q1487 -84 1466 -119Q1422 -71 1422 -37ZM2124 -163Q1913 13 1863 13Q1834 13 1834.0 -11.0Q1834 -35 1855.5 -68.0Q1877 -101 1898.5 -126.5Q1920 -152 1920.0 -157.0Q1920 -162 1917 -162Q1824 -100 1806.5 -86.0Q1789 -72 1749.5 -40.0Q1710 -8 1698.0 0.0Q1686 8 1672 8Q1658 8 1658 -4Q1658 -18 1714 -92Q1768 -166 1768 -175Q1768 -177 1764.5 -177.0Q1761 -177 1678 -116L1674 -131Q1745 -188 1770.0 -204.0Q1795 -220 1810.5 -220.0Q1826 -220 1826 -205Q1826 -195 1769.5 -123.5Q1713 -52 1713.0 -46.5Q1713 -41 1716.5 -41.0Q1720 -41 1830.5 -121.5Q1941 -202 1965 -202Q1972 -202 1978.5 -196.5Q1985 -191 1985 -186Q1985 -174 1932.0 -106.5Q1879 -39 1879.0 -30.0Q1879 -21 1891.5 -21.0Q1904 -21 1945 -48Q2020 -97 2083 -149L2105 -167Q2112 -172 2118.0 -172.0Q2124 -172 2124 -166ZM2211.5 -302.0Q2221 -302 2226.5 -296.0Q2232 -290 2232.0 -279.0Q2232 -268 2217.0 -251.0Q2202 -234 2191.0 -234.0Q2180 -234 2175.0 -240.5Q2170 -247 2170.0 -255.5Q2170 -264 2186.0 -283.0Q2202 -302 2211.5 -302.0ZM2294 -167Q2302 -172 2306.5 -172.0Q2311 -172 2311 -166V-163Q2315 -163 2257.5 -119.0Q2200 -75 2134.5 -31.0Q2069 13 2052 13Q2023 13 2023 -11Q2023 -40 2073.0 -120.5Q2123 -201 2146 -201Q2163 -201 2163.0 -188.0Q2163 -175 2117.0 -117.0Q2071 -59 2071 -34Q2071 -20 2081.5 -20.0Q2092 -20 2134 -48Q2209 -98 2272 -149ZM2369 -86Q2425 -86 2503 -149L2520 -144Q2422 -62 2351 -62Q2343 -62 2339 -63Q2312 -30 2280.0 -9.5Q2248 11 2224 11Q2186 11 2186.0 -31.5Q2186 -74 2257 -145Q2245 -174 2245.0 -206.0Q2245 -238 2268.0 -258.0Q2291 -278 2321.5 -278.0Q2352 -278 2373.0 -258.0Q2394 -238 2394 -201Q2394 -144 2357 -87Q2361 -86 2369 -86ZM2337 -96Q2368 -148 2368.0 -184.5Q2368 -221 2350.0 -238.5Q2332 -256 2315 -256Q2280 -256 2280.0 -220.0Q2280 -184 2296.0 -148.5Q2312 -113 2337 -96ZM2227 -37Q2227 -17 2253.0 -17.0Q2279 -17 2319 -70Q2292 -84 2271 -119Q2227 -71 2227 -37Z"/></svg><span>Antonio · Madrid</span></div>
+<ul class="quien-datos"><li>Relieve con datos reales de elevación</li><li>Hecha con cada carrera</li><li><a href="about.html" hreflang="en">Más sobre MatteHaven (en inglés)</a></li></ul>
+</div>
+</div></section>
+
+<section class="claro sec-pad" id="preguntas"><div class="caja preguntas">
+<h2 class="cartel" style="font-size:clamp(40px,6vw,92px)"><span class="lin" data-rev><span style="--i:0">Preguntas</span></span></h2>
+<p style="margin-top:28px"><strong>¿Es una maqueta?</strong> No: es una lámina plana, impresa en papel mate. El relieve está dibujado en 3D a partir de datos reales de elevación, con luz y sombra, y los lugares clave van rotulados.</p>
 <p><strong>¿Dónde se pide?</strong> En nuestra <a href="https://mattehaven.etsy.com">tienda de Etsy</a>, que cobra y te dice la fecha estimada de entrega antes de pagar. Desde la página de cada carrera llegas con el nombre y el tiempo ya copiados.</p>
 <p><strong>¿Organizas una carrera?</strong> Mira <a href="organizadores">cómo tener la lámina oficial de tu carrera sin coste</a>.</p>
 </div></section>
+
+<section class="manifiesto"><div class="caja">
+<p class="cartel"><span class="lin" data-rev><span style="--i:0">Cada</span></span> <span class="lin" data-rev><span style="--i:1"><span class="rojo">metro</span></span></span> <span class="lin" data-rev><span style="--i:2">cuenta.</span></span></p>
+<div class="botones"><a class="boton lleno iman" href="#carreras">Elegir su carrera<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="boton linea" href="https://mattehaven.etsy.com">Tienda en Etsy<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+</div></section>
 </main>
-<footer class="pie"><div class="envoltura">
+<a class="navidad" id="navidad" href="#carreras" data-navidad="2026-12-10" data-txt="{&quot;antes&quot;:{&quot;et&quot;:&quot;Navidad&quot;,&quot;uno&quot;:&quot;Queda 1 día&quot;,&quot;varios&quot;:&quot;Quedan § días&quot;,&quot;plazo&quot;:&quot;Para Navidad, hasta el 10/12&quot;},&quot;hoy&quot;:{&quot;et&quot;:&quot;Navidad&quot;,&quot;dias&quot;:&quot;Último día&quot;,&quot;plazo&quot;:&quot;Pídela hoy y llega para Navidad&quot;},&quot;despues&quot;:{&quot;et&quot;:&quot;¿Vas con prisa?&quot;,&quot;dias&quot;:&quot;En digital, en 24 h&quot;,&quot;plazo&quot;:&quot;Con una tarjeta para regalarla&quot;}}" aria-label="Navidad · Quedan 14 días · Para Navidad, hasta el 10/12"><span class="punto" aria-hidden="true"></span><span class="et">Navidad</span><span class="dias">Quedan 14 días</span><span class="plazo">Para Navidad, hasta el 10/12</span></a>
+<footer class="pie"><div class="caja">
 <span>Hecha en Madrid por Antonio, amante de la montaña, de las carreras y del campo · cada lámina, revisada a mano · envíos a Europa, Reino Unido y Norteamérica</span>
 <nav aria-label="Pie"><a href="regalos">Regalos</a><a href="organizadores#pide">¿Organizas una carrera?</a><a href="about.html" hreflang="en">About</a><a href="shipping.html" hreflang="en">Envíos</a><a href="https://mattehaven.etsy.com">Tienda en Etsy</a></nav>
 </div></footer>
