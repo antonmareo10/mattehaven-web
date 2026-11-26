@@ -82,6 +82,80 @@
     pon()
   }
 
+  // Mapa de carreras (27/11/2026): tocar un punto abre su tarjeta (en el móvil no hay «pasar el ratón»); tocar fuera o
+  // Esc la cierra. Al señalar un punto o su fila de la lista se ilumina su traza. El filtro Trail / Ciclismo solo existe
+  // con JS: aquí se enseña. Todo esto funciona también con «reducir movimiento».
+  var mapa = d.querySelector('.mc')
+  if (mapa) {
+    var puntos = todos('.mc-p', mapa)
+    var cierra = function (salvo) {
+      puntos.forEach(function (li) {
+        if (li === salvo) return
+        li.classList.remove('abierta')
+        if (li.matches(':focus-within')) li.classList.add('callada')
+        li.querySelector('.mc-punto').setAttribute('aria-expanded', 'false')
+      })
+    }
+    // Que la tarjeta no se salga de la pantalla: se pega al lado del punto que haga falta.
+    var ajusta = function (li) {
+      var t = li.querySelector('.mc-tarjeta')
+      t.classList.remove('izq', 'der')
+      // Escondida no ocupa sitio (display: none): se mide un momento sin enseñarla.
+      t.style.visibility = 'hidden'; t.style.display = 'block'
+      var r = t.getBoundingClientRect(), w = d.documentElement.clientWidth
+      t.style.display = ''; t.style.visibility = ''
+      if (r.right > w - 8) t.classList.add('der')
+      else if (r.left < 8) t.classList.add('izq')
+    }
+    var luz = function (n, si) {
+      todos('[data-n="' + n + '"]').forEach(function (el) { el.classList.toggle('luz', si) })
+    }
+    puntos.forEach(function (li) {
+      var b = li.querySelector('.mc-punto'), n = li.getAttribute('data-n')
+      // Visible por clase (tocar), por foco o por ratón; «callada» la esconde aunque tenga el foco (Esc, segundo toque).
+      var visible = function () { return li.classList.contains('abierta') || (!li.classList.contains('callada') && (li.matches(':focus-within') || li.matches(':hover'))) }
+      // Lo que había antes de tocar: al tocar, el botón coge el foco y la tarjeta ya se ve por el foco.
+      var antes = null
+      b.addEventListener('pointerdown', function () { antes = visible() })
+      b.addEventListener('click', function () {
+        var ab = !(antes === null ? visible() : antes)
+        antes = null
+        ajusta(li)
+        cierra(li)
+        li.classList.toggle('abierta', ab)
+        li.classList.toggle('callada', !ab)
+        b.setAttribute('aria-expanded', ab ? 'true' : 'false')
+      })
+      li.addEventListener('mouseenter', function () { ajusta(li); luz(n, true) })
+      li.addEventListener('mouseleave', function () { luz(n, false); li.classList.remove('callada') })
+      li.addEventListener('focusin', function () { ajusta(li); luz(n, true); b.setAttribute('aria-expanded', li.classList.contains('callada') ? 'false' : 'true') })
+      li.addEventListener('focusout', function (ev) { if (!li.contains(ev.relatedTarget)) { luz(n, false); li.classList.remove('abierta', 'callada'); b.setAttribute('aria-expanded', 'false') } })
+    })
+    todos('.mc-lista li[data-n]').forEach(function (li) {
+      var n = li.getAttribute('data-n')
+      li.addEventListener('mouseenter', function () { luz(n, true) })
+      li.addEventListener('mouseleave', function () { luz(n, false) })
+    })
+    d.addEventListener('click', function (ev) { if (!(ev.target.closest && ev.target.closest('.mc-p'))) cierra(null) })
+    d.addEventListener('keydown', function (ev) {
+      if (ev.key !== 'Escape') return
+      var ab = mapa.querySelector('.mc-p.abierta, .mc-p:focus-within')
+      cierra(null)
+      if (ab) ab.querySelector('.mc-punto').focus()
+    })
+    var filtro = d.querySelector('.mc-filtro')
+    if (filtro) {
+      filtro.hidden = false
+      todos('button', filtro).forEach(function (b) {
+        b.addEventListener('click', function () {
+          mapa.setAttribute('data-f', b.getAttribute('data-f'))
+          cierra(null)
+          todos('button', filtro).forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false') })
+        })
+      })
+    }
+  }
+
   if (!h.classList.contains('mov')) return
 
   // Contadores: la cifra real está ya en el HTML; con movimiento se pone a 0 y sube al entrar en pantalla.

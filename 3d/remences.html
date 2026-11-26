@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>La Remences Marxa cicloturista en 3D: el recorregut sobre la muntanya real · MatteHaven</title>
+<meta name="description" content="Gira la muntanya de La Remences amb el recorregut de Marxa cicloturista a sobre (155 km i 2.500 m D+), i mira la teva làmina amb el teu nom i el teu temps.">
+<link rel="canonical" href="https://mattehaven.com/3d/remences">
+<meta name="theme-color" content="#111417">
+<meta property="og:type" content="website">
+<meta property="og:title" content="La Remences · Marxa cicloturista · 3D">
+<meta property="og:description" content="Gira la muntanya de La Remences amb el recorregut de Marxa cicloturista a sobre (155 km i 2.500 m D+), i mira la teva làmina amb el teu nom i el teu temps.">
+<meta property="og:url" content="https://mattehaven.com/3d/remences">
+<meta property="og:image" content="https://mattehaven.com/tu-lamina/img/remences.jpg">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png">
+<link rel="preload" href="../fuentes/archivo-web.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="modulepreload" href="vendor/three-r180.min.js">
+<link rel="modulepreload" href="visor.js">
+<link rel="preload" href="datos/remences/previa.jpg" as="image">
+<script>window.__alturas=fetch(matchMedia('(pointer: coarse)').matches?'datos/remences/alturas-movil.webp':'datos/remences/alturas.webp').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.blob()});window.__alturas.catch(function(){})</script>
+<style>
+@font-face{font-family:'Archivo MH';src:url(../fuentes/archivo-web.woff2) format('woff2');font-weight:400 900;font-stretch:62% 100%;font-display:swap}
+:root{--noche:#111417;--papel:#F2EEE6;--rojo:#C8381E;--ruta:#FF5533;--suave:rgba(242,238,230,.66);--tenue:rgba(242,238,230,.58);--linea:rgba(242,238,230,.14);--ease:cubic-bezier(.22,1,.36,1);--letra:'Archivo MH','Arial Narrow',Bahnschrift,'Roboto Condensed',Arial,sans-serif;--col:100vw;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--noche)}
+body{color:var(--papel);font-family:var(--letra);font-size:16px;line-height:1.4;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+.oculto{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.fondo{position:fixed;inset:0;background:radial-gradient(110% 75% at 58% 55%,#252C33 0%,#171B1F 48%,#0C0E10 100%)}
+.fondo::after{content:"";position:absolute;inset:0;background:radial-gradient(48% 36% at 60% 60%,rgba(255,85,51,.08),transparent 70%)}
+#lienzo{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;opacity:0;transition:opacity .7s var(--ease);outline:none;cursor:grab}
+#lienzo:focus-visible{outline:2px solid var(--ruta);outline-offset:-4px}
+#lienzo:active{cursor:grabbing}
+.listo #lienzo{opacity:1}
+a{color:inherit}
+.velo{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(17,20,23,.8) 0,rgba(17,20,23,0) 26%,rgba(17,20,23,0) 68%,rgba(17,20,23,.8) 100%)}
+.marca{position:fixed;top:max(16px,env(safe-area-inset-top));left:16px;z-index:3;font-weight:800;font-stretch:75%;letter-spacing:.18em;font-size:12px;text-transform:uppercase;text-decoration:none;color:var(--suave);padding:10px 0}
+.marca:hover{color:var(--papel)}
+.cabeza{position:fixed;left:16px;right:16px;top:calc(max(16px,env(safe-area-inset-top)) + 46px);z-index:2;pointer-events:none}
+.cabeza>*{animation:entra .9s var(--ease) both}
+.cabeza>:nth-child(2){animation-delay:.08s}.cabeza>:nth-child(3){animation-delay:.16s}.cabeza>:nth-child(4){animation-delay:.24s}.cabeza>:nth-child(5){animation-delay:.32s}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kicker{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ruta);font-weight:700;font-stretch:80%}
+h1{margin:6px 0 0;font-weight:800;font-stretch:68%;font-size:clamp(36px,10.6vw,58px);line-height:.94;letter-spacing:-.01em}
+.distancia{margin:6px 0 0;font-size:17px;font-weight:650;font-stretch:78%;letter-spacing:.07em;text-transform:uppercase;color:var(--suave)}
+.cifras{display:flex;gap:22px;margin:14px 0 0;padding:0;list-style:none}
+.cifras li{display:flex;flex-direction:column}
+.cifras b{font-size:clamp(23px,6.4vw,32px);font-weight:800;font-stretch:72%;line-height:1;font-variant-numeric:tabular-nums}
+.cifras small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);margin-top:5px;font-weight:600}
+.leyenda{display:none;margin:22px 0 0;padding:0;list-style:none;pointer-events:auto;max-width:320px}
+.leyenda li{border-top:1px solid var(--linea)}
+.leyenda li:last-child{border-bottom:1px solid var(--linea)}
+.leyenda button{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:baseline;gap:10px;padding:8px 2px;font-size:14px;font-stretch:85%;cursor:pointer;transition:color .2s,padding .3s var(--ease)}
+.leyenda button::before{content:"";width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--suave);transform:translateY(-1px);transition:border-color .2s}
+.leyenda button:hover{color:var(--ruta);padding-left:6px}
+.leyenda button:hover::before{border-bottom-color:var(--ruta)}
+.leyenda em{font-style:normal;margin-left:auto;color:var(--tenue);font-variant-numeric:tabular-nums}
+.leyenda button:focus-visible,.boton:focus-visible,.circ:focus-visible,.marca:focus-visible,.cred a:focus-visible{outline:2px solid var(--ruta);outline-offset:3px}
+.pie{position:fixed;left:16px;right:16px;bottom:max(14px,env(safe-area-inset-bottom));z-index:3;pointer-events:none}
+.oferta{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"hon hon" "mini prin" "secu secu";gap:9px 12px;align-items:center;pointer-events:auto}
+.mini{grid-area:mini;display:block;width:44px;height:auto;aspect-ratio:3/4;border-radius:2px;box-shadow:0 6px 18px rgba(0,0,0,.55),0 0 0 1px rgba(242,238,230,.18);transform:rotate(-4deg);background:var(--papel)}
+.honesto{grid-area:hon;margin:0;font-size:13px;line-height:1.38;color:rgba(242,238,230,.9)}
+.boton{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 20px;border-radius:999px;font-weight:750;font-stretch:80%;font-size:17px;letter-spacing:.01em;text-decoration:none;transition:transform .25s var(--ease),background .2s,border-color .2s,box-shadow .25s;text-align:center}
+.boton:active{transform:scale(.98)}
+.prin{grid-area:prin;background:var(--rojo);color:#fff;box-shadow:0 10px 30px -8px rgba(200,56,30,.7)}
+.prin:hover{background:#D9442A;box-shadow:0 14px 36px -8px rgba(255,85,51,.75)}
+.prin svg{flex:none;transition:transform .25s var(--ease)}
+.prin:hover svg{transform:translateX(3px)}
+.secu{grid-area:secu;min-height:44px;font-size:15px;color:var(--papel);border:1.5px solid rgba(242,238,230,.34);background:rgba(17,20,23,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.secu:hover{border-color:var(--papel)}
+.cred{margin:10px 0 0;font-size:11px;line-height:1.45;color:var(--tenue);pointer-events:auto}
+.cred a{text-decoration:underline;text-decoration-color:rgba(242,238,230,.35);text-underline-offset:2px}
+.controles{position:fixed;right:16px;top:max(14px,env(safe-area-inset-top));z-index:3;display:flex;gap:8px;align-items:center}
+.circ{width:44px;height:44px;border-radius:50%;border:1px solid var(--linea);background:rgba(17,20,23,.55);color:var(--papel);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:border-color .2s,transform .3s var(--ease);padding:0}
+.circ:hover{border-color:rgba(242,238,230,.5)}
+#reset:active{transform:rotate(-40deg)}
+.pista{position:fixed;left:50%;top:70%;transform:translate(-50%,-50%);z-index:2;width:max-content;max-width:calc(100% - 32px);font-size:13px;letter-spacing:.03em;color:var(--papel);background:rgba(17,20,23,.66);border:1px solid var(--linea);padding:8px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .6s var(--ease);text-align:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;gap:8px;align-items:center;justify-content:center}
+.pista.ver{opacity:1}
+.carga{position:fixed;left:50%;top:52%;transform:translate(-50%,-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--tenue);font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:opacity .4s}
+.carga i{display:block;width:120px;height:2px;background:var(--linea);overflow:hidden;border-radius:2px}
+.carga i::after{content:"";display:block;width:40%;height:100%;background:var(--ruta);box-shadow:0 0 12px var(--ruta);animation:carga 1.1s var(--ease) infinite}
+@keyframes carga{from{transform:translateX(-100%)}to{transform:translateX(260%)}}
+.listo .carga{opacity:0;visibility:hidden}
+.etiquetas{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.et{position:absolute;left:0;top:0;width:0;height:0;opacity:0;transition:opacity .45s;will-change:transform}
+.et.ver{opacity:1}
+.cima .caja{position:absolute;left:0;bottom:26px;background:rgba(12,14,16,.76);border:1px solid rgba(242,238,230,.18);border-radius:7px;padding:4px 8px 5px;text-align:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);white-space:nowrap}
+.cima b{display:block;font-size:13px;font-weight:700;font-stretch:80%;line-height:1.1}
+.cima small{display:block;font-size:11px;color:var(--suave);font-variant-numeric:tabular-nums;line-height:1.2}
+.cima::after{content:"";position:absolute;left:-.5px;bottom:3px;width:1px;height:23px;background:linear-gradient(rgba(242,238,230,.75),rgba(242,238,230,.2))}
+.cima::before{content:"";position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:var(--papel);box-shadow:0 0 0 2px rgba(12,14,16,.55)}
+.hito i{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--ruta),0 0 18px 4px rgba(255,85,51,.8)}
+.hito span{position:absolute;left:15px;top:-12px;background:var(--ruta);color:#140804;font-size:12px;font-weight:800;font-stretch:80%;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:5px;white-space:nowrap;line-height:15px}
+.hito span em{font-style:normal;font-weight:600;letter-spacing:.02em;text-transform:none}
+.hito.izq span{left:auto;right:15px}
+.estatica{display:none}
+.sin-3d .estatica{display:grid;position:fixed;z-index:1;top:var(--arriba,250px);bottom:var(--abajo,230px);left:var(--izq,16px);right:16px;place-items:center;grid-template-rows:auto minmax(0,1fr);gap:10px}
+.sin-3d .estatica img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.sin-3d .estatica p{margin:0;color:var(--suave);font-size:13px;text-align:center}
+.sin-3d #lienzo,.sin-3d .carga,.sin-3d .controles,.sin-3d .etiquetas,.sin-3d .pista,.sin-3d .leyenda{display:none!important}
+@media (min-width:720px){
+  :root{--col:clamp(360px,32vw,520px)}
+  .velo{background:linear-gradient(90deg,rgba(17,20,23,.9) 0,rgba(17,20,23,.82) calc(var(--col) + 10px),rgba(17,20,23,0) calc(var(--col) + 200px))}
+  .marca{top:24px;left:32px}
+  .cabeza{left:32px;right:auto;top:72px;width:var(--col)}
+  h1{font-size:clamp(50px,4.6vw,92px)}
+  .distancia{font-size:clamp(18px,1.4vw,26px)}
+  .cifras{gap:clamp(22px,2vw,36px);margin-top:18px}
+  .cifras b{font-size:clamp(28px,2.4vw,46px)}
+  .leyenda{display:block}
+  .controles{right:28px;top:24px}
+  .pie{left:32px;right:auto;bottom:28px;width:var(--col)}
+  .oferta{grid-template-columns:96px 1fr;grid-template-areas:"mini hon" "mini prin" "mini secu";gap:10px 18px}
+  .mini{width:96px;align-self:center;transform:rotate(-4deg)}
+  .honesto{font-size:13.5px}
+  .prin{font-size:16px;padding:0 18px;white-space:nowrap}
+  .carga{left:calc(32px + var(--col) + (100vw - var(--col) - 32px) / 2)}
+}
+@media (min-width:720px) and (max-height:620px){.leyenda{display:none}}
+@media (min-width:720px) and (max-height:520px){
+  :root{--col:330px}
+  .kicker{display:none}.cabeza{top:52px}h1{font-size:30px;margin:0}.distancia{font-size:14px;margin-top:3px}.cifras{margin-top:6px;gap:18px}.cifras b{font-size:20px}.cifras small{font-size:10px;margin-top:3px}
+  .pie{bottom:10px}.oferta{grid-template-columns:1fr;grid-template-areas:"hon" "prin" "secu";gap:6px}.mini{display:none}
+  .honesto{font-size:11.5px;line-height:1.3}.boton{min-height:40px;font-size:15px}.secu{min-height:34px}.cred{font-size:9.5px;line-height:1.35;margin-top:5px}
+}
+@media (max-width:719px) and (max-height:700px){.kicker{display:none}h1{font-size:30px}.distancia{font-size:15px;margin-top:3px}.cifras{margin-top:8px}.cifras b{font-size:20px}.cifras small{font-size:10px;margin-top:3px}.honesto{font-size:11.5px;line-height:1.3}.oferta{gap:7px 10px}.boton{min-height:44px;font-size:16px}.secu{min-height:38px}.mini{width:34px}.cred{font-size:9.5px;line-height:1.35;margin-top:7px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="fondo" aria-hidden="true"></div>
+<canvas id="lienzo" aria-label="La Remences Marxa cicloturista: relieve 3D con el recorrido" aria-describedby="ayuda" tabindex="0"></canvas>
+<p class="oculto" id="ayuda">Amb el teclat: fletxes per girar i inclinar, + i − per apropar o allunyar, Esc per tornar a la vista inicial.</p>
+<div class="velo" aria-hidden="true"></div>
+<div class="etiquetas" id="etiquetas" aria-hidden="true"></div>
+<a class="marca" href="../index.html">MatteHaven</a>
+<header class="cabeza">
+<p class="kicker">Làmina finisher oficial · en 3D</p>
+<h1>La Remences</h1>
+<p class="distancia">Marxa cicloturista</p>
+<ul class="cifras">
+<li><b data-n="155">155</b><small>km</small></li>
+<li><b data-n="2500">2.500</b><small>m D+</small></li>
+<li><b data-n="1132">1.132</b><small>m alt. màx.</small></li>
+</ul>
+<ul class="leyenda" aria-label="Cims">
+<li><button type="button" data-cima="0">Coll de Bracons<em>1.132 m</em></button></li>
+<li><button type="button" data-cima="1">Coll de Santigosa<em>1.064 m</em></button></li>
+<li><button type="button" data-cima="2">Coll de Condreu<em>1.017 m</em></button></li>
+<li><button type="button" data-cima="3">Coll de Bac<em>1.003 m</em></button></li>
+<li><button type="button" data-cima="4">Coll de Capsacosta<em>862 m</em></button></li>
+</ul>
+<p class="oculto">Cims: Coll de Bracons 1.132 m, Coll de Santigosa 1.064 m, Coll de Condreu 1.017 m, Coll de Bac 1.003 m, Coll de Capsacosta 862 m.</p>
+</header>
+<div class="controles"><button class="circ" type="button" id="norte" aria-label="Nord amunt" title="Nord amunt"><svg id="aguja" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l3.4 9.5H8.6z" fill="#FF5533"/><path d="M12 21.5l-3.4-9.5h6.8z" fill="currentColor" opacity=".5"/></svg></button><button class="circ" type="button" id="reset" aria-label="Tornar a la vista inicial" title="Tornar a la vista inicial"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button></div>
+<div class="carga" role="status"><i></i><span>Carregant el relleu</span></div>
+<div class="pista" id="pista" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 12c0-4 3.6-7 8-7s8 3 8 7"/><path d="M17 9l3 3 3-3"/></svg><span></span></div>
+<div class="estatica"><p>El teu navegador no pot mostrar el 3D. Així és la làmina:</p><img src="../tu-lamina/img/remences.jpg" alt="Làmina de La Remences Marxa cicloturista" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<footer class="pie">
+<div class="oferta">
+<img class="mini" src="datos/remences/lamina.webp" alt="Làmina de La Remences Marxa cicloturista" width="96" height="128" decoding="async">
+<p class="honesto">Vista 3D del relleu real. La làmina és plana: s’imprimeix amb aquest relleu dibuixat.</p>
+<a class="boton prin" href="../tu-lamina/remences.html#d=remences">Mira la teva làmina amb el teu nom<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+<a class="boton secu" href="https://mattehaven.etsy.com/listing/4609614500" rel="noopener">Demana-la a Etsy</a>
+</div>
+<p class="cred">Alçada ×1,8 perquè s’apreciï el relleu · MDT y ortofoto PNOA © Instituto Geográfico Nacional (CC BY 4.0) · RGE ALTI y ortofoto © IGN France (Licence Ouverte 2.0) · Cims © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> (ODbL)</p>
+</footer>
+<noscript><style>.carga,.controles,.leyenda{display:none}.estatica{display:grid!important;position:fixed;z-index:1;top:300px;bottom:250px;left:16px;right:16px;place-items:center;grid-template-rows:auto minmax(0,1fr);gap:10px}.estatica img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;object-fit:contain}@media (min-width:720px){.estatica{top:40px;bottom:40px;left:calc(var(--col) + 72px)}}</style></noscript>
+<script type="application/json" id="datos-visor">{"slug":"remences","idioma":"ca","exag":1.8,"zmin":143,"zmax":2013,"ancho":40.3168,"fondo":40.5917,"pasoM":0.5,"alturas":{"url":"datos/remences/alturas.webp","nx":509,"ny":512,"suma":308408308},"alturasMovil":{"url":"datos/remences/alturas-movil.webp","nx":254,"ny":256,"suma":76949723},"textura":"datos/remences/textura.jpg","texturaMovil":"datos/remences/textura-movil.jpg","previa":"datos/remences/previa.jpg","isla":[0.86,1],"acimut":0,"ruta":[[0.63213,0.54505],[0.63198,0.54277],[0.62175,0.54743],[0.6184,0.53507],[0.61385,0.52993],[0.61467,0.51622],[0.61837,0.51108],[0.64974,0.43608],[0.69012,0.37198],[0.68351,0.36673],[0.67449,0.34646],[0.68323,0.33786],[0.68312,0.33615],[0.70502,0.32771],[0.71903,0.32891],[0.71398,0.29662],[0.62375,0.28819],[0.61184,0.28456],[0.60184,0.27702],[0.60137,0.26862],[0.59162,0.25183],[0.58897,0.23507],[0.57711,0.22536],[0.57714,0.22155],[0.57205,0.21397],[0.55633,0.21007],[0.55264,0.20489],[0.54536,0.20183],[0.53561,0.2006],[0.53159,0.19506],[0.52929,0.19903],[0.5253,0.19919],[0.52082,0.19598],[0.51892,0.18952],[0.51657,0.19119],[0.51502,0.19733],[0.51229,0.19749],[0.51246,0.20071],[0.50534,0.20078],[0.50418,0.19637],[0.50017,0.19629],[0.49754,0.20056],[0.49157,0.19094],[0.4888,0.19836],[0.49059,0.18884],[0.49756,0.19345],[0.4998,0.19073],[0.50647,0.19122],[0.50544,0.18886],[0.49587,0.18463],[0.49494,0.17341],[0.49894,0.17057],[0.50182,0.17131],[0.50235,0.16801],[0.51177,0.16329],[0.50486,0.15833],[0.50292,0.15993],[0.4992,0.15715],[0.49478,0.16082],[0.49143,0.15408],[0.48875,0.15374],[0.48281,0.15783],[0.47837,0.15525],[0.4799,0.15201],[0.47614,0.15322],[0.47154,0.14904],[0.47325,0.1472],[0.47256,0.14514],[0.46759,0.1433],[0.45987,0.14718],[0.45703,0.15182],[0.4536,0.15005],[0.44439,0.15366],[0.4413,0.15923],[0.41261,0.16662],[0.40294,0.17149],[0.39033,0.17285],[0.37682,0.18108],[0.36649,0.19035],[0.35516,0.19427],[0.34813,0.19294],[0.32047,0.2052],[0.32171,0.20767],[0.31283,0.21589],[0.30609,0.21516],[0.28816,0.22439],[0.28828,0.22386],[0.28463,0.23025],[0.28585,0.23613],[0.28533,0.242],[0.28793,0.24701],[0.28672,0.24925],[0.28846,0.25374],[0.2928,0.25616],[0.29385,0.26151],[0.2968,0.26151],[0.29663,0.26549],[0.29958,0.26583],[0.30358,0.266],[0.30254,0.26842],[0.30689,0.2698],[0.31141,0.27032],[0.31349,0.26669],[0.31541,0.27153],[0.32045,0.27809],[0.32671,0.27844],[0.33245,0.27965],[0.34201,0.28241],[0.35557,0.28086],[0.3554,0.28103],[0.35644,0.27878],[0.36009,0.27913],[0.36235,0.27982],[0.36461,0.27861],[0.36722,0.27965],[0.36931,0.27844],[0.36913,0.27844],[0.37696,0.28068],[0.37661,0.28034],[0.37731,0.28345],[0.37522,0.28759],[0.38061,0.29277],[0.38043,0.2926],[0.38391,0.28949],[0.38774,0.28914],[0.38948,0.29294],[0.39182,0.29035],[0.39408,0.29001],[0.39582,0.29173],[0.39808,0.29035],[0.40069,0.29329],[0.40521,0.28949],[0.4099,0.2907],[0.41738,0.29346],[0.41929,0.29829],[0.42503,0.2976],[0.42781,0.29933],[0.4325,0.29812],[0.43459,0.29657],[0.43702,0.29795],[0.43737,0.30175],[0.44137,0.30244],[0.44154,0.30227],[0.44815,0.30227],[0.45597,0.30399],[0.45928,0.30572],[0.46258,0.3052],[0.46258,0.30503],[0.47006,0.30796],[0.46946,0.30804],[0.47402,0.31116],[0.48009,0.31123],[0.49443,0.31679],[0.49908,0.32062],[0.50823,0.31911],[0.51416,0.32369],[0.52369,0.32034],[0.5276,0.32382],[0.53988,0.32528],[0.54778,0.32403],[0.5609,0.3273],[0.54785,0.32723],[0.56224,0.33051],[0.58451,0.33214],[0.59339,0.33012],[0.60372,0.33231],[0.61094,0.33794],[0.63115,0.33722],[0.63271,0.33395],[0.63841,0.33248],[0.64551,0.3341],[0.65097,0.33239],[0.6563,0.33709],[0.66169,0.33685],[0.67271,0.34129],[0.68266,0.33745],[0.67667,0.34488],[0.65661,0.35359],[0.66095,0.36282],[0.64587,0.36736],[0.642,0.36408],[0.63418,0.36274],[0.62354,0.3545],[0.61081,0.3513],[0.60418,0.36238],[0.60187,0.37696],[0.60476,0.38431],[0.59993,0.39264],[0.60736,0.40932],[0.61494,0.41473],[0.62207,0.42409],[0.62142,0.42829],[0.62902,0.4322],[0.62812,0.43642],[0.62393,0.44182],[0.60514,0.45719],[0.60456,0.4627],[0.59949,0.46586],[0.59763,0.47429],[0.59887,0.49666],[0.59426,0.51877],[0.59583,0.52031],[0.58762,0.52576],[0.57836,0.52887],[0.57465,0.5342],[0.56697,0.53462],[0.5654,0.53766],[0.55191,0.53934],[0.54791,0.53525],[0.54562,0.53813],[0.53954,0.53814],[0.53517,0.54152],[0.53211,0.54081],[0.53008,0.54552],[0.52066,0.54711],[0.51608,0.54379],[0.51537,0.54552],[0.51111,0.5464],[0.50843,0.5509],[0.49929,0.55347],[0.49671,0.55066],[0.50069,0.55198],[0.49693,0.54726],[0.4947,0.54753],[0.49387,0.5517],[0.48864,0.54743],[0.48481,0.54934],[0.48129,0.54593],[0.48008,0.54885],[0.47258,0.55251],[0.47228,0.55434],[0.47743,0.55698],[0.47252,0.55811],[0.46901,0.56418],[0.46992,0.56737],[0.46613,0.56993],[0.46473,0.56718],[0.46146,0.56688],[0.46048,0.56415],[0.45632,0.5636],[0.45164,0.57023],[0.44752,0.56396],[0.44481,0.57247],[0.44103,0.57199],[0.44377,0.57442],[0.44653,0.58828],[0.44348,0.59205],[0.43863,0.59356],[0.43989,0.59496],[0.43713,0.59617],[0.43746,0.60447],[0.43303,0.6033],[0.42981,0.61199],[0.42832,0.61126],[0.42341,0.62245],[0.42295,0.63263],[0.41824,0.63234],[0.41269,0.6366],[0.41364,0.63819],[0.40993,0.64273],[0.41095,0.64631],[0.40914,0.64715],[0.40627,0.64527],[0.40594,0.64965],[0.40398,0.6458],[0.39923,0.64788],[0.40016,0.64352],[0.39641,0.64562],[0.39568,0.64273],[0.39144,0.65229],[0.38595,0.6501],[0.38567,0.65359],[0.38206,0.65237],[0.37409,0.65537],[0.37117,0.65827],[0.36489,0.65956],[0.3623,0.66306],[0.36434,0.65842],[0.35985,0.65896],[0.35861,0.66251],[0.3558,0.66295],[0.35458,0.66604],[0.34918,0.66617],[0.34636,0.66271],[0.3455,0.6547],[0.33916,0.66066],[0.33959,0.64859],[0.33377,0.64938],[0.33163,0.64758],[0.32697,0.65496],[0.31894,0.65505],[0.31412,0.65877],[0.3067,0.65508],[0.30729,0.66296],[0.30273,0.66334],[0.30031,0.66109],[0.29674,0.66196],[0.29177,0.67318],[0.28406,0.67393],[0.27486,0.68431],[0.26656,0.68731],[0.26079,0.704],[0.26698,0.72259],[0.26723,0.73268],[0.27338,0.74547],[0.28109,0.75329],[0.263,0.7612],[0.26518,0.77117],[0.26029,0.78314],[0.26141,0.79499],[0.25946,0.80977],[0.25793,0.81075],[0.26286,0.81823],[0.26067,0.83304],[0.26689,0.84248],[0.27156,0.83885],[0.27357,0.8375],[0.28098,0.83633],[0.28466,0.83437],[0.29208,0.84446],[0.2969,0.85127],[0.29492,0.85302],[0.29342,0.85745],[0.2937,0.85802],[0.31096,0.85437],[0.32612,0.84264],[0.33078,0.84315],[0.33741,0.83654],[0.34301,0.83516],[0.34865,0.83848],[0.35172,0.83488],[0.34969,0.83139],[0.35764,0.82551],[0.36051,0.82646],[0.36185,0.83006],[0.36603,0.82795],[0.37038,0.82131],[0.38379,0.81779],[0.38921,0.81373],[0.39002,0.80198],[0.40378,0.80408],[0.40992,0.79685],[0.40923,0.79114],[0.41146,0.7841],[0.41556,0.78969],[0.42013,0.78391],[0.42573,0.788],[0.42795,0.78558],[0.43047,0.78728],[0.43523,0.78609],[0.43838,0.78111],[0.43963,0.76692],[0.43709,0.75921],[0.43797,0.75599],[0.44247,0.75666],[0.44527,0.75144],[0.45047,0.75286],[0.45398,0.74113],[0.45808,0.74251],[0.46037,0.74552],[0.46687,0.74541],[0.46965,0.7428],[0.46973,0.73695],[0.4736,0.73264],[0.47745,0.73485],[0.47978,0.72891],[0.48159,0.7348],[0.48558,0.73281],[0.48673,0.73599],[0.49029,0.73506],[0.496,0.73737],[0.49719,0.72639],[0.50282,0.73389],[0.5065,0.73077],[0.51515,0.72851],[0.51298,0.73312],[0.51501,0.73772],[0.51902,0.73864],[0.52378,0.73357],[0.53436,0.73553],[0.53491,0.73799],[0.53083,0.74391],[0.53309,0.74544],[0.53413,0.75305],[0.53606,0.75466],[0.54547,0.75267],[0.54891,0.74885],[0.5555,0.75276],[0.56001,0.75241],[0.56549,0.74686],[0.577,0.74292],[0.57783,0.74565],[0.58146,0.74692],[0.58542,0.75802],[0.58474,0.76273],[0.57995,0.76891],[0.58966,0.78609],[0.59188,0.78722],[0.6013,0.78466],[0.6032,0.78678],[0.60854,0.78759],[0.61206,0.78419],[0.6183,0.78258],[0.62575,0.78368],[0.62879,0.77569],[0.63752,0.7714],[0.64195,0.77867],[0.64645,0.78122],[0.64847,0.77999],[0.64821,0.77643],[0.65196,0.77156],[0.64919,0.7611],[0.65909,0.73658],[0.66192,0.72396],[0.66379,0.72484],[0.66429,0.7298],[0.68385,0.73165],[0.68694,0.73474],[0.68813,0.73936],[0.69159,0.73939],[0.69363,0.74316],[0.69552,0.74151],[0.69698,0.74521],[0.70163,0.74111],[0.70459,0.74525],[0.70849,0.74458],[0.71115,0.74833],[0.71919,0.74565],[0.72821,0.75227],[0.73848,0.74354],[0.73949,0.73841],[0.74269,0.73577],[0.73756,0.72636],[0.73506,0.72514],[0.72923,0.70849],[0.73498,0.71583],[0.72882,0.70067],[0.72646,0.70019],[0.72754,0.69753],[0.72491,0.69428],[0.72279,0.69462],[0.71713,0.68678],[0.71244,0.68523],[0.709,0.68092],[0.70579,0.67094],[0.69567,0.66405],[0.69085,0.66922],[0.6884,0.66888],[0.68733,0.66476],[0.68459,0.66399],[0.68644,0.65591],[0.67783,0.65256],[0.67428,0.64816],[0.67252,0.64132],[0.66611,0.63792],[0.66733,0.63276],[0.66306,0.62294],[0.65841,0.62219],[0.65752,0.61944],[0.6607,0.60798],[0.65459,0.61067],[0.64893,0.60873],[0.64496,0.61178],[0.6436,0.60473],[0.6391,0.60468],[0.63753,0.59968],[0.63474,0.59906],[0.63689,0.59344],[0.63265,0.58765],[0.622,0.54789],[0.62847,0.54421],[0.62704,0.54478]],"salida":[0.63213,0.54505],"meta":[0.62704,0.54478],"juntas":true,"cumbres":[{"n":"Coll de Bracons","alt":1132,"u":0.46624,"v":0.57012,"t":"1.132 m"},{"n":"Coll de Santigosa","alt":1064,"u":0.37673,"v":0.28913,"t":"1.064 m"},{"n":"Coll de Condreu","alt":1017,"u":0.74173,"v":0.737,"t":"1.017 m"},{"n":"Coll de Bac","alt":1003,"u":0.57417,"v":0.74268,"t":"1.003 m"},{"n":"Coll de Capsacosta","alt":862,"u":0.5119,"v":0.1633,"t":"862 m"}],"t":{"salida":"Sortida i arribada","meta":"Arribada","salidaN":null,"metaN":null,"gira":"Arrossega per girar · pessiga per apropar","giraRaton":"Arrossega per girar · roda del ratolí per apropar"}}</script>
+<script type="module" src="visor.js"></script>
+</body>
+</html>
