@@ -3,8 +3,7 @@
 // (<script id="datos-visor">) y en dist/web/3d/datos/<slug>/. three.js 0.180.0 (MIT) en vendor/.
 import {
   WebGLRenderer, Scene, PerspectiveCamera, Group, Mesh, BufferGeometry, BufferAttribute, MeshBasicMaterial, ShaderMaterial,
-  Texture, CanvasTexture, SRGBColorSpace, Vector3, Spherical, AdditiveBlending,
-  GreaterDepth, PlaneGeometry, OrbitControls,
+  Texture, SRGBColorSpace, Vector3, Spherical, AdditiveBlending, OrbitControls,
 } from './vendor/three-r180.min.js'
 
 const D = JSON.parse(document.getElementById('datos-visor').textContent)
@@ -14,25 +13,41 @@ const tactil = matchMedia('(pointer: coarse)').matches
 const lienzo = document.getElementById('lienzo')
 const capa = document.getElementById('etiquetas')
 const pista = document.getElementById('pista')
-const VISOR = (window.__visor = { fps: [], listo: false, entrada: 0, errores: [] })
+const VISOR = (window.__visor = { listo: false, entrada: 0, errores: [], parado: false })
+const $ = (s) => document.querySelector(s)
 
+// Sin 3D (sin WebGL 2, contexto perdido, datos que no llegan): la lámina estática en el hueco del relieve.
+function colocarEstatica() {
+  const cab = $('.cabeza').getBoundingClientRect(), pie = $('.pie').getBoundingClientRect(), ancho = innerWidth >= 720
+  html.style.setProperty('--arriba', `${Math.round(ancho ? 40 : cab.bottom + 14)}px`)
+  html.style.setProperty('--abajo', `${Math.round(ancho ? 40 : innerHeight - pie.top + 14)}px`)
+  html.style.setProperty('--izq', `${Math.round(ancho ? Math.max(cab.right, pie.right) + 40 : 16)}px`)
+}
 function sin3d(motivo) {
   VISOR.errores.push(String(motivo))
+  VISOR.parado = true
+  if (html.classList.contains('sin-3d')) return
   html.classList.add('sin-3d')
-  const img = document.querySelector('.estatica img')
+  const img = $('.estatica img')
   if (img) img.loading = 'eager'
+  colocarEstatica()
+  addEventListener('resize', colocarEstatica)
 }
 
 let gl2 = false
 try { gl2 = !!document.createElement('canvas').getContext('webgl2') } catch { gl2 = false }
 if (!gl2) sin3d('sin WebGL 2')
-else arrancar().catch((e) => { console.error(e); sin3d(e?.message || e) })
+else {
+  // Si en 20 s no ha llegado lo necesario para la primera vista, la lámina estática.
+  const espera = setTimeout(() => { if (!VISOR.listo) sin3d('tiempo agotado') }, 20000)
+  arrancar().then(() => clearTimeout(espera)).catch((e) => { clearTimeout(espera); console.error(e); sin3d(e?.message || e) })
+}
 
 // ── Datos ────────────────────────────────────────────────────────────────────────────────────────
-async function leerAlturas({ url, nx, ny }) {
-  const r = await fetch(url)
-  if (!r.ok) throw new Error(`alturas: HTTP ${r.status}`)
-  const blob = await r.blob()
+// La página ya la pide en su <head> (window.__alturas), antes de que llegue este módulo; si eso falló, otra vez aquí.
+async function leerAlturas({ url, nx, ny, suma }) {
+  const pedir = async () => { const r = await fetch(url); if (!r.ok) throw new Error(`alturas: HTTP ${r.status}`); return r.blob() }
+  const blob = await (window.__alturas || Promise.reject(new Error('sin pedido previo'))).catch(pedir)
   let fuente
   try { fuente = await createImageBitmap(blob, { colorSpaceConversion: 'none', premultiplyAlpha: 'none' }) } catch {
     fuente = new Image(); fuente.src = URL.createObjectURL(blob); await fuente.decode()
@@ -42,8 +57,26 @@ async function leerAlturas({ url, nx, ny }) {
   const x = c.getContext('2d', { willReadFrequently: true })
   x.drawImage(fuente, 0, 0)
   const px = x.getImageData(0, 0, nx, ny).data
+  const Q = new Float32Array(nx * ny)
+  let s = 0
+  for (let k = 0; k < Q.length; k++) { Q[k] = px[k * 4] * 256 + px[k * 4 + 1]; s += Q[k] }
+  // Algunos navegadores meten ruido al leer el canvas (protección contra el rastreo): un ±1 en el byte alto es un pico
+  // falso de 128 m. Si la suma no cuadra, cada punto que se separa más de 60 m de la mediana de sus vecinos se corrige.
+  if (suma != null && s !== suma) {
+    const lim = 60 / D.pasoM, orig = Float32Array.from(Q)
+    let n = 0
+    for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
+      const v = []
+      if (i > 0) v.push(orig[j * nx + i - 1]); if (i < nx - 1) v.push(orig[j * nx + i + 1])
+      if (j > 0) v.push(orig[(j - 1) * nx + i]); if (j < ny - 1) v.push(orig[(j + 1) * nx + i])
+      v.sort((a, b) => a - b)
+      const med = v.length % 2 ? v[v.length >> 1] : (v[v.length / 2 - 1] + v[v.length / 2]) / 2
+      if (Math.abs(orig[j * nx + i] - med) > lim) { Q[j * nx + i] = med; n++ }
+    }
+    VISOR.reparadas = n
+  }
   const H = new Float32Array(nx * ny)
-  for (let k = 0; k < H.length; k++) H[k] = (px[k * 4] * 256 + px[k * 4 + 1]) * D.pasoM
+  for (let k = 0; k < H.length; k++) H[k] = Q[k] * D.pasoM
   return { H, nx, ny }
 }
 
@@ -55,9 +88,13 @@ async function leerImagen(url) {
   return img
 }
 
+// Lo mismo que ISLA y enIsla en scripts/visor-3d.mjs: el relieve se funde con el fondo en un cuadrado redondeado.
+const [ISLA0, ISLA1] = D.isla
+const enIsla = (u, v) => ((2 * u - 1) ** 4 + (2 * v - 1) ** 4) ** 0.25
+
 // ── Escena ───────────────────────────────────────────────────────────────────────────────────────
 async function arrancar() {
-  // En el móvil, la rejilla de 256 (la textura lleva el detalle); en el ordenador, la de 512.
+  // En el móvil, la rejilla de 256 y la textura de 1536 (la textura lleva el detalle); en el ordenador, 512 y 2048.
   const pAlturas = leerAlturas(tactil ? D.alturasMovil : D.alturas)
   const pPrevia = leerImagen(D.previa)
   const { H, nx, ny } = await pAlturas
@@ -66,7 +103,6 @@ async function arrancar() {
   let hMax = 0
   for (const v of H) if (v > hMax) hMax = v
   const alto = Yk(hMax)
-  const base = Math.max(A, F) * 0.045 + alto * 0.08
   // Altura (m sobre la cota mínima) en (u, v), bilineal.
   const hEn = (u, v) => {
     const x = Math.min(nx - 1.0001, Math.max(0, u * (nx - 1))), y = Math.min(ny - 1.0001, Math.max(0, v * (ny - 1)))
@@ -76,6 +112,8 @@ async function arrancar() {
   const yEn = (x, z) => Yk(hEn(x / A + 0.5, z / F + 0.5))
 
   const renderer = new WebGLRenderer({ canvas: lienzo, antialias: true, alpha: true, powerPreference: 'high-performance' })
+  // Si el navegador retira el contexto WebGL (poca memoria, la app en segundo plano en iOS), la lámina estática.
+  lienzo.addEventListener('webglcontextlost', (e) => { e.preventDefault(); sin3d('contexto WebGL perdido') })
   renderer.outputColorSpace = SRGBColorSpace
   renderer.setClearColor(0x000000, 0)
   let ratio = Math.min(devicePixelRatio || 1, 2)
@@ -85,26 +123,19 @@ async function arrancar() {
   const grupo = new Group()
   escena.add(grupo)
 
-  // Terreno: rejilla desplazada.
-  const paso = 1
-  const cols = [], filas = []
-  for (let i = 0; i < nx - 1; i += paso) cols.push(i)
-  cols.push(nx - 1)
-  for (let j = 0; j < ny - 1; j += paso) filas.push(j)
-  filas.push(ny - 1)
-  const NC = cols.length, NF = filas.length
-  const pos = new Float32Array(NC * NF * 3), uv = new Float32Array(NC * NF * 2)
-  for (let b = 0; b < NF; b++) for (let a = 0; a < NC; a++) {
-    const i = cols[a], j = filas[b], k = b * NC + a, u = i / (nx - 1), v = j / (ny - 1)
-    pos[k * 3] = X(u); pos[k * 3 + 1] = Yk(H[j * nx + i]); pos[k * 3 + 2] = Z(v)
+  // Terreno: rejilla desplazada, con la textura y el borde fundido con el fondo.
+  const pos = new Float32Array(nx * ny * 3), uv = new Float32Array(nx * ny * 2)
+  for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
+    const k = j * nx + i, u = i / (nx - 1), v = j / (ny - 1)
+    pos[k * 3] = X(u); pos[k * 3 + 1] = Yk(H[k]); pos[k * 3 + 2] = Z(v)
     uv[k * 2] = u; uv[k * 2 + 1] = 1 - v
   }
-  const idx = new Uint32Array((NC - 1) * (NF - 1) * 6)
+  const idx = new Uint32Array((nx - 1) * (ny - 1) * 6)
   let q = 0
-  for (let b = 0; b < NF - 1; b++) for (let a = 0; a < NC - 1; a++) {
-    const k = b * NC + a
-    idx[q++] = k; idx[q++] = k + NC; idx[q++] = k + 1
-    idx[q++] = k + 1; idx[q++] = k + NC; idx[q++] = k + NC + 1
+  for (let j = 0; j < ny - 1; j++) for (let i = 0; i < nx - 1; i++) {
+    const k = j * nx + i
+    idx[q++] = k; idx[q++] = k + nx; idx[q++] = k + 1
+    idx[q++] = k + 1; idx[q++] = k + nx; idx[q++] = k + nx + 1
   }
   const geoT = new BufferGeometry()
   geoT.setAttribute('position', new BufferAttribute(pos, 3))
@@ -115,64 +146,15 @@ async function arrancar() {
   tex.colorSpace = SRGBColorSpace
   tex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy())
   tex.needsUpdate = true
-  const matT = new MeshBasicMaterial({ map: tex })
+  const matT = new MeshBasicMaterial({ map: tex, transparent: true })
+  matT.onBeforeCompile = (sh) => {
+    sh.fragmentShader = sh.fragmentShader.replace('#include <map_fragment>', `#include <map_fragment>
+      { vec2 q = abs(vMapUv * 2.0 - 1.0); float d = pow(pow(q.x, 4.0) + pow(q.y, 4.0), 0.25);
+        diffuseColor.a *= 1.0 - smoothstep(${ISLA0.toFixed(3)}, ${ISLA1.toFixed(3)}, d); }`)
+  }
   const terreno = new Mesh(geoT, matT)
+  terreno.renderOrder = 1
   grupo.add(terreno)
-
-  // Paredes del bloque, como un relieve cortado: degradado oscuro y una raya fina cada 100 m de altitud real.
-  {
-    const bordes = [
-      cols.map((i) => [i, 0]), filas.map((j) => [nx - 1, j]), cols.slice().reverse().map((i) => [i, ny - 1]), filas.slice().reverse().map((j) => [0, j]),
-    ]
-    const p = [], nrm = [], id = []
-    for (const borde of bordes) {
-      const [i0, j0] = borde[0], [i1, j1] = borde[borde.length - 1]
-      const tx = i1 - i0, tz = j1 - j0, L = Math.hypot(tx, tz)
-      const n = [tz / L, 0, -tx / L]
-      const o = p.length / 3
-      for (const [i, j] of borde) {
-        const x = X(i / (nx - 1)), z = Z(j / (ny - 1))
-        p.push(x, Yk(H[j * nx + i]), z, x, -base, z)
-        nrm.push(...n, ...n)
-      }
-      for (let k = 0; k < borde.length - 1; k++) { const a = o + k * 2; id.push(a, a + 1, a + 2, a + 2, a + 1, a + 3) }
-    }
-    const g = new BufferGeometry()
-    g.setAttribute('position', new BufferAttribute(new Float32Array(p), 3))
-    g.setAttribute('normal', new BufferAttribute(new Float32Array(nrm), 3))
-    g.setIndex(id)
-    const m = new ShaderMaterial({
-      uniforms: { uEsc: { value: EX / 1000 }, uZmin: { value: D.zmin }, uBase: { value: base }, uTop: { value: alto } },
-      vertexShader: `varying float vY; varying vec3 vN;
-        void main(){ vY = position.y; vN = normal; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
-      fragmentShader: `uniform float uEsc, uZmin, uBase, uTop; varying float vY; varying vec3 vN;
-        void main(){
-          float t = clamp((vY + uBase) / (uTop + uBase), 0.0, 1.0);
-          vec3 c = mix(vec3(0.045, 0.05, 0.056), vec3(0.23, 0.205, 0.18), pow(t, 1.6));
-          float luz = 0.72 + 0.28 * dot(normalize(vN), normalize(vec3(-0.6, 0.0, -0.8)));
-          c *= luz;
-          float m = (vY / uEsc + uZmin) / 100.0;
-          float d = abs(fract(m + 0.5) - 0.5);
-          float raya = (1.0 - smoothstep(0.0, fwidth(m) * 1.2, d)) * step(0.0, vY);
-          c += raya * vec3(0.11, 0.1, 0.09);
-          gl_FragColor = vec4(c, 1.0);
-        }`,
-    })
-    grupo.add(new Mesh(g, m))
-  }
-
-  // Sombra suave bajo el bloque.
-  {
-    const c = document.createElement('canvas'); c.width = c.height = 128
-    const x = c.getContext('2d'), gr = x.createRadialGradient(64, 64, 8, 64, 64, 64)
-    gr.addColorStop(0, 'rgba(0,0,0,0.62)'); gr.addColorStop(0.55, 'rgba(0,0,0,0.3)'); gr.addColorStop(1, 'rgba(0,0,0,0)')
-    x.fillStyle = gr; x.fillRect(0, 0, 128, 128)
-    const s = new Mesh(new PlaneGeometry(A * 1.9, F * 1.9), new MeshBasicMaterial({ map: new CanvasTexture(c), transparent: true, depthWrite: false }))
-    s.rotation.x = -Math.PI / 2
-    s.position.y = -base - 0.002
-    s.renderOrder = -1
-    escena.add(s)
-  }
 
   // ── Recorrido: tubo de grosor constante en pantalla, con halo aditivo y un pulso que lo recorre ────
   const celda = Math.min(A / (nx - 1), F / (ny - 1))
@@ -234,16 +216,18 @@ async function arrancar() {
     return g
   }
   const geoR = tubo()
+  // uMin: altura mínima sobre el suelo (4 m reales): de cerca, el radio en pantalla es muy poco y la malla, que no es
+  // la bilineal, tapaba trozos del tubo.
   const comun = {
-    uProg: { value: reducido ? 1 : 0 }, uT: { value: 0 }, uPx: { value: 1 }, uLift: { value: 1 },
+    uProg: { value: reducido ? 1 : 0 }, uT: { value: 0 }, uPx: { value: 1 }, uLift: { value: 1 }, uMin: { value: Yk(4) }, uPulso: { value: reducido ? 0 : 1 },
   }
   const vert = (ancho, levanta) => `attribute vec3 aN; attribute float aS;
-    uniform float uPx, uLift; varying float vS; varying float vF;
+    uniform float uPx, uLift, uMin; varying float vS; varying float vF;
     void main(){
       vec4 c = modelMatrix * vec4(position, 1.0);
       float d = distance(cameraPosition, c.xyz);
       float r = ${ancho.toFixed(2)} * uPx * d;
-      c.y += r * ${levanta.toFixed(2)} * uLift;
+      c.y += (r * ${levanta.toFixed(2)} + uMin) * uLift;
       vec3 n = normalize(aN);
       vec4 w = c + vec4(n * r, 0.0);
       vec3 V = normalize(cameraPosition - w.xyz);
@@ -251,7 +235,8 @@ async function arrancar() {
       vS = aS;
       gl_Position = projectionMatrix * viewMatrix * w;
     }`
-  const pulso = `float pulso(float s, float t){ float p = fract(t * 0.055); float d = s - p; d -= floor(d + 0.5); return exp(-d * d * 9000.0); }`
+  // Pulso: una chispa cálida que recorre el trazado cada ~18 s, como el circuito de un calendario de carreras.
+  const pulso = `uniform float uPulso; float pulso(float s, float t){ float p = fract(t * 0.055); float d = s - p; d -= floor(d + 0.5); return uPulso * exp(-d * d * 6000.0); }`
   const matR = new ShaderMaterial({
     uniforms: comun,
     vertexShader: vert(1.0, 1.15),
@@ -260,8 +245,8 @@ async function arrancar() {
         if (vS > uProg) discard;
         float cab = uProg < 0.999 ? exp(-pow((uProg - vS) * 90.0, 2.0)) : 0.0;
         float pl = uProg >= 0.999 ? pulso(vS, uT) : 0.0;
-        vec3 c = mix(vec3(1.0, 0.2, 0.1), vec3(1.0, 0.78, 0.66), pow(vF, 4.0) * 0.85);
-        c = mix(c, vec3(1.0, 0.96, 0.9), clamp(cab + pl, 0.0, 1.0));
+        vec3 c = mix(vec3(1.0, 0.22, 0.1), vec3(1.0, 0.7, 0.56), pow(vF, 4.0) * 0.8);
+        c = mix(c, vec3(1.0, 0.84, 0.66), clamp(cab + pl, 0.0, 1.0) * 0.75);
         gl_FragColor = vec4(c, 1.0);
       }`,
   })
@@ -273,21 +258,14 @@ async function arrancar() {
         if (vS > uProg) discard;
         float cab = uProg < 0.999 ? exp(-pow((uProg - vS) * 50.0, 2.0)) : 0.0;
         float pl = uProg >= 0.999 ? pulso(vS, uT) : 0.0;
-        float a = pow(vF, 2.2) * (0.42 + 0.9 * (cab + pl));
+        float a = pow(vF, 2.2) * (0.45 + 0.6 * (cab + pl));
         gl_FragColor = vec4(vec3(1.0, 0.27, 0.12) * a, a);
       }`,
     transparent: true, depthWrite: false, blending: AdditiveBlending,
   })
-  const matRayos = new ShaderMaterial({
-    uniforms: comun,
-    vertexShader: vert(0.8, 1.15),
-    fragmentShader: `uniform float uProg; varying float vS;
-      void main(){ if (vS > uProg) discard; gl_FragColor = vec4(1.0, 0.33, 0.2, 0.26); }`,
-    transparent: true, depthWrite: false, depthFunc: GreaterDepth,
-  })
-  const ruta = new Mesh(geoR, matR), halo = new Mesh(geoR, matHalo), rayos = new Mesh(geoR, matRayos)
-  for (const m of [ruta, halo, rayos]) { m.frustumCulled = false; grupo.add(m) }
-  ruta.renderOrder = 2; halo.renderOrder = 3; rayos.renderOrder = 4
+  const ruta = new Mesh(geoR, matR), halo = new Mesh(geoR, matHalo)
+  for (const m of [ruta, halo]) { m.frustumCulled = false; grupo.add(m) }
+  ruta.renderOrder = 0; halo.renderOrder = 3
 
   // ── Etiquetas (HTML): salida, meta y cumbres ──────────────────────────────────────────────────
   const etiquetas = []
@@ -296,9 +274,8 @@ async function arrancar() {
     el.className = `et ${clase}`
     el.innerHTML = contenido
     capa.appendChild(el)
-    const x = X(u), z = Z(v)
-    const e = { el, p: new Vector3(x, Yk(hEn(u, v)), z), alza, prioridad, oculta: false, ver: false, w: 0, h: 0, cima: clase === 'cima' }
     // El punto de anclaje: abajo en el centro (cumbre) o el centro del punto rojo (salida y meta).
+    const e = { el, p: new Vector3(X(u), Yk(hEn(u, v)), Z(v)), alza, prioridad, oculta: false, ver: false, w: 0, h: 0, cima: clase === 'cima' }
     etiquetas.push(e)
     return e
   }
@@ -306,10 +283,11 @@ async function arrancar() {
   const nombreHito = (t, n) => `<i></i><span>${escH(t)}${n ? ` · <em>${escH(n)}</em>` : ''}</span>`
   nueva('hito', nombreHito(D.t.salida, D.t.salidaN), D.salida[0], D.salida[1], 10, 0.02)
   if (!D.juntas) nueva('hito', nombreHito(D.t.meta, D.t.metaN), D.meta[0], D.meta[1], 9, 0.02)
-  const cimas = D.cumbres.map((c, i) => nueva('cima', `<div><b>${escH(c.n)}</b><small>${escH(c.t)}</small></div>`, c.u, c.v, 5 - i * 0.5, 0.004))
-  const medirEtiquetas = () => { for (const e of etiquetas) { const r = e.el.getBoundingClientRect(); e.w = r.width; e.h = r.height } }
+  const cimas = D.cumbres.map((c, i) => nueva('cima', `<div class="caja"><b>${escH(c.n)}</b><small>${escH(c.t)}</small></div>`, c.u, c.v, 5 - i * 0.5, 0.004))
+  // Tamaño de la caja de texto (la etiqueta en sí mide 0 × 0 y se coloca en el punto exacto).
+  const medirEtiquetas = () => { for (const e of etiquetas) { e.caja = e.el.querySelector('.caja, span'); const r = e.caja.getBoundingClientRect(); e.w = r.width; e.h = r.height } }
   medirEtiquetas()
-  document.fonts?.ready.then(medirEtiquetas)
+  document.fonts?.ready.then(() => { medirEtiquetas(); medirInterfaz() })
 
   // ── Cámara y controles ───────────────────────────────────────────────────────────────────────
   const controles = new OrbitControls(camara, lienzo)
@@ -320,29 +298,50 @@ async function arrancar() {
   controles.screenSpacePanning = false
   controles.minPolarAngle = 0.12
   controles.maxPolarAngle = 1.3
-  controles.autoRotateSpeed = 0.7
-  const objetivo0 = new Vector3(0, alto * 0.32, 0)
-  const vista0 = { dist: 1, polar: (52 * Math.PI) / 180, az: 0 }
+  controles.autoRotateSpeed = 1.1
+  // Lo que tiene que caber en pantalla: el contorno de la isla (con la altura real del terreno) y sus picos más altos.
+  // La isla es casi redonda: cabe igual al girar.
+  const ajuste = []
+  for (let k = 0; k < 64; k++) {
+    const a = (k / 64) * Math.PI * 2, c = Math.cos(a), s = Math.sin(a)
+    const r = 0.92 / ((c ** 4 + s ** 4) ** 0.25), u = 0.5 + (c * r) / 2, v = 0.5 + (s * r) / 2
+    ajuste.push(new Vector3(X(u), Yk(hEn(u, v)), Z(v)))
+  }
+  for (let tj = 0; tj < 6; tj++) for (let ti = 0; ti < 6; ti++) {
+    let m = -1, mi = 0, mj = 0
+    for (let j = Math.floor((tj * (ny - 1)) / 6); j < Math.floor(((tj + 1) * (ny - 1)) / 6); j++) for (let i = Math.floor((ti * (nx - 1)) / 6); i < Math.floor(((ti + 1) * (nx - 1)) / 6); i++) if (H[j * nx + i] > m) { m = H[j * nx + i]; mi = i; mj = j }
+    if (enIsla(mi / (nx - 1), mj / (ny - 1)) < ISLA0) ajuste.push(new Vector3(X(mi / (nx - 1)), Yk(m), Z(mj / (ny - 1))))
+  }
+  const estrecho = () => innerWidth < 720
+  const objetivo0 = new Vector3(0, alto * 0.3, 0)
+  const vista0 = { dist: 1, polar: 0, az: 0 }
   // Acimut de la lámina (0 = desde el sur; 225 = desde el noreste mirando al suroeste).
   vista0.az = Math.atan2(-Math.sin((D.acimut * Math.PI) / 180), Math.cos((D.acimut * Math.PI) / 180))
-  const esquinas = []
-  for (const sx of [-1, 1]) for (const sz of [-1, 1]) for (const y of [-base, alto]) esquinas.push(new Vector3((sx * A) / 2, y, (sz * F) / 2))
   const tmp = new Vector3(), sph = new Spherical()
+  // Lo que ocupa la interfaz (columna de textos, botones, controles): una etiqueta que caiga encima no se enseña.
+  let ocupado = []
+  const medirInterfaz = () => {
+    ocupado = ['.controles', '.pie .oferta', '.cred', '.kicker', 'h1', '.distancia', '.cifras', '.leyenda'].map((s) => $(s)?.getBoundingClientRect())
+      .filter((r) => r && r.width && r.height).map((r) => [r.left, r.top, r.right, r.bottom])
+  }
   // Planos de recorte según la distancia: con uno fijo y muy cercano, a 100 km la ruta y el terreno se pisaban.
   function planos(d) {
-    const n = Math.max(0.004, d * 0.03), f = d * 4 + Math.max(A, F) * 2
+    const n = Math.max(0.004, d * 0.02), f = d * 4 + Math.max(A, F) * 2
     if (Math.abs(camara.near - n) > n * 0.05 || Math.abs(camara.far - f) > f * 0.05) { camara.near = n; camara.far = f; camara.updateProjectionMatrix() }
   }
-  // Zona libre de la pantalla (sin la cabecera ni los botones), en píxeles.
+  // Zona libre de la pantalla, en píxeles: a la derecha de la columna de textos (ordenador) o entre la cabecera y los
+  // botones (móvil).
   function zonaLibre() {
     const W = innerWidth, Hh = innerHeight
-    const cab = document.querySelector('.cabeza').getBoundingClientRect(), pie = document.querySelector('.pie').getBoundingClientRect()
-    if (W >= 720) return { x0: 24, x1: W - 24, y0: Math.min(cab.bottom * 0.55, Hh * 0.2), y1: Math.max(Hh * 0.72, pie.top - 8) }
-    return { x0: 10, x1: W - 10, y0: cab.bottom + 6, y1: pie.top - 6 }
+    const cab = $('.cabeza').getBoundingClientRect(), pie = $('.pie').getBoundingClientRect()
+    if (!estrecho()) return { x0: Math.max(cab.right, pie.right) + 24, x1: W - 24, y0: 70, y1: Hh - 24 }
+    return { x0: 8, x1: W - 8, y0: cab.bottom + 8, y1: pie.top - 8 }
   }
-  // Distancia a la que el bloque entero cabe en la zona libre, mirando desde (polar, az). Desplaza el centro óptico.
+  // Distancia a la que todo cabe en la zona libre, mirando desde (polar, az), con el centro óptico en el de la zona.
+  // Prueba con la cámara y luego la deja como estaba (si no, al cambiar el tamaño se perdía la vista del usuario).
   function encajar(polar, az) {
     const W = innerWidth, Hh = innerHeight, z = zonaLibre()
+    const p0 = camara.position.clone(), q0 = camara.quaternion.clone()
     camara.clearViewOffset()
     const cx = (z.x0 + z.x1) / 2, cy = (z.y0 + z.y1) / 2
     camara.setViewOffset(W, Hh, W / 2 - cx, Hh / 2 - cy, W, Hh)
@@ -353,7 +352,7 @@ async function arrancar() {
       camara.position.setFromSpherical(sph).add(objetivo0)
       camara.lookAt(objetivo0)
       camara.updateMatrixWorld()
-      for (const e of esquinas) {
+      for (const e of ajuste) {
         tmp.copy(e).project(camara)
         const px = ((tmp.x + 1) / 2) * W, py = ((1 - tmp.y) / 2) * Hh
         if (tmp.z > 1 || px < z.x0 || px > z.x1 || py < z.y0 || py > z.y1) return false
@@ -362,33 +361,47 @@ async function arrancar() {
     }
     let lo = 0.1, hi = 400
     for (let k = 0; k < 40; k++) { const m = (lo + hi) / 2; if (cabe(m)) hi = m; else lo = m }
+    camara.position.copy(p0); camara.quaternion.copy(q0); camara.updateMatrixWorld()
     return hi
   }
   function medir() {
     const W = innerWidth, Hh = innerHeight
     renderer.setSize(W, Hh, false)
     camara.aspect = W / Hh
+    vista0.polar = ((estrecho() ? 41 : 52) * Math.PI) / 180
     vista0.dist = encajar(vista0.polar, vista0.az)
-    controles.minDistance = vista0.dist * 0.18
+    controles.minDistance = vista0.dist * 0.16
     controles.maxDistance = vista0.dist * 1.7
-    comun.uPx.value = 1.6 * (Math.tan((camara.fov * Math.PI) / 360) * 2) / Hh
+    comun.uPx.value = (tactil ? 1.6 : 1.8) * (Math.tan((camara.fov * Math.PI) / 360) * 2) / Hh
+    colocarAvisos()
+    medirInterfaz()
   }
-  medir()
+  // La pista de uso y el «cargando», en el hueco del relieve.
+  function colocarAvisos() {
+    const z = zonaLibre()
+    pista.style.left = `${Math.round((z.x0 + z.x1) / 2)}px`
+    pista.style.top = `${Math.round(z.y1 - 26)}px`
+    pista.style.maxWidth = `${Math.round(z.x1 - z.x0 - 16)}px`
+  }
 
   // ── Animación de entrada: el terreno sube desde plano y la ruta se dibuja de la salida a la meta ──
   const DUR = reducido ? 0 : 2800
   const ease = (t) => 1 - Math.pow(1 - t, 3), suave = (t) => t * t * (3 - 2 * t)
-  const desde = { dist: vista0.dist * 1.32, polar: vista0.polar - 0.22, az: vista0.az - 0.5 }
-  let t0 = 0, entrada = DUR > 0
+  let desde = null, t0 = 0, entrada = DUR > 0
   function ponerVista(v) {
     sph.set(v.dist, v.polar, v.az)
     camara.position.setFromSpherical(sph).add(controles.target)
     camara.lookAt(controles.target)
   }
+  medir()
+  desde = { dist: vista0.dist * 1.32, polar: vista0.polar - 0.24, az: vista0.az - 0.55 }
   controles.target.copy(objetivo0)
   ponerVista(DUR ? desde : vista0)
   controles.update()
   grupo.scale.y = DUR ? 0.001 : 1
+  // Las cifras de la cabecera cuentan hasta su valor mientras sube el relieve.
+  const cifras = [...document.querySelectorAll('.cifras b[data-n]')].map((b) => ({ b, n: +b.dataset.n, txt: b.textContent, dec: /,/.test(b.textContent) }))
+  const pintaCifra = (c, v) => { c.b.textContent = c.dec ? v.toFixed(1).replace('.', ',') : String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') }
 
   // Vuelo suave de la cámara (volver a la vista inicial, ir a una cumbre).
   let vuelo = null
@@ -400,21 +413,36 @@ async function arrancar() {
     vuelo = { t0: performance.now(), ms: reducido ? 1 : ms, de: { o: controles.target.clone(), dist: sph.radius, polar: sph.phi, az: sph.theta }, a: { o: objetivo.clone(), dist: v.dist, polar: v.polar, az: az1 } }
     despertar()
   }
-  function volverInicio() { controles.autoRotate = !reducido; volar(objetivo0, vista0) }
-
-  let ultimoToque = 0, toques = 0, ultimoXY = [0, 0]
-  const pararGiro = () => { controles.autoRotate = false; quitarPista() }
+  let giroDesde = 0
+  const girar = (si) => { controles.autoRotate = si && !reducido; giroDesde = performance.now() }
+  function volverInicio() { girar(true); volar(objetivo0, vista0) }
+  const pararGiro = () => { girar(false); quitarPista() }
   controles.addEventListener('start', () => { pararGiro(); vuelo = null; despertar() })
   controles.addEventListener('change', despertar)
   lienzo.addEventListener('dblclick', (e) => { e.preventDefault(); volverInicio() })
+  // Doble toque: dos toques cortos (menos de 250 ms y 10 px cada uno) seguidos; el final de un arrastre no cuenta.
+  const abajo = new Map()
+  let ultimoToque = 0, ultimoXY = [0, 0]
+  lienzo.addEventListener('pointerdown', (e) => { if (e.pointerType === 'touch') abajo.set(e.pointerId, { t: performance.now(), x: e.clientX, y: e.clientY, n: abajo.size }) })
   lienzo.addEventListener('pointerup', (e) => {
-    if (e.pointerType !== 'touch') return
-    const ahora = performance.now(), d = Math.hypot(e.clientX - ultimoXY[0], e.clientY - ultimoXY[1])
-    toques = ahora - ultimoToque < 320 && d < 30 ? toques + 1 : 1
+    const d0 = abajo.get(e.pointerId)
+    abajo.delete(e.pointerId)
+    if (!d0 || d0.n > 0 || abajo.size) { ultimoToque = 0; return }
+    const ahora = performance.now()
+    if (ahora - d0.t > 250 || Math.hypot(e.clientX - d0.x, e.clientY - d0.y) > 10) { ultimoToque = 0; return }
+    if (ahora - ultimoToque < 320 && Math.hypot(e.clientX - ultimoXY[0], e.clientY - ultimoXY[1]) < 30) { ultimoToque = 0; volverInicio(); return }
     ultimoToque = ahora; ultimoXY = [e.clientX, e.clientY]
-    if (toques === 2) { toques = 0; volverInicio() }
   })
-  document.getElementById('reset').addEventListener('click', volverInicio)
+  lienzo.addEventListener('pointercancel', (e) => abajo.delete(e.pointerId))
+  $('#reset').addEventListener('click', volverInicio)
+  // Brújula: gira con la vista; al pulsarla, el norte vuelve arriba sin cambiar la distancia ni la inclinación.
+  const aguja = $('#aguja')
+  let azAguja = null
+  $('#norte').addEventListener('click', () => {
+    pararGiro()
+    sph.setFromVector3(tmp.copy(camara.position).sub(controles.target))
+    volar(controles.target, { dist: sph.radius, polar: sph.phi, az: 0 }, 900)
+  })
   for (const b of document.querySelectorAll('[data-cima]')) {
     b.addEventListener('click', () => {
       const c = cimas[+b.dataset.cima]
@@ -424,62 +452,95 @@ async function arrancar() {
       volar(c.p.clone().setY(c.p.y * 0.85), { dist: vista0.dist * 0.42, polar: Math.min(sph.phi, 1.05), az: sph.theta })
     })
   }
+  // Teclado (con el foco en el relieve): flechas para girar e inclinar, + y − para acercar, Esc o 0 para volver.
   lienzo.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' || e.key === 'Home' || e.key === '0') volverInicio()
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { pararGiro(); sph.setFromVector3(tmp.copy(camara.position).sub(controles.target)); volar(controles.target, { dist: sph.radius, polar: sph.phi, az: sph.theta + (e.key === 'ArrowLeft' ? -0.35 : 0.35) }, 350) }
+    sph.setFromVector3(tmp.copy(camara.position).sub(controles.target))
+    const ir = (v) => { e.preventDefault(); pararGiro(); volar(controles.target, { dist: sph.radius, polar: sph.phi, az: sph.theta, ...v }, 350) }
+    if (e.key === 'Escape' || e.key === 'Home' || e.key === '0') { e.preventDefault(); volverInicio() }
+    else if (e.key === 'ArrowLeft') ir({ az: sph.theta - 0.35 })
+    else if (e.key === 'ArrowRight') ir({ az: sph.theta + 0.35 })
+    else if (e.key === 'ArrowUp') ir({ polar: Math.max(controles.minPolarAngle, sph.phi - 0.15) })
+    else if (e.key === 'ArrowDown') ir({ polar: Math.min(controles.maxPolarAngle, sph.phi + 0.15) })
+    else if (e.key === '+' || e.key === '=') ir({ dist: Math.max(controles.minDistance, sph.radius * 0.8) })
+    else if (e.key === '-' || e.key === '_') ir({ dist: Math.min(controles.maxDistance, sph.radius * 1.25) })
   })
 
   // Pista de uso: unos segundos después de la entrada, hasta que se toque.
   let pistaQuitada = false
   function quitarPista() { pistaQuitada = true; pista.classList.remove('ver') }
   pista.querySelector('span').textContent = tactil ? D.t.gira : D.t.giraRaton
+  colocarAvisos()
 
   // Textura buena en segundo plano.
-  leerImagen(D.textura).then((img) => {
-    tex.image = img
-    tex.needsUpdate = true
+  // (Una textura nueva: three reserva la memoria de la primera con su tamaño y no se puede subir otra más grande encima.)
+  leerImagen(tactil ? D.texturaMovil : D.textura).then((img) => {
+    const buena = new Texture(img)
+    buena.colorSpace = SRGBColorSpace
+    buena.anisotropy = tex.anisotropy
+    buena.needsUpdate = true
+    matT.map = buena
+    tex.dispose()
     VISOR.texturaBuena = true
     despertar()
   }).catch((e) => VISOR.errores.push(`textura: ${e.message || e}`))
 
   // ── Etiquetas: proyección, ocultas tras el relieve y sin solaparse ──────────────────────────────
-  const W2 = () => innerWidth, H2 = () => innerHeight
   let cuadro = 0
   const visible = (p) => {
-    // ¿Tapa el relieve el punto? Se recorre el rayo desde la cámara con la rejilla de alturas.
+    // ¿Tapa el relieve el punto? Se recorre el rayo desde la cámara con la rejilla de alturas (sin el borde fundido).
     const c = camara.position, n = 40
     for (let k = 1; k < n; k++) {
       const t = k / n, x = c.x + (p.x - c.x) * t, y = c.y + (p.y - c.y) * t, z = c.z + (p.z - c.z) * t
-      if (Math.abs(x) > A / 2 || Math.abs(z) > F / 2) continue
+      if (Math.abs(x) > A / 2 || Math.abs(z) > F / 2 || enIsla(x / A + 0.5, z / F + 0.5) > ISLA0 + 0.05) continue
       if (yEn(x, z) * grupo.scale.y > y + alto * 0.01) return false
     }
     return true
   }
   function etiquetar(mostrar) {
-    const W = W2(), Hh = H2()
+    const W = innerWidth, Hh = innerHeight
     const comprobar = cuadro++ % 6 === 0
-    const cajas = []
+    const cajas = ocupado.slice()
     const orden = etiquetas.slice().sort((a, b) => b.prioridad - a.prioridad)
     for (const e of orden) {
       tmp.set(e.p.x, e.p.y * grupo.scale.y + e.alza * Math.max(A, F) * 0.02, e.p.z).project(camara)
       const x = ((tmp.x + 1) / 2) * W, y = ((1 - tmp.y) / 2) * Hh
       if (comprobar) e.oculta = !visible(tmp.set(e.p.x, e.p.y * grupo.scale.y + alto * 0.012, e.p.z))
       let ver = mostrar && tmp.z < 1 && x > -40 && x < W + 40 && y > 0 && y < Hh && !e.oculta
-      const ox = e.cima ? x - e.w / 2 : x - 6, oy = e.cima ? y - e.h + 2.5 : y - e.h / 2
-      const caja = [ox, oy, ox + e.w, oy + e.h]
+      // La caja no se sale de la pantalla: la de una cumbre se corre de lado (el palito sigue en su sitio) y la de
+      // salida y meta pasa al otro lado del punto.
+      let caja
+      if (e.cima) {
+        const l = x - e.w / 2, dx = l < 8 ? 8 - l : l + e.w > W - 8 ? W - 8 - (l + e.w) : 0
+        caja = [l + dx, y - 26 - e.h, l + dx + e.w, y + 3]
+        if (dx !== e.dx) { e.dx = dx; e.caja.style.transform = `translateX(${(-e.w / 2 + dx).toFixed(1)}px)` }
+      } else {
+        const izq = x + 15 + e.w > W - 8
+        if (izq !== e.izq) { e.izq = izq; e.el.classList.toggle('izq', izq) }
+        caja = izq ? [x - 15 - e.w, y - 12, x + 7, y + 12] : [x - 7, y - 12, x + 15 + e.w, y + 12]
+      }
       if (ver && cajas.some((b) => caja[0] < b[2] + 4 && caja[2] > b[0] - 4 && caja[1] < b[3] + 2 && caja[3] > b[1] - 2)) ver = false
       if (ver) cajas.push(caja)
-      e.el.style.transform = `translate3d(${ox.toFixed(1)}px,${oy.toFixed(1)}px,0)`
+      e.el.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0)`
       if (ver !== e.ver) { e.ver = ver; e.el.classList.toggle('ver', ver) }
+    }
+  }
+  // Nunca por debajo del terreno (tampoco en un vuelo).
+  function sobreElSuelo() {
+    const c = camara.position
+    if (Math.abs(c.x) < A / 2 && Math.abs(c.z) < F / 2) {
+      const suelo = yEn(c.x, c.z) * grupo.scale.y + Math.max(A, F) * 0.012
+      if (c.y < suelo) { c.y = suelo; camara.lookAt(controles.target) }
     }
   }
 
   // ── Bucle: se para cuando no hay nada que mover (batería) ───────────────────────────────────────
-  let pedido = false, quieto = 0, ultimo = performance.now()
+  // El giro automático se para solo a los 90 s; sin tocar, 20 s después se deja de pintar (el pulso se queda quieto).
+  let pedido = false, quieto = 0, ultimo = performance.now(), reloj = 0
   const frames = []
-  function despertar() { quieto = performance.now(); if (!pedido) { pedido = true; requestAnimationFrame(cuadroFn) } }
+  function despertar() { quieto = performance.now(); if (!pedido && !VISOR.parado) { pedido = true; requestAnimationFrame(cuadroFn) } }
   function cuadroFn(ahora) {
     pedido = false
+    if (VISOR.parado) return
     const dt = ahora - ultimo
     ultimo = ahora
     if (entrada) {
@@ -489,11 +550,14 @@ async function arrancar() {
       comun.uProg.value = suave(Math.min(1, Math.max(0, (t - 0.22) / 0.74)))
       const k = ease(t)
       ponerVista({ dist: desde.dist + (vista0.dist - desde.dist) * k, polar: desde.polar + (vista0.polar - desde.polar) * k, az: desde.az + (vista0.az - desde.az) * k })
+      const kc = ease(Math.min(1, t / 0.6))
+      for (const c of cifras) pintaCifra(c, c.n * kc)
       if (t >= 1) {
         entrada = false
         comun.uProg.value = 1
+        for (const c of cifras) c.b.textContent = c.txt
         VISOR.entrada = Math.round(ahora - t0)
-        controles.autoRotate = !reducido
+        girar(true)
         controles.update()
         if (!pistaQuitada) { pista.classList.add('ver'); setTimeout(quitarPista, 5000) }
       }
@@ -501,21 +565,23 @@ async function arrancar() {
       const t = Math.min(1, (ahora - vuelo.t0) / vuelo.ms), k = suave(t), { de, a } = vuelo
       controles.target.lerpVectors(de.o, a.o, k)
       ponerVista({ dist: de.dist + (a.dist - de.dist) * k, polar: de.polar + (a.polar - de.polar) * k, az: de.az + (a.az - de.az) * k })
+      sobreElSuelo()
       if (t >= 1) vuelo = null
     } else {
+      if (controles.autoRotate && ahora - giroDesde > 90000) controles.autoRotate = false
       controles.update(Math.min(0.05, dt / 1000))
-      // Sin meterse bajo el terreno ni salirse del bloque al desplazar.
-      const lim = 0.5
+      // Sin salirse de la isla al desplazar ni meterse bajo el terreno.
+      const lim = 0.42
       controles.target.x = Math.max(-A * lim, Math.min(A * lim, controles.target.x))
       controles.target.z = Math.max(-F * lim, Math.min(F * lim, controles.target.z))
-      const c = camara.position
-      if (Math.abs(c.x) < A / 2 && Math.abs(c.z) < F / 2) {
-        const suelo = yEn(c.x, c.z) + Math.max(A, F) * 0.01
-        if (c.y < suelo) { c.y = suelo; camara.lookAt(controles.target) }
-      }
+      sobreElSuelo()
     }
     planos(camara.position.distanceTo(controles.target))
-    comun.uT.value = ahora / 1000
+    sph.setFromVector3(tmp.copy(camara.position).sub(controles.target))
+    if (azAguja === null || Math.abs(sph.theta - azAguja) > 0.002) { azAguja = sph.theta; aguja.style.transform = `rotate(${azAguja.toFixed(3)}rad)` }
+    // Con movimiento reducido, el pulso no corre.
+    if (!reducido) reloj += Math.min(dt, 100) / 1000
+    comun.uT.value = reloj
     renderer.render(escena, camara)
     etiquetar(!entrada || comun.uProg.value > 0.92)
     if (!entrada && dt < 200) { frames.push(dt); if (frames.length > 90) frames.shift() }
@@ -523,14 +589,13 @@ async function arrancar() {
       const media = frames.reduce((a, b) => a + b, 0) / frames.length
       if (media > 24) { ratio = Math.max(1, ratio - 0.5); renderer.setPixelRatio(ratio); medir(); frames.length = 0; VISOR.ratio = ratio } else VISOR.ajustado = true
     }
-    VISOR.ultimoDt = dt
-    // Sigue mientras haya entrada, vuelo o giro automático, y 20 s después del último toque (el pulso de la ruta).
-    const sigue = entrada || vuelo || controles.autoRotate || ahora - quieto < 20000
-    if (sigue && !document.hidden) { pedido = true; requestAnimationFrame(cuadroFn) }
+    const sigue = entrada || vuelo || controles.autoRotate || ahora - quieto < (reducido ? 1600 : 20000)
+    if (sigue && !document.hidden && !pedido) { pedido = true; requestAnimationFrame(cuadroFn) }
   }
   document.addEventListener('visibilitychange', () => { if (!document.hidden) { ultimo = performance.now(); despertar() } })
   // Al girar el móvil o cambiar la ventana, la vista conserva su ángulo y se acerca o aleja en proporción.
   addEventListener('resize', () => {
+    if (VISOR.parado) return
     const antes = vista0.dist
     medir()
     if (!entrada) {
@@ -545,7 +610,12 @@ async function arrancar() {
   html.classList.add('listo')
   VISOR.listo = true
   VISOR.tListo = Math.round(performance.now())
-  VISOR.vertices = NC * NF
+  // Para las pruebas (scripts de comprobación): giro, posición de la cámara y si está por debajo del terreno.
+  VISOR.gira = () => controles.autoRotate
+  VISOR.camara = () => camara.position.toArray().map((v) => +v.toFixed(4))
+  VISOR.acimut = () => +sph.setFromVector3(tmp.copy(camara.position).sub(controles.target)).theta.toFixed(3)
+  VISOR.bajoTerreno = () => Math.abs(camara.position.x) < A / 2 && Math.abs(camara.position.z) < F / 2 && camara.position.y < yEn(camara.position.x, camara.position.z)
+  VISOR.vertices = nx * ny
   VISOR.puntosRuta = NP
   despertar()
 }
