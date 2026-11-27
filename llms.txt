@@ -50,13 +50,19 @@ Datos clave:
 La montaña real de cada carrera, con su recorrido, para girarla en el navegador (la lámina que se vende es plana).
 
 - [Acantilados del Norte Skyrace 29K en 3D: el recorrido sobre la montaña real](https://mattehaven.com/3d/acantilados): Gira la montaña de Acantilados del Norte con el recorrido de Skyrace 29K encima (29 km y 2.242 m D+), y mira tu lámina con tu nombre y tu tiempo.
+- [Alpe d’Huez in 3D: the climb over the real mountain](https://mattehaven.com/3d/alpehuez): Spin the mountain of Alpe d’Huez with the climb drawn on it (13.8 km, 1,120 m of climbing) and see your print with your name and your time.
 - [Ancares Cycling Marathon Gran Fondo en 3D: el recorrido sobre la montaña real](https://mattehaven.com/3d/ancares-gf): Gira la montaña de Ancares Cycling Marathon con el recorrido de Gran Fondo encima (125 km y 3.218 m D+), y mira tu lámina con tu nombre y tu tiempo.
+- [Angliru in 3D: the climb over the real mountain](https://mattehaven.com/3d/angliru): Spin the mountain of Angliru with the climb drawn on it (12.5 km, 1,266 m of climbing) and see your print with your name and your time.
 - [CanfrancCanfranc Maratón 45K en 3D: el recorrido sobre la montaña real](https://mattehaven.com/3d/canfranc): Gira la montaña de CanfrancCanfranc con el recorrido de Maratón 45K encima (45 km y 3.700 m D+), y mira tu lámina con tu nombre y tu tiempo.
 - [FalcoTrail Ultra 55K en 3D: el recorrido sobre la montaña real](https://mattehaven.com/3d/falco-ultra): Gira la montaña de FalcoTrail con el recorrido de Ultra 55K encima (55 km y 3.200 m D+), y mira tu lámina con tu nombre y tu tiempo.
 - [Ultra Trail do Marão UTME 120K em 3D: o percurso sobre a montanha real](https://mattehaven.com/3d/marao-utme): Roda a montanha do Ultra Trail do Marão com o percurso do UTME 120K por cima (120 km e 7.500 m D+), e vê o teu póster com o teu nome e o teu tempo.
 - [Sierra de Mijas Media Maratón en 3D: el recorrido sobre la montaña real](https://mattehaven.com/3d/mijas-media): Gira la montaña de Sierra de Mijas con el recorrido de Media Maratón encima (21,6 km y 1.150 m D+), y mira tu lámina con tu nombre y tu tiempo.
 - [La Remences Marxa cicloturista en 3D: el recorregut sobre la muntanya real](https://mattehaven.com/3d/remences): Gira la muntanya de La Remences amb el recorregut de Marxa cicloturista a sobre (155 km i 2.500 m D+), i mira la teva làmina amb el teu nom i el teu temps.
+- [Rocacorba in 3D: the climb over the real mountain](https://mattehaven.com/3d/rocacorba): Spin the mountain of Rocacorba with the climb drawn on it (9.9 km, 737 m of climbing) and see your print with your name and your time.
+- [Sa Calobra in 3D: the climb over the real mountain](https://mattehaven.com/3d/sacalobra): Spin the mountain of Sa Calobra with the climb drawn on it (10 km, 701 m of climbing) and see your print with your name and your time.
 - [São Macário Ultra Trail Trail 31K em 3D: o percurso sobre a montanha real](https://mattehaven.com/3d/saomacario): Roda a montanha do São Macário Ultra Trail com o percurso do Trail 31K por cima (31 km e 2.109 m D+), e vê o teu póster com o teu nome e o teu tempo.
+- [El Teide in 3D: the climb over the real mountain](https://mattehaven.com/3d/teide): Spin the mountain of El Teide with the climb drawn on it (27.2 km, 1,140 m of climbing) and see your print with your name and your time.
+- [Col du Tourmalet in 3D: the climb over the real mountain](https://mattehaven.com/3d/tourmalet): Spin the mountain of Col du Tourmalet with the climb drawn on it (19 km, 1,404 m of climbing) and see your print with your name and your time.
 - [Ultra Madeira Ultra 55K em 3D: o percurso sobre a montanha real](https://mattehaven.com/3d/umadeira-55k): Roda a montanha do Ultra Madeira com o percurso do Ultra 55K por cima (55 km e 3.010 m D+), e vê o teu póster com o teu nome e o teu tempo.
 
 

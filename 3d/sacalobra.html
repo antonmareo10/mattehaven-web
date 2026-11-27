@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sa Calobra in 3D: the climb over the real mountain · MatteHaven</title>
+<meta name="description" content="Spin the mountain of Sa Calobra with the climb drawn on it (10 km, 701 m of climbing) and see your print with your name and your time.">
+<link rel="canonical" href="https://mattehaven.com/3d/sacalobra">
+<meta name="theme-color" content="#111417">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sa Calobra · Mallorca · Spain · 3D">
+<meta property="og:description" content="Spin the mountain of Sa Calobra with the climb drawn on it (10 km, 701 m of climbing) and see your print with your name and your time.">
+<meta property="og:url" content="https://mattehaven.com/3d/sacalobra">
+<meta property="og:image" content="https://mattehaven.com/tu-lamina/img/sacalobra.jpg">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png">
+<link rel="preload" href="../fuentes/archivo-web.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="modulepreload" href="vendor/three-r180.min.js">
+<link rel="modulepreload" href="visor.js">
+<link rel="preload" href="datos/sacalobra/previa.jpg" as="image">
+<script>window.__alturas=fetch(matchMedia('(pointer: coarse)').matches?'datos/sacalobra/alturas-movil.webp':'datos/sacalobra/alturas.webp').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.blob()});window.__alturas.catch(function(){})</script>
+<style>
+@font-face{font-family:'Archivo MH';src:url(../fuentes/archivo-web.woff2) format('woff2');font-weight:400 900;font-stretch:62% 100%;font-display:swap}
+:root{--noche:#111417;--papel:#F2EEE6;--rojo:#C8381E;--ruta:#FF5533;--suave:rgba(242,238,230,.66);--tenue:rgba(242,238,230,.58);--linea:rgba(242,238,230,.14);--ease:cubic-bezier(.22,1,.36,1);--letra:'Archivo MH','Arial Narrow',Bahnschrift,'Roboto Condensed',Arial,sans-serif;--col:100vw;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--noche)}
+body{color:var(--papel);font-family:var(--letra);font-size:16px;line-height:1.4;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+.oculto{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.fondo{position:fixed;inset:0;background:radial-gradient(110% 75% at 58% 55%,#252C33 0%,#171B1F 48%,#0C0E10 100%)}
+.fondo::after{content:"";position:absolute;inset:0;background:radial-gradient(48% 36% at 60% 60%,rgba(255,85,51,.08),transparent 70%)}
+#lienzo{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;opacity:0;transition:opacity .7s var(--ease);outline:none;cursor:grab}
+#lienzo:focus-visible{outline:2px solid var(--ruta);outline-offset:-4px}
+#lienzo:active{cursor:grabbing}
+.listo #lienzo{opacity:1}
+a{color:inherit}
+.velo{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(17,20,23,.8) 0,rgba(17,20,23,0) 26%,rgba(17,20,23,0) 68%,rgba(17,20,23,.8) 100%)}
+.marca{position:fixed;top:max(16px,env(safe-area-inset-top));left:16px;z-index:3;font-weight:800;font-stretch:75%;letter-spacing:.18em;font-size:12px;text-transform:uppercase;text-decoration:none;color:var(--suave);padding:10px 0}
+.marca:hover{color:var(--papel)}
+.cabeza{position:fixed;left:16px;right:16px;top:calc(max(16px,env(safe-area-inset-top)) + 46px);z-index:2;pointer-events:none}
+.cabeza>*{animation:entra .9s var(--ease) both}
+.cabeza>:nth-child(2){animation-delay:.08s}.cabeza>:nth-child(3){animation-delay:.16s}.cabeza>:nth-child(4){animation-delay:.24s}.cabeza>:nth-child(5){animation-delay:.32s}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kicker{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ruta);font-weight:700;font-stretch:80%}
+h1{margin:6px 0 0;font-weight:800;font-stretch:68%;font-size:clamp(36px,10.6vw,58px);line-height:.94;letter-spacing:-.01em}
+.distancia{margin:6px 0 0;font-size:17px;font-weight:650;font-stretch:78%;letter-spacing:.07em;text-transform:uppercase;color:var(--suave)}
+.cifras{display:flex;gap:22px;margin:14px 0 0;padding:0;list-style:none}
+.cifras li{display:flex;flex-direction:column}
+.cifras b{font-size:clamp(23px,6.4vw,32px);font-weight:800;font-stretch:72%;line-height:1;font-variant-numeric:tabular-nums}
+.cifras small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);margin-top:5px;font-weight:600}
+.leyenda{display:none;margin:22px 0 0;padding:0;list-style:none;pointer-events:auto;max-width:320px}
+.leyenda li{border-top:1px solid var(--linea)}
+.leyenda li:last-child{border-bottom:1px solid var(--linea)}
+.leyenda button{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:baseline;gap:10px;padding:8px 2px;font-size:14px;font-stretch:85%;cursor:pointer;transition:color .2s,padding .3s var(--ease)}
+.leyenda button::before{content:"";width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--suave);transform:translateY(-1px);transition:border-color .2s}
+.leyenda button:hover{color:var(--ruta);padding-left:6px}
+.leyenda button:hover::before{border-bottom-color:var(--ruta)}
+.leyenda em{font-style:normal;margin-left:auto;color:var(--tenue);font-variant-numeric:tabular-nums}
+.leyenda button:focus-visible,.boton:focus-visible,.circ:focus-visible,.marca:focus-visible,.cred a:focus-visible{outline:2px solid var(--ruta);outline-offset:3px}
+.pie{position:fixed;left:16px;right:16px;bottom:max(14px,env(safe-area-inset-bottom));z-index:3;pointer-events:none}
+.oferta{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"hon hon" "mini prin" "secu secu";gap:9px 12px;align-items:center;pointer-events:auto}
+.mini{grid-area:mini;display:block;width:44px;height:auto;aspect-ratio:3/4;border-radius:2px;box-shadow:0 6px 18px rgba(0,0,0,.55),0 0 0 1px rgba(242,238,230,.18);transform:rotate(-4deg);background:var(--papel)}
+.honesto{grid-area:hon;margin:0;font-size:13px;line-height:1.38;color:rgba(242,238,230,.9)}
+.boton{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 20px;border-radius:999px;font-weight:750;font-stretch:80%;font-size:17px;letter-spacing:.01em;text-decoration:none;transition:transform .25s var(--ease),background .2s,border-color .2s,box-shadow .25s;text-align:center}
+.boton:active{transform:scale(.98)}
+.prin{grid-area:prin;background:var(--rojo);color:#fff;box-shadow:0 10px 30px -8px rgba(200,56,30,.7)}
+.prin:hover{background:#D9442A;box-shadow:0 14px 36px -8px rgba(255,85,51,.75)}
+.prin svg{flex:none;transition:transform .25s var(--ease)}
+.prin:hover svg{transform:translateX(3px)}
+.secu{grid-area:secu;min-height:44px;font-size:15px;color:var(--papel);border:1.5px solid rgba(242,238,230,.34);background:rgba(17,20,23,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.secu:hover{border-color:var(--papel)}
+.cred{margin:10px 0 0;font-size:11px;line-height:1.45;color:var(--tenue);pointer-events:auto}
+.cred a{text-decoration:underline;text-decoration-color:rgba(242,238,230,.35);text-underline-offset:2px}
+.controles{position:fixed;right:16px;top:max(14px,env(safe-area-inset-top));z-index:3;display:flex;gap:8px;align-items:center}
+.circ{width:44px;height:44px;border-radius:50%;border:1px solid var(--linea);background:rgba(17,20,23,.55);color:var(--papel);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:border-color .2s,transform .3s var(--ease);padding:0}
+.circ:hover{border-color:rgba(242,238,230,.5)}
+#reset:active{transform:rotate(-40deg)}
+.pista{position:fixed;left:50%;top:70%;transform:translate(-50%,-50%);z-index:2;width:max-content;max-width:calc(100% - 32px);font-size:13px;letter-spacing:.03em;color:var(--papel);background:rgba(17,20,23,.66);border:1px solid var(--linea);padding:8px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .6s var(--ease);text-align:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;gap:8px;align-items:center;justify-content:center}
+.pista.ver{opacity:1}
+.carga{position:fixed;left:50%;top:52%;transform:translate(-50%,-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--tenue);font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:opacity .4s}
+.carga i{display:block;width:120px;height:2px;background:var(--linea);overflow:hidden;border-radius:2px}
+.carga i::after{content:"";display:block;width:40%;height:100%;background:var(--ruta);box-shadow:0 0 12px var(--ruta);animation:carga 1.1s var(--ease) infinite}
+@keyframes carga{from{transform:translateX(-100%)}to{transform:translateX(260%)}}
+.listo .carga{opacity:0;visibility:hidden}
+.etiquetas{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.et{position:absolute;left:0;top:0;width:0;height:0;opacity:0;transition:opacity .45s;will-change:transform}
+.et.ver{opacity:1}
+.cima .caja{position:absolute;left:0;bottom:26px;background:rgba(12,14,16,.76);border:1px solid rgba(242,238,230,.18);border-radius:7px;padding:4px 8px 5px;text-align:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);white-space:nowrap}
+.cima b{display:block;font-size:13px;font-weight:700;font-stretch:80%;line-height:1.1}
+.cima small{display:block;font-size:11px;color:var(--suave);font-variant-numeric:tabular-nums;line-height:1.2}
+.cima::after{content:"";position:absolute;left:-.5px;bottom:3px;width:1px;height:23px;background:linear-gradient(rgba(242,238,230,.75),rgba(242,238,230,.2))}
+.cima::before{content:"";position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:var(--papel);box-shadow:0 0 0 2px rgba(12,14,16,.55)}
+.hito i{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--ruta),0 0 18px 4px rgba(255,85,51,.8)}
+.hito span{position:absolute;left:15px;top:-12px;background:var(--ruta);color:#140804;font-size:12px;font-weight:800;font-stretch:80%;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:5px;white-space:nowrap;line-height:15px}
+.hito span em{font-style:normal;font-weight:600;letter-spacing:.02em;text-transform:none}
+.hito.izq span{left:auto;right:15px}
+.estatica{display:none}
+.sin-3d .estatica{display:grid;position:fixed;z-index:1;top:var(--arriba,250px);bottom:var(--abajo,230px);left:var(--izq,16px);right:16px;place-items:center;grid-template-rows:auto minmax(0,1fr);gap:10px}
+.sin-3d .estatica img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.sin-3d .estatica p{margin:0;color:var(--suave);font-size:13px;text-align:center}
+.sin-3d #lienzo,.sin-3d .carga,.sin-3d .controles,.sin-3d .etiquetas,.sin-3d .pista,.sin-3d .leyenda{display:none!important}
+@media (min-width:720px){
+  :root{--col:clamp(360px,32vw,520px)}
+  .velo{background:linear-gradient(90deg,rgba(17,20,23,.9) 0,rgba(17,20,23,.82) calc(var(--col) + 10px),rgba(17,20,23,0) calc(var(--col) + 200px))}
+  .marca{top:24px;left:32px}
+  .cabeza{left:32px;right:auto;top:72px;width:var(--col)}
+  h1{font-size:clamp(50px,4.6vw,92px)}
+  .distancia{font-size:clamp(18px,1.4vw,26px)}
+  .cifras{gap:clamp(22px,2vw,36px);margin-top:18px}
+  .cifras b{font-size:clamp(28px,2.4vw,46px)}
+  .leyenda{display:block}
+  .controles{right:28px;top:24px}
+  .pie{left:32px;right:auto;bottom:28px;width:var(--col)}
+  .oferta{grid-template-columns:96px 1fr;grid-template-areas:"mini hon" "mini prin" "mini secu";gap:10px 18px}
+  .mini{width:96px;align-self:center;transform:rotate(-4deg)}
+  .honesto{font-size:13.5px}
+  .prin{font-size:16px;padding:0 18px;white-space:nowrap}
+  .carga{left:calc(32px + var(--col) + (100vw - var(--col) - 32px) / 2)}
+}
+@media (min-width:720px) and (max-height:620px){.leyenda{display:none}}
+@media (min-width:720px) and (max-height:520px){
+  :root{--col:330px}
+  .kicker{display:none}.cabeza{top:52px}h1{font-size:30px;margin:0}.distancia{font-size:14px;margin-top:3px}.cifras{margin-top:6px;gap:18px}.cifras b{font-size:20px}.cifras small{font-size:10px;margin-top:3px}
+  .pie{bottom:10px}.oferta{grid-template-columns:1fr;grid-template-areas:"hon" "prin" "secu";gap:6px}.mini{display:none}
+  .honesto{font-size:11.5px;line-height:1.3}.boton{min-height:40px;font-size:15px}.secu{min-height:34px}.cred{font-size:9.5px;line-height:1.35;margin-top:5px}
+}
+@media (max-width:719px) and (max-height:700px){.kicker{display:none}h1{font-size:30px}.distancia{font-size:15px;margin-top:3px}.cifras{margin-top:8px}.cifras b{font-size:20px}.cifras small{font-size:10px;margin-top:3px}.honesto{font-size:11.5px;line-height:1.3}.oferta{gap:7px 10px}.boton{min-height:44px;font-size:16px}.secu{min-height:38px}.mini{width:34px}.cred{font-size:9.5px;line-height:1.35;margin-top:7px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="fondo" aria-hidden="true"></div>
+<canvas id="lienzo" aria-label="Sa Calobra Mallorca · Spain: relieve 3D con el recorrido" aria-describedby="ayuda" tabindex="0"></canvas>
+<p class="oculto" id="ayuda">With the keyboard: arrows to spin and tilt, + and − to zoom in or out, Esc to go back to the first view.</p>
+<div class="velo" aria-hidden="true"></div>
+<div class="etiquetas" id="etiquetas" aria-hidden="true"></div>
+<a class="marca" href="../index.html">MatteHaven</a>
+<header class="cabeza">
+<p class="kicker">Your climb · in 3D</p>
+<h1>Sa Calobra</h1>
+<p class="distancia">Mallorca · Spain</p>
+<ul class="cifras">
+<li><b data-n="10">10</b><small>km</small></li>
+<li><b data-n="701">701</b><small>m climbing</small></li>
+<li><b data-n="723">723</b><small>m high point</small></li>
+</ul>
+<ul class="leyenda" aria-label="Summits">
+<li><button type="button" data-cima="0">Els Castellots<em>752 m</em></button></li>
+<li><button type="button" data-cima="1">Mola de Can Termes<em>354 m</em></button></li>
+</ul>
+<p class="oculto">Summits: Els Castellots 752 m, Mola de Can Termes 354 m.</p>
+</header>
+<div class="controles"><button class="circ" type="button" id="norte" aria-label="North up" title="North up"><svg id="aguja" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l3.4 9.5H8.6z" fill="#FF5533"/><path d="M12 21.5l-3.4-9.5h6.8z" fill="currentColor" opacity=".5"/></svg></button><button class="circ" type="button" id="reset" aria-label="Back to the first view" title="Back to the first view"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button></div>
+<div class="carga" role="status"><i></i><span>Loading the relief</span></div>
+<div class="pista" id="pista" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 12c0-4 3.6-7 8-7s8 3 8 7"/><path d="M17 9l3 3 3-3"/></svg><span></span></div>
+<div class="estatica"><p>Your browser can’t show the 3D view. This is the print:</p><img src="../tu-lamina/img/sacalobra.jpg" alt="Sa Calobra cycling print" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<footer class="pie">
+<div class="oferta">
+<img class="mini" src="datos/sacalobra/lamina.webp" alt="Sa Calobra cycling print" width="96" height="128" decoding="async">
+<p class="honesto">3D view of the real terrain. The print is flat: it’s printed with this relief drawn on it.</p>
+<a class="boton prin" href="../tu-lamina/sacalobra.html#d=sacalobra">See yours with your name<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+<a class="boton secu" href="https://mattehaven.etsy.com/listing/4622101064" rel="noopener">Order on Etsy</a>
+</div>
+<p class="cred">Height ×1.5 so the relief shows · MDT y ortofoto PNOA © Instituto Geográfico Nacional (CC BY 4.0) · Sea: <a href="https://s2maps.eu" rel="noopener">Sentinel-2 cloudless 2016</a> by EOX IT Services (CC BY 4.0) · Summits © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> (ODbL)</p>
+</footer>
+<noscript><style>.carga,.controles,.leyenda{display:none}.estatica{display:grid!important;position:fixed;z-index:1;top:300px;bottom:250px;left:16px;right:16px;place-items:center;grid-template-rows:auto minmax(0,1fr);gap:10px}.estatica img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;object-fit:contain}@media (min-width:720px){.estatica{top:40px;bottom:40px;left:calc(var(--col) + 72px)}}</style></noscript>
+<script type="application/json" id="datos-visor">{"slug":"sacalobra","idioma":"en","exag":1.5,"sepMiles":",","sepDec":".","zmin":-1,"zmax":865,"ancho":3.631,"fondo":3.656,"pasoM":0.5,"alturas":{"url":"datos/sacalobra/alturas.webp","nx":509,"ny":512,"suma":202148163},"alturasMovil":{"url":"datos/sacalobra/alturas-movil.webp","nx":254,"ny":256,"suma":50429770},"textura":"datos/sacalobra/textura.jpg","texturaMovil":"datos/sacalobra/textura-movil.jpg","previa":"datos/sacalobra/previa.jpg","isla":[0.86,1],"acimut":150,"ruta":[[0.33851,0.14308],[0.33961,0.14333],[0.34102,0.14494],[0.34806,0.1595],[0.34924,0.16096],[0.35159,0.16236],[0.35743,0.16337],[0.35776,0.16443],[0.35691,0.16991],[0.34722,0.19136],[0.34592,0.1994],[0.34394,0.20555],[0.32803,0.23326],[0.31085,0.24706],[0.30595,0.25407],[0.29797,0.26314],[0.29425,0.26838],[0.29225,0.27334],[0.29081,0.27898],[0.28973,0.28559],[0.28855,0.2981],[0.28733,0.30258],[0.28335,0.31077],[0.27921,0.31571],[0.27695,0.31769],[0.27391,0.3193],[0.26925,0.32049],[0.25722,0.32207],[0.25002,0.32381],[0.23429,0.33066],[0.22174,0.33499],[0.21951,0.33703],[0.2189,0.33971],[0.2196,0.34117],[0.22292,0.34367],[0.24018,0.34881],[0.24239,0.34997],[0.24651,0.35329],[0.24849,0.35655],[0.24917,0.36032],[0.24766,0.37759],[0.24776,0.38058],[0.24865,0.38447],[0.25016,0.38706],[0.25126,0.38801],[0.25896,0.3905],[0.26099,0.39187],[0.26143,0.39291],[0.2612,0.39589],[0.2595,0.39927],[0.25119,0.40613],[0.24957,0.40987],[0.24919,0.41289],[0.24919,0.41819],[0.24792,0.42738],[0.24778,0.43229],[0.25134,0.45016],[0.25174,0.45683],[0.2515,0.46432],[0.25216,0.46798],[0.2531,0.47038],[0.25875,0.47973],[0.26033,0.48135],[0.26913,0.48719],[0.27245,0.49057],[0.28104,0.50382],[0.28636,0.51308],[0.29166,0.52008],[0.2963,0.52532],[0.30032,0.52818],[0.30887,0.53196],[0.31292,0.53656],[0.3156,0.53881],[0.31897,0.54015],[0.32473,0.54051],[0.33217,0.5386],[0.3342,0.53634],[0.33582,0.53199],[0.33926,0.51247],[0.33827,0.49307],[0.33512,0.46585],[0.33462,0.45683],[0.33384,0.4533],[0.33156,0.44736],[0.33093,0.44358],[0.33161,0.41977],[0.32994,0.41103],[0.33182,0.39507],[0.33036,0.38112],[0.33088,0.37476],[0.33363,0.36447],[0.34006,0.35426],[0.34124,0.35301],[0.34251,0.35015],[0.34491,0.34141],[0.34722,0.3278],[0.35079,0.32064],[0.35301,0.31766],[0.3579,0.3133],[0.36014,0.31291],[0.36118,0.31324],[0.36226,0.31397],[0.36301,0.31616],[0.36226,0.31854],[0.35993,0.32262],[0.35974,0.32515],[0.36028,0.32634],[0.36198,0.32771],[0.36414,0.32789],[0.36572,0.32685],[0.36979,0.32223],[0.39418,0.30937],[0.40232,0.30685],[0.40908,0.30657],[0.41327,0.30745],[0.41633,0.30946],[0.42344,0.31568],[0.42742,0.31702],[0.4294,0.31732],[0.4535,0.31595],[0.45597,0.31623],[0.45802,0.31711],[0.46158,0.31979],[0.4644,0.32442],[0.46511,0.32975],[0.46355,0.34991],[0.46153,0.36252],[0.46073,0.3644],[0.45823,0.36712],[0.45456,0.36836],[0.44948,0.369],[0.44689,0.36992],[0.44536,0.37177],[0.44512,0.37482],[0.45136,0.39038],[0.4527,0.39261],[0.46927,0.40884],[0.47292,0.41319],[0.47622,0.418],[0.48533,0.44023],[0.4862,0.44337],[0.48693,0.45101],[0.48648,0.45631],[0.48495,0.46356],[0.48476,0.46837],[0.49072,0.50254],[0.4923,0.50778],[0.4995,0.52151],[0.50826,0.5481],[0.51482,0.55979],[0.51603,0.56344],[0.51621,0.56704],[0.51379,0.58376],[0.51355,0.5886],[0.51963,0.64048],[0.51861,0.64572],[0.51261,0.66131],[0.51028,0.6643],[0.50692,0.66567],[0.50489,0.66558],[0.50324,0.66503],[0.46614,0.64466],[0.46362,0.64289],[0.46212,0.64115],[0.45489,0.62636],[0.44072,0.609],[0.43917,0.60836],[0.43627,0.60818],[0.42631,0.61025],[0.42316,0.61195],[0.42,0.61582],[0.4193,0.61862],[0.41906,0.6284],[0.42528,0.64755],[0.42598,0.64871],[0.42822,0.6505],[0.42996,0.65102],[0.44465,0.6541],[0.44757,0.6551],[0.45185,0.6572],[0.45343,0.65848],[0.45553,0.66119],[0.45769,0.66698],[0.45826,0.67203],[0.45708,0.67508],[0.45009,0.68692],[0.4487,0.69475],[0.45538,0.73183],[0.45701,0.73741],[0.46125,0.74815],[0.46226,0.74965],[0.46494,0.75102],[0.47092,0.75132],[0.47813,0.7533],[0.48006,0.7547],[0.48135,0.75656],[0.48208,0.76018],[0.48168,0.76256],[0.48076,0.76435],[0.47069,0.78003],[0.46758,0.78387],[0.46431,0.78618],[0.43686,0.80116],[0.42991,0.80351],[0.42921,0.80442],[0.42937,0.8064],[0.43027,0.80722],[0.43236,0.80719],[0.48079,0.78506],[0.48392,0.78259],[0.49757,0.76965],[0.49934,0.76715],[0.50204,0.76033],[0.50383,0.75729],[0.50675,0.75555],[0.51431,0.75312],[0.51668,0.75272],[0.51897,0.75336],[0.52007,0.75543],[0.51965,0.75738],[0.51737,0.75924],[0.50593,0.7649],[0.50482,0.76697],[0.50527,0.76816],[0.50644,0.76871],[0.50809,0.7684],[0.51313,0.76545],[0.52434,0.76164],[0.5289,0.76076],[0.5423,0.75948],[0.54788,0.75802],[0.55247,0.75552],[0.55437,0.75522],[0.5555,0.75592],[0.55574,0.75704],[0.55499,0.75835],[0.54797,0.76183],[0.54324,0.76365],[0.53071,0.76679],[0.52989,0.76773],[0.52987,0.76904],[0.5302,0.76968],[0.53166,0.77032],[0.54303,0.76801],[0.5523,0.76317],[0.56009,0.76046],[0.58427,0.75552],[0.59171,0.75634],[0.59449,0.75628],[0.59677,0.75561],[0.59915,0.75415],[0.60223,0.75099],[0.6067,0.74447],[0.61346,0.72364],[0.61551,0.72008],[0.61826,0.71856],[0.63133,0.71661],[0.64258,0.71353],[0.64583,0.71134],[0.65348,0.70306],[0.65593,0.70166],[0.65903,0.70178],[0.66021,0.70233],[0.66299,0.70479],[0.66497,0.7093],[0.66537,0.71408],[0.66388,0.71725],[0.66113,0.71871],[0.65833,0.71856],[0.65402,0.71758],[0.65197,0.71807],[0.65068,0.71935],[0.65023,0.72084],[0.65101,0.72294],[0.65265,0.72376],[0.66169,0.72453],[0.66982,0.72629],[0.67525,0.72894],[0.68022,0.73305],[0.6813,0.73329],[0.68321,0.7329],[0.68455,0.73159],[0.68556,0.72946],[0.68585,0.72681],[0.68514,0.722],[0.68187,0.70936],[0.67959,0.70412],[0.67676,0.69968],[0.67372,0.69639],[0.66949,0.69353],[0.63997,0.68056],[0.63862,0.67867],[0.6387,0.67709],[0.64034,0.67562],[0.64244,0.67572],[0.67627,0.68878],[0.68378,0.69237],[0.68815,0.69542],[0.69437,0.7012],[0.69821,0.70811],[0.69967,0.71198],[0.7019,0.72035],[0.70943,0.73607],[0.70969,0.73847],[0.70934,0.73984],[0.7079,0.74182],[0.69701,0.75153],[0.69246,0.75896],[0.69065,0.76533],[0.69093,0.76737],[0.69395,0.77337],[0.69397,0.7751],[0.69331,0.77644],[0.69105,0.77763],[0.68827,0.77726],[0.68154,0.77059],[0.68036,0.77047],[0.6794,0.77093],[0.67886,0.77276],[0.68055,0.77611],[0.68458,0.78031],[0.68665,0.78189],[0.69329,0.78521],[0.70082,0.7871],[0.70308,0.78813],[0.70411,0.78953],[0.70426,0.79243],[0.7028,0.79431],[0.69997,0.79477],[0.6801,0.78451],[0.67794,0.78427],[0.67688,0.78585],[0.67707,0.78716],[0.6785,0.78871],[0.68947,0.7962],[0.69291,0.79922],[0.69432,0.80095],[0.69715,0.80637],[0.6987,0.80747],[0.70091,0.80777],[0.70296,0.80713],[0.70741,0.80424],[0.71579,0.80098],[0.71782,0.79894],[0.71814,0.79724],[0.71791,0.79437],[0.71447,0.77498],[0.71473,0.77303],[0.71598,0.77139],[0.72024,0.77038],[0.72266,0.77066],[0.72996,0.77443],[0.73149,0.7748],[0.73354,0.77446],[0.73481,0.77288],[0.737,0.76548],[0.73714,0.75972],[0.73658,0.75665],[0.73109,0.73795],[0.73006,0.73135],[0.73043,0.72885],[0.73161,0.72599],[0.73851,0.71676],[0.73952,0.7125],[0.73938,0.71055],[0.73867,0.70884],[0.73735,0.7075],[0.73554,0.70687],[0.73229,0.70741],[0.72973,0.71037],[0.72921,0.71229],[0.72926,0.71436],[0.73003,0.71646],[0.73149,0.71862],[0.74105,0.72766],[0.74395,0.73192],[0.75341,0.77318],[0.76323,0.8025],[0.76431,0.81002],[0.76391,0.82156],[0.7644,0.82467],[0.76723,0.8307],[0.77601,0.84452],[0.78253,0.85834]],"salida":[0.33851,0.14308],"meta":[0.78253,0.85834],"juntas":false,"cumbres":[{"n":"Els Castellots","alt":752,"u":0.66625,"v":0.59539,"t":"752 m"},{"n":"Mola de Can Termes","alt":354,"u":0.16759,"v":0.16938,"t":"354 m"}],"t":{"salida":"Start","meta":"Finish","salidaN":"Sa Calobra","metaN":"Coll dels Reis · 723 m","gira":"Drag to spin · pinch to zoom","giraRaton":"Drag to spin · scroll to zoom"}}</script>
+<script type="module" src="visor.js"></script>
+</body>
+</html>

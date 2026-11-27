@@ -400,8 +400,10 @@ async function arrancar() {
   controles.update()
   grupo.scale.y = DUR ? 0.001 : 1
   // Las cifras de la cabecera cuentan hasta su valor mientras sube el relieve.
-  const cifras = [...document.querySelectorAll('.cifras b[data-n]')].map((b) => ({ b, n: +b.dataset.n, txt: b.textContent, dec: /,/.test(b.textContent) }))
-  const pintaCifra = (c, v) => { c.b.textContent = c.dec ? v.toFixed(1).replace('.', ',') : String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') }
+  // (Separadores de la página: «1.404» y «12,5», o en inglés «1,404» y «12.5».)
+  const SM = D.sepMiles || '.', SD = D.sepDec || ','
+  const cifras = [...document.querySelectorAll('.cifras b[data-n]')].map((b) => ({ b, n: +b.dataset.n, txt: b.textContent, dec: !Number.isInteger(+b.dataset.n) }))
+  const pintaCifra = (c, v) => { c.b.textContent = c.dec ? v.toFixed(1).replace('.', SD) : String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, SM) }
 
   // Vuelo suave de la cámara (volver a la vista inicial, ir a una cumbre).
   let vuelo = null

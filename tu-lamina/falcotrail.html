@@ -48,7 +48,9 @@ input:focus{outline:none;border-color:var(--acento);box-shadow:0 0 0 3px color-m
 .confianza{font-size:14px;color:#3F4347;margin:8px 0 0}
 .wa{background:transparent;color:var(--tinta);border:1.5px solid var(--tinta);margin-top:18px;font-size:16px}
 .enlace{display:block;margin:10px auto 0;background:none;border:0;font:inherit;font-size:14px;color:var(--suave);text-decoration:underline;cursor:pointer}
-.enlace.en3d{text-align:center;font-weight:700;color:var(--tinta);text-decoration-color:var(--acento);text-decoration-thickness:2px;text-underline-offset:4px}
+.vista-sec .en3d{display:flex;width:max-content;align-items:center;gap:8px;margin:14px auto 0;padding:10px 18px;border-radius:999px;background:var(--tinta);color:#fff;font-weight:700;font-size:15px;text-decoration:none}
+.vista-sec .en3d span{font-size:18px;line-height:1}
+.vista-sec .en3d:hover,.vista-sec .en3d:focus-visible{background:var(--acento)}
 .aviso{min-height:1.4em;font-size:14px;color:var(--tinta);margin:10px 0 0}
 .taza{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center;margin-top:20px;padding:12px;background:#fff;border-radius:8px}
 .taza img{width:96px;height:96px;object-fit:cover;border-radius:6px;display:block}.taza p{margin:0;font-size:14px}
@@ -104,6 +106,7 @@ footer .org{display:inline-block;margin-top:10px;padding:6px 2px;font-size:14px;
 <main>
 <section id="lamina" class="vista-sec">
 <figure class="vista" id="vista" data-f="marco" data-c="madera"><div class="cuadro"><canvas id="lienzo" role="img" aria-label="Tu lámina oficial de FalcoTrail"></canvas></div><figcaption id="pie-vista">Enmarcada en madera natural · 30 × 40 cm</figcaption></figure>
+<a class="en3d" href="../3d/falco-ultra"><span aria-hidden="true">↻</span> Gira la montaña en 3D</a>
 </section>
 <div id="cab">
 <h1>Tu lámina oficial de FalcoTrail</h1>
@@ -125,7 +128,6 @@ footer .org{display:inline-block;margin-top:10px;padding:6px 2px;font-size:14px;
 <p class="aviso" id="aviso" role="status"></p>
 <a class="btn wa" id="wa" href="https://wa.me/" target="_blank" rel="noopener">Enviar por WhatsApp</a>
 <button class="enlace" id="descargar" type="button">Descargar la vista previa</button>
-<a class="enlace en3d" href="../3d/falco-ultra">Gira la montaña en 3D</a>
 <div class="taza"><img src="img/falcotrail-taza.jpg" alt="Taza de FalcoTrail con el recorrido en 3D" loading="lazy" width="96" height="96"><p>También en taza de 11 oz, con tu carrera en 3D, tu nombre y tu tiempo. 27 €, en el mismo anuncio.</p></div>
 <p class="nota">Vista previa. Cada lámina se revisa a mano antes de imprimirla. También en lienzo de 30 × 40 cm (79 €), enmarcada en 45 × 60 cm (109 €) y en metal (desde 89 €), en el mismo anuncio.</p>
 </div>

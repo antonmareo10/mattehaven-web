@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rocacorba in 3D: the climb over the real mountain · MatteHaven</title>
+<meta name="description" content="Spin the mountain of Rocacorba with the climb drawn on it (9.9 km, 737 m of climbing) and see your print with your name and your time.">
+<link rel="canonical" href="https://mattehaven.com/3d/rocacorba">
+<meta name="theme-color" content="#111417">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rocacorba · Girona · Spain · 3D">
+<meta property="og:description" content="Spin the mountain of Rocacorba with the climb drawn on it (9.9 km, 737 m of climbing) and see your print with your name and your time.">
+<meta property="og:url" content="https://mattehaven.com/3d/rocacorba">
+<meta property="og:image" content="https://mattehaven.com/tu-lamina/img/rocacorba.jpg">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png">
+<link rel="preload" href="../fuentes/archivo-web.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="modulepreload" href="vendor/three-r180.min.js">
+<link rel="modulepreload" href="visor.js">
+<link rel="preload" href="datos/rocacorba/previa.jpg" as="image">
+<script>window.__alturas=fetch(matchMedia('(pointer: coarse)').matches?'datos/rocacorba/alturas-movil.webp':'datos/rocacorba/alturas.webp').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.blob()});window.__alturas.catch(function(){})</script>
+<style>
+@font-face{font-family:'Archivo MH';src:url(../fuentes/archivo-web.woff2) format('woff2');font-weight:400 900;font-stretch:62% 100%;font-display:swap}
+:root{--noche:#111417;--papel:#F2EEE6;--rojo:#C8381E;--ruta:#FF5533;--suave:rgba(242,238,230,.66);--tenue:rgba(242,238,230,.58);--linea:rgba(242,238,230,.14);--ease:cubic-bezier(.22,1,.36,1);--letra:'Archivo MH','Arial Narrow',Bahnschrift,'Roboto Condensed',Arial,sans-serif;--col:100vw;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--noche)}
+body{color:var(--papel);font-family:var(--letra);font-size:16px;line-height:1.4;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+.oculto{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.fondo{position:fixed;inset:0;background:radial-gradient(110% 75% at 58% 55%,#252C33 0%,#171B1F 48%,#0C0E10 100%)}
+.fondo::after{content:"";position:absolute;inset:0;background:radial-gradient(48% 36% at 60% 60%,rgba(255,85,51,.08),transparent 70%)}
+#lienzo{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;opacity:0;transition:opacity .7s var(--ease);outline:none;cursor:grab}
+#lienzo:focus-visible{outline:2px solid var(--ruta);outline-offset:-4px}
+#lienzo:active{cursor:grabbing}
+.listo #lienzo{opacity:1}
+a{color:inherit}
+.velo{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(17,20,23,.8) 0,rgba(17,20,23,0) 26%,rgba(17,20,23,0) 68%,rgba(17,20,23,.8) 100%)}
+.marca{position:fixed;top:max(16px,env(safe-area-inset-top));left:16px;z-index:3;font-weight:800;font-stretch:75%;letter-spacing:.18em;font-size:12px;text-transform:uppercase;text-decoration:none;color:var(--suave);padding:10px 0}
+.marca:hover{color:var(--papel)}
+.cabeza{position:fixed;left:16px;right:16px;top:calc(max(16px,env(safe-area-inset-top)) + 46px);z-index:2;pointer-events:none}
+.cabeza>*{animation:entra .9s var(--ease) both}
+.cabeza>:nth-child(2){animation-delay:.08s}.cabeza>:nth-child(3){animation-delay:.16s}.cabeza>:nth-child(4){animation-delay:.24s}.cabeza>:nth-child(5){animation-delay:.32s}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kicker{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ruta);font-weight:700;font-stretch:80%}
+h1{margin:6px 0 0;font-weight:800;font-stretch:68%;font-size:clamp(36px,10.6vw,58px);line-height:.94;letter-spacing:-.01em}
+.distancia{margin:6px 0 0;font-size:17px;font-weight:650;font-stretch:78%;letter-spacing:.07em;text-transform:uppercase;color:var(--suave)}
+.cifras{display:flex;gap:22px;margin:14px 0 0;padding:0;list-style:none}
+.cifras li{display:flex;flex-direction:column}
+.cifras b{font-size:clamp(23px,6.4vw,32px);font-weight:800;font-stretch:72%;line-height:1;font-variant-numeric:tabular-nums}
+.cifras small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);margin-top:5px;font-weight:600}
+.leyenda{display:none;margin:22px 0 0;padding:0;list-style:none;pointer-events:auto;max-width:320px}
+.leyenda li{border-top:1px solid var(--linea)}
+.leyenda li:last-child{border-bottom:1px solid var(--linea)}
+.leyenda button{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:baseline;gap:10px;padding:8px 2px;font-size:14px;font-stretch:85%;cursor:pointer;transition:color .2s,padding .3s var(--ease)}
+.leyenda button::before{content:"";width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--suave);transform:translateY(-1px);transition:border-color .2s}
+.leyenda button:hover{color:var(--ruta);padding-left:6px}
+.leyenda button:hover::before{border-bottom-color:var(--ruta)}
+.leyenda em{font-style:normal;margin-left:auto;color:var(--tenue);font-variant-numeric:tabular-nums}
+.leyenda button:focus-visible,.boton:focus-visible,.circ:focus-visible,.marca:focus-visible,.cred a:focus-visible{outline:2px solid var(--ruta);outline-offset:3px}
+.pie{position:fixed;left:16px;right:16px;bottom:max(14px,env(safe-area-inset-bottom));z-index:3;pointer-events:none}
+.oferta{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"hon hon" "mini prin" "secu secu";gap:9px 12px;align-items:center;pointer-events:auto}
+.mini{grid-area:mini;display:block;width:44px;height:auto;aspect-ratio:3/4;border-radius:2px;box-shadow:0 6px 18px rgba(0,0,0,.55),0 0 0 1px rgba(242,238,230,.18);transform:rotate(-4deg);background:var(--papel)}
+.honesto{grid-area:hon;margin:0;font-size:13px;line-height:1.38;color:rgba(242,238,230,.9)}
+.boton{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 20px;border-radius:999px;font-weight:750;font-stretch:80%;font-size:17px;letter-spacing:.01em;text-decoration:none;transition:transform .25s var(--ease),background .2s,border-color .2s,box-shadow .25s;text-align:center}
+.boton:active{transform:scale(.98)}
+.prin{grid-area:prin;background:var(--rojo);color:#fff;box-shadow:0 10px 30px -8px rgba(200,56,30,.7)}
+.prin:hover{background:#D9442A;box-shadow:0 14px 36px -8px rgba(255,85,51,.75)}
+.prin svg{flex:none;transition:transform .25s var(--ease)}
+.prin:hover svg{transform:translateX(3px)}
+.secu{grid-area:secu;min-height:44px;font-size:15px;color:var(--papel);border:1.5px solid rgba(242,238,230,.34);background:rgba(17,20,23,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.secu:hover{border-color:var(--papel)}
+.cred{margin:10px 0 0;font-size:11px;line-height:1.45;color:var(--tenue);pointer-events:auto}
+.cred a{text-decoration:underline;text-decoration-color:rgba(242,238,230,.35);text-underline-offset:2px}
+.controles{position:fixed;right:16px;top:max(14px,env(safe-area-inset-top));z-index:3;display:flex;gap:8px;align-items:center}
+.circ{width:44px;height:44px;border-radius:50%;border:1px solid var(--linea);background:rgba(17,20,23,.55);color:var(--papel);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:border-color .2s,transform .3s var(--ease);padding:0}
+.circ:hover{border-color:rgba(242,238,230,.5)}
+#reset:active{transform:rotate(-40deg)}
+.pista{position:fixed;left:50%;top:70%;transform:translate(-50%,-50%);z-index:2;width:max-content;max-width:calc(100% - 32px);font-size:13px;letter-spacing:.03em;color:var(--papel);background:rgba(17,20,23,.66);border:1px solid var(--linea);padding:8px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .6s var(--ease);text-align:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;gap:8px;align-items:center;justify-content:center}
+.pista.ver{opacity:1}
+.carga{position:fixed;left:50%;top:52%;transform:translate(-50%,-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--tenue);font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:opacity .4s}
+.carga i{display:block;width:120px;height:2px;background:var(--linea);overflow:hidden;border-radius:2px}
+.carga i::after{content:"";display:block;width:40%;height:100%;background:var(--ruta);box-shadow:0 0 12px var(--ruta);animation:carga 1.1s var(--ease) infinite}
+@keyframes carga{from{transform:translateX(-100%)}to{transform:translateX(260%)}}
+.listo .carga{opacity:0;visibility:hidden}
+.etiquetas{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.et{position:absolute;left:0;top:0;width:0;height:0;opacity:0;transition:opacity .45s;will-change:transform}
+.et.ver{opacity:1}
+.cima .caja{position:absolute;left:0;bottom:26px;background:rgba(12,14,16,.76);border:1px solid rgba(242,238,230,.18);border-radius:7px;padding:4px 8px 5px;text-align:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);white-space:nowrap}
+.cima b{display:block;font-size:13px;font-weight:700;font-stretch:80%;line-height:1.1}
+.cima small{display:block;font-size:11px;color:var(--suave);font-variant-numeric:tabular-nums;line-height:1.2}
+.cima::after{content:"";position:absolute;left:-.5px;bottom:3px;width:1px;height:23px;background:linear-gradient(rgba(242,238,230,.75),rgba(242,238,230,.2))}
+.cima::before{content:"";position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:var(--papel);box-shadow:0 0 0 2px rgba(12,14,16,.55)}
+.hito i{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--ruta),0 0 18px 4px rgba(255,85,51,.8)}
+.hito span{position:absolute;left:15px;top:-12px;background:var(--ruta);color:#140804;font-size:12px;font-weight:800;font-stretch:80%;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:5px;white-space:nowrap;line-height:15px}
+.hito span em{font-style:normal;font-weight:600;letter-spacing:.02em;text-transform:none}
+.hito.izq span{left:auto;right:15px}
+.estatica{display:none}
+.sin-3d .estatica{display:grid;position:fixed;z-index:1;top:var(--arriba,250px);bottom:var(--abajo,230px);left:var(--izq,16px);right:16px;place-items:center;grid-template-rows:auto minmax(0,1fr);gap:10px}
+.sin-3d .estatica img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.sin-3d .estatica p{margin:0;color:var(--suave);font-size:13px;text-align:center}
+.sin-3d #lienzo,.sin-3d .carga,.sin-3d .controles,.sin-3d .etiquetas,.sin-3d .pista,.sin-3d .leyenda{display:none!important}
+@media (min-width:720px){
+  :root{--col:clamp(360px,32vw,520px)}
+  .velo{background:linear-gradient(90deg,rgba(17,20,23,.9) 0,rgba(17,20,23,.82) calc(var(--col) + 10px),rgba(17,20,23,0) calc(var(--col) + 200px))}
+  .marca{top:24px;left:32px}
+  .cabeza{left:32px;right:auto;top:72px;width:var(--col)}
+  h1{font-size:clamp(50px,4.6vw,92px)}
+  .distancia{font-size:clamp(18px,1.4vw,26px)}
+  .cifras{gap:clamp(22px,2vw,36px);margin-top:18px}
+  .cifras b{font-size:clamp(28px,2.4vw,46px)}
+  .leyenda{display:block}
+  .controles{right:28px;top:24px}
+  .pie{left:32px;right:auto;bottom:28px;width:var(--col)}
+  .oferta{grid-template-columns:96px 1fr;grid-template-areas:"mini hon" "mini prin" "mini secu";gap:10px 18px}
+  .mini{width:96px;align-self:center;transform:rotate(-4deg)}
+  .honesto{font-size:13.5px}
+  .prin{font-size:16px;padding:0 18px;white-space:nowrap}
+  .carga{left:calc(32px + var(--col) + (100vw - var(--col) - 32px) / 2)}
+}
+@media (min-width:720px) and (max-height:620px){.leyenda{display:none}}
+@media (min-width:720px) and (max-height:520px){
+  :root{--col:330px}
+  .kicker{display:none}.cabeza{top:52px}h1{font-size:30px;margin:0}.distancia{font-size:14px;margin-top:3px}.cifras{margin-top:6px;gap:18px}.cifras b{font-size:20px}.cifras small{font-size:10px;margin-top:3px}
+  .pie{bottom:10px}.oferta{grid-template-columns:1fr;grid-template-areas:"hon" "prin" "secu";gap:6px}.mini{display:none}
+  .honesto{font-size:11.5px;line-height:1.3}.boton{min-height:40px;font-size:15px}.secu{min-height:34px}.cred{font-size:9.5px;line-height:1.35;margin-top:5px}
+}
+@media (max-width:719px) and (max-height:700px){.kicker{display:none}h1{font-size:30px}.distancia{font-size:15px;margin-top:3px}.cifras{margin-top:8px}.cifras b{font-size:20px}.cifras small{font-size:10px;margin-top:3px}.honesto{font-size:11.5px;line-height:1.3}.oferta{gap:7px 10px}.boton{min-height:44px;font-size:16px}.secu{min-height:38px}.mini{width:34px}.cred{font-size:9.5px;line-height:1.35;margin-top:7px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="fondo" aria-hidden="true"></div>
+<canvas id="lienzo" aria-label="Rocacorba Girona · Spain: relieve 3D con el recorrido" aria-describedby="ayuda" tabindex="0"></canvas>
+<p class="oculto" id="ayuda">With the keyboard: arrows to spin and tilt, + and − to zoom in or out, Esc to go back to the first view.</p>
+<div class="velo" aria-hidden="true"></div>
+<div class="etiquetas" id="etiquetas" aria-hidden="true"></div>
+<a class="marca" href="../index.html">MatteHaven</a>
+<header class="cabeza">
+<p class="kicker">Your climb · in 3D</p>
+<h1>Rocacorba</h1>
+<p class="distancia">Girona · Spain</p>
+<ul class="cifras">
+<li><b data-n="9.9">9.9</b><small>km</small></li>
+<li><b data-n="737">737</b><small>m climbing</small></li>
+<li><b data-n="978">978</b><small>m high point</small></li>
+</ul>
+<ul class="leyenda" aria-label="Summits">
+<li><button type="button" data-cima="0">Puigsou<em>988 m</em></button></li>
+<li><button type="button" data-cima="1">Comaestremer<em>885 m</em></button></li>
+<li><button type="button" data-cima="2">Puig Rodó<em>628 m</em></button></li>
+<li><button type="button" data-cima="3">Roca del Coix<em>619 m</em></button></li>
+<li><button type="button" data-cima="4">Rocamirall<em>596 m</em></button></li>
+</ul>
+<p class="oculto">Summits: Puigsou 988 m, Comaestremer 885 m, Puig Rodó 628 m, Roca del Coix 619 m, Rocamirall 596 m.</p>
+</header>
+<div class="controles"><button class="circ" type="button" id="norte" aria-label="North up" title="North up"><svg id="aguja" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l3.4 9.5H8.6z" fill="#FF5533"/><path d="M12 21.5l-3.4-9.5h6.8z" fill="currentColor" opacity=".5"/></svg></button><button class="circ" type="button" id="reset" aria-label="Back to the first view" title="Back to the first view"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button></div>
+<div class="carga" role="status"><i></i><span>Loading the relief</span></div>
+<div class="pista" id="pista" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 12c0-4 3.6-7 8-7s8 3 8 7"/><path d="M17 9l3 3 3-3"/></svg><span></span></div>
+<div class="estatica"><p>Your browser can’t show the 3D view. This is the print:</p><img src="../tu-lamina/img/rocacorba.jpg" alt="Rocacorba cycling print" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<footer class="pie">
+<div class="oferta">
+<img class="mini" src="datos/rocacorba/lamina.webp" alt="Rocacorba cycling print" width="96" height="128" decoding="async">
+<p class="honesto">3D view of the real terrain. The print is flat: it’s printed with this relief drawn on it.</p>
+<a class="boton prin" href="../tu-lamina/rocacorba.html#d=rocacorba">See yours with your name<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+<a class="boton secu" href="https://mattehaven.etsy.com/listing/4622101292" rel="noopener">Order on Etsy</a>
+</div>
+<p class="cred">Height ×1.6 so the relief shows · MDT y ortofoto PNOA © Instituto Geográfico Nacional (CC BY 4.0) · Summits © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> (ODbL)</p>
+</footer>
+<noscript><style>.carga,.controles,.leyenda{display:none}.estatica{display:grid!important;position:fixed;z-index:1;top:300px;bottom:250px;left:16px;right:16px;place-items:center;grid-template-rows:auto minmax(0,1fr);gap:10px}.estatica img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;object-fit:contain}@media (min-width:720px){.estatica{top:40px;bottom:40px;left:calc(var(--col) + 72px)}}</style></noscript>
+<script type="application/json" id="datos-visor">{"slug":"rocacorba","idioma":"en","exag":1.6,"sepMiles":",","sepDec":".","zmin":198,"zmax":986,"ancho":5.465,"fondo":5.5,"pasoM":0.5,"alturas":{"url":"datos/rocacorba/alturas.webp","nx":509,"ny":512,"suma":144672317},"alturasMovil":{"url":"datos/rocacorba/alturas-movil.webp","nx":254,"ny":256,"suma":36083783},"textura":"datos/rocacorba/textura.jpg","texturaMovil":"datos/rocacorba/textura-movil.jpg","previa":"datos/rocacorba/previa.jpg","isla":[0.86,1],"acimut":180,"ruta":[[0.82443,0.30991],[0.81728,0.30653],[0.80399,0.30083],[0.7992,0.29803],[0.79473,0.2948],[0.7901,0.29255],[0.78233,0.28988],[0.77759,0.28872],[0.77364,0.28834],[0.76986,0.28858],[0.76679,0.28838],[0.75957,0.28526],[0.75601,0.28494],[0.75432,0.2852],[0.75116,0.28666],[0.74579,0.28933],[0.73827,0.29565],[0.73511,0.2968],[0.72555,0.29919],[0.72168,0.29971],[0.71754,0.29953],[0.71293,0.29836],[0.70897,0.29559],[0.70601,0.29308],[0.69813,0.28877],[0.69292,0.28243],[0.6923,0.2801],[0.69399,0.27337],[0.69399,0.27086],[0.69329,0.26869],[0.68853,0.26177],[0.68519,0.25606],[0.68424,0.25359],[0.68292,0.25181],[0.6664,0.23823],[0.66291,0.23581],[0.65779,0.23338],[0.65484,0.23255],[0.64938,0.23301],[0.64794,0.23356],[0.64362,0.23842],[0.64167,0.23967],[0.62311,0.2458],[0.61523,0.24943],[0.61342,0.24999],[0.61213,0.24993],[0.61106,0.2493],[0.61074,0.24868],[0.61074,0.24742],[0.61245,0.24526],[0.61408,0.2439],[0.62052,0.24115],[0.62801,0.23156],[0.62832,0.22969],[0.62725,0.22739],[0.61776,0.2214],[0.61523,0.21921],[0.6146,0.21816],[0.615,0.21652],[0.616,0.21591],[0.62199,0.21567],[0.62386,0.21518],[0.62482,0.21433],[0.62485,0.2128],[0.62394,0.2118],[0.62271,0.21132],[0.61547,0.21162],[0.61389,0.21116],[0.60637,0.20745],[0.60408,0.20705],[0.603,0.20751],[0.60262,0.20859],[0.60321,0.21282],[0.60297,0.21409],[0.60203,0.21533],[0.60132,0.21573],[0.59913,0.21591],[0.59809,0.21526],[0.59745,0.21425],[0.59656,0.20794],[0.59461,0.2015],[0.59448,0.19958],[0.59507,0.19711],[0.59581,0.19628],[0.60398,0.19559],[0.60828,0.19446],[0.61603,0.19147],[0.618,0.18962],[0.61987,0.18713],[0.62046,0.18586],[0.62141,0.18244],[0.62143,0.18007],[0.62114,0.17878],[0.62013,0.17631],[0.61708,0.17117],[0.6163,0.1693],[0.61611,0.16779],[0.61695,0.16378],[0.62164,0.15374],[0.62276,0.15032],[0.62271,0.1472],[0.62222,0.14471],[0.62096,0.1434],[0.61968,0.14303],[0.618,0.14342],[0.61655,0.14423],[0.60374,0.15453],[0.59875,0.15746],[0.59576,0.15842],[0.58875,0.15985],[0.57443,0.16408],[0.56591,0.1674],[0.56246,0.16977],[0.56028,0.17244],[0.55544,0.17942],[0.5504,0.1891],[0.54863,0.19142],[0.54483,0.19529],[0.54028,0.19881],[0.53847,0.20065],[0.53321,0.20717],[0.52533,0.21788],[0.52004,0.22609],[0.51744,0.22866],[0.51564,0.22973],[0.48431,0.24182],[0.47687,0.24309],[0.4743,0.24323],[0.46902,0.24271],[0.46742,0.24279],[0.46592,0.24311],[0.46012,0.24594],[0.45702,0.24708],[0.44737,0.24949],[0.44419,0.25009],[0.43321,0.25078],[0.42738,0.25278],[0.41882,0.25782],[0.41687,0.25829],[0.41575,0.25837],[0.40951,0.25703],[0.40735,0.25679],[0.40511,0.25691],[0.40287,0.2575],[0.39837,0.25952],[0.39613,0.26078],[0.39279,0.26339],[0.38981,0.2647],[0.38611,0.26531],[0.37787,0.26444],[0.37549,0.26493],[0.37299,0.26636],[0.36983,0.26875],[0.36816,0.26948],[0.3662,0.26995],[0.35967,0.27037],[0.35752,0.27148],[0.3571,0.27296],[0.35758,0.27411],[0.35835,0.27492],[0.36659,0.27695],[0.37444,0.27638],[0.37734,0.2767],[0.38266,0.27992],[0.39022,0.2832],[0.39211,0.28474],[0.39267,0.28585],[0.39344,0.28889],[0.394,0.29435],[0.39415,0.29965],[0.3932,0.30481],[0.3904,0.31171],[0.39066,0.31457],[0.3915,0.31695],[0.39495,0.32228],[0.39835,0.32564],[0.40242,0.32829],[0.40422,0.32893],[0.40868,0.32989],[0.40973,0.331],[0.40957,0.33254],[0.40881,0.33322],[0.4078,0.33357],[0.40547,0.33373],[0.39847,0.33248],[0.3933,0.33114],[0.3881,0.32895],[0.37837,0.32337],[0.37554,0.32161],[0.37008,0.31702],[0.36895,0.31689],[0.36753,0.3175],[0.36704,0.31819],[0.36707,0.31981],[0.37173,0.32964],[0.37191,0.33071],[0.37166,0.33252],[0.37081,0.33466],[0.3655,0.34324],[0.36352,0.34504],[0.35855,0.34783],[0.35462,0.35382],[0.34481,0.36435],[0.34124,0.36936],[0.34021,0.37121],[0.33884,0.37493],[0.33817,0.38231],[0.33583,0.38861],[0.33456,0.39079],[0.33076,0.39363],[0.32709,0.39506],[0.31383,0.39603],[0.30803,0.39694],[0.30712,0.39775],[0.30635,0.3996],[0.30584,0.40579],[0.30553,0.4067],[0.30399,0.40872],[0.30036,0.41123],[0.29058,0.41684],[0.28859,0.41894],[0.28768,0.421],[0.28714,0.42357],[0.28652,0.42796],[0.28652,0.43039],[0.28711,0.43466],[0.29078,0.44512],[0.29086,0.44759],[0.29005,0.44905],[0.28544,0.45407],[0.28026,0.4621],[0.27858,0.46424],[0.27607,0.46602],[0.27016,0.46888],[0.2682,0.47025],[0.26436,0.47406],[0.25972,0.47693],[0.25761,0.47875],[0.25699,0.47946],[0.25644,0.48086],[0.25586,0.48417],[0.25464,0.48806],[0.25264,0.49045],[0.24895,0.49285],[0.24204,0.49617],[0.23641,0.49757],[0.21997,0.50588],[0.21551,0.50613],[0.19975,0.5052],[0.18959,0.51116],[0.18164,0.51294],[0.18035,0.51345],[0.17855,0.51489],[0.17787,0.51592],[0.17688,0.51853],[0.17657,0.52005],[0.17657,0.52256],[0.17686,0.52399],[0.1779,0.52652],[0.1799,0.53032],[0.18056,0.53075],[0.18232,0.53111],[0.1866,0.53083],[0.19828,0.52858],[0.20073,0.52856],[0.2067,0.52974],[0.21084,0.53008],[0.21946,0.52937],[0.22531,0.52804],[0.22767,0.52705],[0.23405,0.52274],[0.23634,0.52175],[0.23911,0.52187],[0.24031,0.5227],[0.24088,0.52405],[0.24014,0.5264],[0.23846,0.5282],[0.23414,0.53085],[0.23308,0.53188],[0.23179,0.53478],[0.23122,0.53779],[0.2316,0.54131],[0.23337,0.54783],[0.23489,0.55681],[0.23811,0.56792],[0.24362,0.58212],[0.2441,0.58459],[0.24407,0.58786],[0.24221,0.59535],[0.24038,0.60087],[0.23559,0.60878],[0.23334,0.61665],[0.23213,0.61979],[0.23099,0.62157],[0.22694,0.62339],[0.22549,0.62442],[0.22496,0.62566],[0.22498,0.62661],[0.2254,0.62786],[0.2265,0.629],[0.2298,0.63053],[0.23099,0.63175],[0.2314,0.63258],[0.23183,0.6343],[0.2321,0.64109],[0.23346,0.64902],[0.23458,0.65356],[0.23766,0.66296],[0.23772,0.66446],[0.23684,0.66845],[0.23663,0.6718],[0.23707,0.67526],[0.23916,0.68218],[0.23914,0.68973],[0.23866,0.69436],[0.23755,0.70013],[0.2326,0.72058],[0.23269,0.7225],[0.23423,0.72707],[0.2409,0.73545],[0.24422,0.74052],[0.24656,0.74611],[0.24859,0.75201],[0.24895,0.7545],[0.24879,0.75495],[0.24782,0.75562],[0.24631,0.75551],[0.24525,0.75432],[0.2438,0.75042],[0.24232,0.74936],[0.24026,0.74896],[0.2378,0.74965],[0.23654,0.75064],[0.23577,0.75175],[0.23108,0.76132],[0.22785,0.76555],[0.22446,0.76727],[0.21353,0.77149],[0.20712,0.77499],[0.20257,0.77912],[0.19712,0.78669],[0.1966,0.78705],[0.19518,0.78721],[0.19059,0.78598],[0.18914,0.78604],[0.18749,0.78665],[0.18631,0.78748],[0.1856,0.78859],[0.18525,0.79017],[0.18602,0.7935],[0.18962,0.8005],[0.19096,0.80473],[0.19116,0.80702],[0.19027,0.811],[0.1893,0.81321],[0.18448,0.82083],[0.18419,0.82239],[0.18493,0.82374],[0.1867,0.82494],[0.18953,0.82579],[0.1963,0.82696],[0.20002,0.82824],[0.20393,0.83064],[0.20581,0.83248],[0.2061,0.83356],[0.20604,0.83548],[0.20472,0.84403],[0.20474,0.85336],[0.20513,0.85502],[0.20637,0.85676],[0.20851,0.85797],[0.20932,0.85793],[0.21102,0.85718],[0.2152,0.85425],[0.21704,0.85356],[0.21981,0.85334],[0.22142,0.85352],[0.22601,0.8549],[0.22702,0.85496],[0.22768,0.8549],[0.22854,0.85413],[0.22861,0.85293],[0.22809,0.85194],[0.21954,0.84919],[0.21763,0.84826],[0.21648,0.84743],[0.21597,0.84668],[0.21592,0.845],[0.22003,0.83631],[0.22173,0.83149],[0.2225,0.82828],[0.22183,0.82405],[0.22106,0.82227],[0.21941,0.81962],[0.21707,0.81681]],"salida":[0.82443,0.30991],"meta":[0.21707,0.81681],"juntas":false,"cumbres":[{"n":"Puigsou","alt":988,"u":0.21638,"v":0.8041,"t":"988 m"},{"n":"Comaestremer","alt":885,"u":0.16043,"v":0.58894,"t":"885 m"},{"n":"Puig Rodó","alt":628,"u":0.52646,"v":0.40648,"t":"628 m"},{"n":"Roca del Coix","alt":619,"u":0.49185,"v":0.90484,"t":"619 m"},{"n":"Rocamirall","alt":596,"u":0.74016,"v":0.45627,"t":"596 m"}],"t":{"salida":"Start","meta":"Finish","salidaN":"Porqueres","metaN":"Rocacorba · 978 m","gira":"Drag to spin · pinch to zoom","giraRaton":"Drag to spin · scroll to zoom"}}</script>
+<script type="module" src="visor.js"></script>
+</body>
+</html>

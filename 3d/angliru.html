@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Angliru in 3D: the climb over the real mountain · MatteHaven</title>
+<meta name="description" content="Spin the mountain of Angliru with the climb drawn on it (12.5 km, 1,266 m of climbing) and see your print with your name and your time.">
+<link rel="canonical" href="https://mattehaven.com/3d/angliru">
+<meta name="theme-color" content="#111417">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Angliru · Asturias · Spain · 3D">
+<meta property="og:description" content="Spin the mountain of Angliru with the climb drawn on it (12.5 km, 1,266 m of climbing) and see your print with your name and your time.">
+<meta property="og:url" content="https://mattehaven.com/3d/angliru">
+<meta property="og:image" content="https://mattehaven.com/tu-lamina/img/angliru.jpg">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png">
+<link rel="preload" href="../fuentes/archivo-web.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="modulepreload" href="vendor/three-r180.min.js">
+<link rel="modulepreload" href="visor.js">
+<link rel="preload" href="datos/angliru/previa.jpg" as="image">
+<script>window.__alturas=fetch(matchMedia('(pointer: coarse)').matches?'datos/angliru/alturas-movil.webp':'datos/angliru/alturas.webp').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.blob()});window.__alturas.catch(function(){})</script>
+<style>
+@font-face{font-family:'Archivo MH';src:url(../fuentes/archivo-web.woff2) format('woff2');font-weight:400 900;font-stretch:62% 100%;font-display:swap}
+:root{--noche:#111417;--papel:#F2EEE6;--rojo:#C8381E;--ruta:#FF5533;--suave:rgba(242,238,230,.66);--tenue:rgba(242,238,230,.58);--linea:rgba(242,238,230,.14);--ease:cubic-bezier(.22,1,.36,1);--letra:'Archivo MH','Arial Narrow',Bahnschrift,'Roboto Condensed',Arial,sans-serif;--col:100vw;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--noche)}
+body{color:var(--papel);font-family:var(--letra);font-size:16px;line-height:1.4;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+.oculto{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.fondo{position:fixed;inset:0;background:radial-gradient(110% 75% at 58% 55%,#252C33 0%,#171B1F 48%,#0C0E10 100%)}
+.fondo::after{content:"";position:absolute;inset:0;background:radial-gradient(48% 36% at 60% 60%,rgba(255,85,51,.08),transparent 70%)}
+#lienzo{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;opacity:0;transition:opacity .7s var(--ease);outline:none;cursor:grab}
+#lienzo:focus-visible{outline:2px solid var(--ruta);outline-offset:-4px}
+#lienzo:active{cursor:grabbing}
+.listo #lienzo{opacity:1}
+a{color:inherit}
+.velo{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(17,20,23,.8) 0,rgba(17,20,23,0) 26%,rgba(17,20,23,0) 68%,rgba(17,20,23,.8) 100%)}
+.marca{position:fixed;top:max(16px,env(safe-area-inset-top));left:16px;z-index:3;font-weight:800;font-stretch:75%;letter-spacing:.18em;font-size:12px;text-transform:uppercase;text-decoration:none;color:var(--suave);padding:10px 0}
+.marca:hover{color:var(--papel)}
+.cabeza{position:fixed;left:16px;right:16px;top:calc(max(16px,env(safe-area-inset-top)) + 46px);z-index:2;pointer-events:none}
+.cabeza>*{animation:entra .9s var(--ease) both}
+.cabeza>:nth-child(2){animation-delay:.08s}.cabeza>:nth-child(3){animation-delay:.16s}.cabeza>:nth-child(4){animation-delay:.24s}.cabeza>:nth-child(5){animation-delay:.32s}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kicker{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ruta);font-weight:700;font-stretch:80%}
+h1{margin:6px 0 0;font-weight:800;font-stretch:68%;font-size:clamp(36px,10.6vw,58px);line-height:.94;letter-spacing:-.01em}
+.distancia{margin:6px 0 0;font-size:17px;font-weight:650;font-stretch:78%;letter-spacing:.07em;text-transform:uppercase;color:var(--suave)}
+.cifras{display:flex;gap:22px;margin:14px 0 0;padding:0;list-style:none}
+.cifras li{display:flex;flex-direction:column}
+.cifras b{font-size:clamp(23px,6.4vw,32px);font-weight:800;font-stretch:72%;line-height:1;font-variant-numeric:tabular-nums}
+.cifras small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);margin-top:5px;font-weight:600}
+.leyenda{display:none;margin:22px 0 0;padding:0;list-style:none;pointer-events:auto;max-width:320px}
+.leyenda li{border-top:1px solid var(--linea)}
+.leyenda li:last-child{border-bottom:1px solid var(--linea)}
+.leyenda button{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:baseline;gap:10px;padding:8px 2px;font-size:14px;font-stretch:85%;cursor:pointer;transition:color .2s,padding .3s var(--ease)}
+.leyenda button::before{content:"";width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--suave);transform:translateY(-1px);transition:border-color .2s}
+.leyenda button:hover{color:var(--ruta);padding-left:6px}
+.leyenda button:hover::before{border-bottom-color:var(--ruta)}
+.leyenda em{font-style:normal;margin-left:auto;color:var(--tenue);font-variant-numeric:tabular-nums}
+.leyenda button:focus-visible,.boton:focus-visible,.circ:focus-visible,.marca:focus-visible,.cred a:focus-visible{outline:2px solid var(--ruta);outline-offset:3px}
+.pie{position:fixed;left:16px;right:16px;bottom:max(14px,env(safe-area-inset-bottom));z-index:3;pointer-events:none}
+.oferta{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"hon hon" "mini prin" "secu secu";gap:9px 12px;align-items:center;pointer-events:auto}
+.mini{grid-area:mini;display:block;width:44px;height:auto;aspect-ratio:3/4;border-radius:2px;box-shadow:0 6px 18px rgba(0,0,0,.55),0 0 0 1px rgba(242,238,230,.18);transform:rotate(-4deg);background:var(--papel)}
+.honesto{grid-area:hon;margin:0;font-size:13px;line-height:1.38;color:rgba(242,238,230,.9)}
+.boton{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 20px;border-radius:999px;font-weight:750;font-stretch:80%;font-size:17px;letter-spacing:.01em;text-decoration:none;transition:transform .25s var(--ease),background .2s,border-color .2s,box-shadow .25s;text-align:center}
+.boton:active{transform:scale(.98)}
+.prin{grid-area:prin;background:var(--rojo);color:#fff;box-shadow:0 10px 30px -8px rgba(200,56,30,.7)}
+.prin:hover{background:#D9442A;box-shadow:0 14px 36px -8px rgba(255,85,51,.75)}
+.prin svg{flex:none;transition:transform .25s var(--ease)}
+.prin:hover svg{transform:translateX(3px)}
+.secu{grid-area:secu;min-height:44px;font-size:15px;color:var(--papel);border:1.5px solid rgba(242,238,230,.34);background:rgba(17,20,23,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.secu:hover{border-color:var(--papel)}
+.cred{margin:10px 0 0;font-size:11px;line-height:1.45;color:var(--tenue);pointer-events:auto}
+.cred a{text-decoration:underline;text-decoration-color:rgba(242,238,230,.35);text-underline-offset:2px}
+.controles{position:fixed;right:16px;top:max(14px,env(safe-area-inset-top));z-index:3;display:flex;gap:8px;align-items:center}
+.circ{width:44px;height:44px;border-radius:50%;border:1px solid var(--linea);background:rgba(17,20,23,.55);color:var(--papel);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:border-color .2s,transform .3s var(--ease);padding:0}
+.circ:hover{border-color:rgba(242,238,230,.5)}
+#reset:active{transform:rotate(-40deg)}
+.pista{position:fixed;left:50%;top:70%;transform:translate(-50%,-50%);z-index:2;width:max-content;max-width:calc(100% - 32px);font-size:13px;letter-spacing:.03em;color:var(--papel);background:rgba(17,20,23,.66);border:1px solid var(--linea);padding:8px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .6s var(--ease);text-align:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;gap:8px;align-items:center;justify-content:center}
+.pista.ver{opacity:1}
+.carga{position:fixed;left:50%;top:52%;transform:translate(-50%,-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--tenue);font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:opacity .4s}
+.carga i{display:block;width:120px;height:2px;background:var(--linea);overflow:hidden;border-radius:2px}
+.carga i::after{content:"";display:block;width:40%;height:100%;background:var(--ruta);box-shadow:0 0 12px var(--ruta);animation:carga 1.1s var(--ease) infinite}
+@keyframes carga{from{transform:translateX(-100%)}to{transform:translateX(260%)}}
+.listo .carga{opacity:0;visibility:hidden}
+.etiquetas{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.et{position:absolute;left:0;top:0;width:0;height:0;opacity:0;transition:opacity .45s;will-change:transform}
+.et.ver{opacity:1}
+.cima .caja{position:absolute;left:0;bottom:26px;background:rgba(12,14,16,.76);border:1px solid rgba(242,238,230,.18);border-radius:7px;padding:4px 8px 5px;text-align:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);white-space:nowrap}
+.cima b{display:block;font-size:13px;font-weight:700;font-stretch:80%;line-height:1.1}
+.cima small{display:block;font-size:11px;color:var(--suave);font-variant-numeric:tabular-nums;line-height:1.2}
+.cima::after{content:"";position:absolute;left:-.5px;bottom:3px;width:1px;height:23px;background:linear-gradient(rgba(242,238,230,.75),rgba(242,238,230,.2))}
+.cima::before{content:"";position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:var(--papel);box-shadow:0 0 0 2px rgba(12,14,16,.55)}
+.hito i{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--ruta),0 0 18px 4px rgba(255,85,51,.8)}
+.hito span{position:absolute;left:15px;top:-12px;background:var(--ruta);color:#140804;font-size:12px;font-weight:800;font-stretch:80%;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:5px;white-space:nowrap;line-height:15px}
+.hito span em{font-style:normal;font-weight:600;letter-spacing:.02em;text-transform:none}
+.hito.izq span{left:auto;right:15px}
+.estatica{display:none}
+.sin-3d .estatica{display:grid;position:fixed;z-index:1;top:var(--arriba,250px);bottom:var(--abajo,230px);left:var(--izq,16px);right:16px;place-items:center;grid-template-rows:auto minmax(0,1fr);gap:10px}
+.sin-3d .estatica img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.sin-3d .estatica p{margin:0;color:var(--suave);font-size:13px;text-align:center}
+.sin-3d #lienzo,.sin-3d .carga,.sin-3d .controles,.sin-3d .etiquetas,.sin-3d .pista,.sin-3d .leyenda{display:none!important}
+@media (min-width:720px){
+  :root{--col:clamp(360px,32vw,520px)}
+  .velo{background:linear-gradient(90deg,rgba(17,20,23,.9) 0,rgba(17,20,23,.82) calc(var(--col) + 10px),rgba(17,20,23,0) calc(var(--col) + 200px))}
+  .marca{top:24px;left:32px}
+  .cabeza{left:32px;right:auto;top:72px;width:var(--col)}
+  h1{font-size:clamp(50px,4.6vw,92px)}
+  .distancia{font-size:clamp(18px,1.4vw,26px)}
+  .cifras{gap:clamp(22px,2vw,36px);margin-top:18px}
+  .cifras b{font-size:clamp(28px,2.4vw,46px)}
+  .leyenda{display:block}
+  .controles{right:28px;top:24px}
+  .pie{left:32px;right:auto;bottom:28px;width:var(--col)}
+  .oferta{grid-template-columns:96px 1fr;grid-template-areas:"mini hon" "mini prin" "mini secu";gap:10px 18px}
+  .mini{width:96px;align-self:center;transform:rotate(-4deg)}
+  .honesto{font-size:13.5px}
+  .prin{font-size:16px;padding:0 18px;white-space:nowrap}
+  .carga{left:calc(32px + var(--col) + (100vw - var(--col) - 32px) / 2)}
+}
+@media (min-width:720px) and (max-height:620px){.leyenda{display:none}}
+@media (min-width:720px) and (max-height:520px){
+  :root{--col:330px}
+  .kicker{display:none}.cabeza{top:52px}h1{font-size:30px;margin:0}.distancia{font-size:14px;margin-top:3px}.cifras{margin-top:6px;gap:18px}.cifras b{font-size:20px}.cifras small{font-size:10px;margin-top:3px}
+  .pie{bottom:10px}.oferta{grid-template-columns:1fr;grid-template-areas:"hon" "prin" "secu";gap:6px}.mini{display:none}
+  .honesto{font-size:11.5px;line-height:1.3}.boton{min-height:40px;font-size:15px}.secu{min-height:34px}.cred{font-size:9.5px;line-height:1.35;margin-top:5px}
+}
+@media (max-width:719px) and (max-height:700px){.kicker{display:none}h1{font-size:30px}.distancia{font-size:15px;margin-top:3px}.cifras{margin-top:8px}.cifras b{font-size:20px}.cifras small{font-size:10px;margin-top:3px}.honesto{font-size:11.5px;line-height:1.3}.oferta{gap:7px 10px}.boton{min-height:44px;font-size:16px}.secu{min-height:38px}.mini{width:34px}.cred{font-size:9.5px;line-height:1.35;margin-top:7px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="fondo" aria-hidden="true"></div>
+<canvas id="lienzo" aria-label="Angliru Asturias · Spain: relieve 3D con el recorrido" aria-describedby="ayuda" tabindex="0"></canvas>
+<p class="oculto" id="ayuda">With the keyboard: arrows to spin and tilt, + and − to zoom in or out, Esc to go back to the first view.</p>
+<div class="velo" aria-hidden="true"></div>
+<div class="etiquetas" id="etiquetas" aria-hidden="true"></div>
+<a class="marca" href="../index.html">MatteHaven</a>
+<header class="cabeza">
+<p class="kicker">Your climb · in 3D</p>
+<h1>Angliru</h1>
+<p class="distancia">Asturias · Spain</p>
+<ul class="cifras">
+<li><b data-n="12.5">12.5</b><small>km</small></li>
+<li><b data-n="1266">1,266</b><small>m climbing</small></li>
+<li><b data-n="1573">1,573</b><small>m high point</small></li>
+</ul>
+<ul class="leyenda" aria-label="Summits">
+
+</ul>
+<p class="oculto">Summits: .</p>
+</header>
+<div class="controles"><button class="circ" type="button" id="norte" aria-label="North up" title="North up"><svg id="aguja" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l3.4 9.5H8.6z" fill="#FF5533"/><path d="M12 21.5l-3.4-9.5h6.8z" fill="currentColor" opacity=".5"/></svg></button><button class="circ" type="button" id="reset" aria-label="Back to the first view" title="Back to the first view"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button></div>
+<div class="carga" role="status"><i></i><span>Loading the relief</span></div>
+<div class="pista" id="pista" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 12c0-4 3.6-7 8-7s8 3 8 7"/><path d="M17 9l3 3 3-3"/></svg><span></span></div>
+<div class="estatica"><p>Your browser can’t show the 3D view. This is the print:</p><img src="../tu-lamina/img/angliru.jpg" alt="Angliru cycling print" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<footer class="pie">
+<div class="oferta">
+<img class="mini" src="datos/angliru/lamina.webp" alt="Angliru cycling print" width="96" height="128" decoding="async">
+<p class="honesto">3D view of the real terrain. The print is flat: it’s printed with this relief drawn on it.</p>
+<a class="boton prin" href="../tu-lamina/angliru.html#d=angliru">See yours with your name<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+<a class="boton secu" href="https://mattehaven.etsy.com/listing/4618817803" rel="noopener">Order on Etsy</a>
+</div>
+<p class="cred">Height ×1.5 so the relief shows · MDT y ortofoto PNOA © Instituto Geográfico Nacional (CC BY 4.0) · Summits © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> (ODbL)</p>
+</footer>
+<noscript><style>.carga,.controles,.leyenda{display:none}.estatica{display:grid!important;position:fixed;z-index:1;top:300px;bottom:250px;left:16px;right:16px;place-items:center;grid-template-rows:auto minmax(0,1fr);gap:10px}.estatica img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;object-fit:contain}@media (min-width:720px){.estatica{top:40px;bottom:40px;left:calc(var(--col) + 72px)}}</style></noscript>
+<script type="application/json" id="datos-visor">{"slug":"angliru","idioma":"en","exag":1.5,"sepMiles":",","sepDec":".","zmin":244,"zmax":1719,"ancho":6.5633,"fondo":6.6082,"pasoM":0.5,"alturas":{"url":"datos/angliru/alturas.webp","nx":509,"ny":512,"suma":293802005},"alturasMovil":{"url":"datos/angliru/alturas-movil.webp","nx":254,"ny":256,"suma":73351533},"textura":"datos/angliru/textura.jpg","texturaMovil":"datos/angliru/textura-movil.jpg","previa":"datos/angliru/previa.jpg","isla":[0.86,1],"acimut":235,"ruta":[[0.8578,0.60116],[0.85373,0.60072],[0.8521,0.60121],[0.84903,0.60294],[0.84761,0.6032],[0.84562,0.60251],[0.84391,0.60128],[0.8423,0.60064],[0.8395,0.60057],[0.83735,0.60016],[0.83591,0.59905],[0.83398,0.59619],[0.83256,0.59466],[0.83096,0.59337],[0.82991,0.59279],[0.82819,0.59255],[0.82582,0.59285],[0.82485,0.59267],[0.82295,0.5914],[0.82139,0.5893],[0.81782,0.58298],[0.81623,0.57833],[0.81499,0.57639],[0.81114,0.57363],[0.80196,0.56834],[0.79993,0.568],[0.79488,0.57068],[0.79327,0.57117],[0.79211,0.57137],[0.78954,0.57104],[0.78526,0.5694],[0.78403,0.56863],[0.78008,0.56416],[0.77889,0.56329],[0.7762,0.56228],[0.77532,0.56159],[0.77417,0.56044],[0.77198,0.55744],[0.77085,0.55662],[0.76925,0.55593],[0.76549,0.55508],[0.76178,0.5551],[0.75604,0.55392],[0.75378,0.55303],[0.75274,0.55229],[0.7518,0.55205],[0.74626,0.55182],[0.74508,0.55151],[0.74416,0.55082],[0.74311,0.54947],[0.74154,0.54592],[0.74077,0.54482],[0.73938,0.54356],[0.7332,0.53957],[0.73009,0.5379],[0.72248,0.53288],[0.71899,0.5299],[0.71367,0.52789],[0.71258,0.5271],[0.71127,0.5251],[0.71038,0.52151],[0.70978,0.52031],[0.7087,0.51917],[0.70425,0.51659],[0.70326,0.51575],[0.70258,0.51474],[0.70134,0.51079],[0.69673,0.50596],[0.69541,0.50522],[0.69107,0.50485],[0.68954,0.50429],[0.6848,0.50185],[0.68306,0.5006],[0.68174,0.49924],[0.68042,0.49846],[0.67922,0.49826],[0.67561,0.49828],[0.67426,0.4978],[0.67067,0.49531],[0.66968,0.49432],[0.66894,0.49314],[0.66843,0.49196],[0.66815,0.49014],[0.66832,0.48859],[0.6688,0.48733],[0.67121,0.48443],[0.67171,0.48315],[0.67245,0.48006],[0.67276,0.477],[0.6724,0.46991],[0.67172,0.46674],[0.66943,0.46143],[0.66853,0.45745],[0.66859,0.45498],[0.66988,0.44701],[0.6702,0.44352],[0.67016,0.44143],[0.66977,0.43954],[0.6687,0.43837],[0.66687,0.43784],[0.66566,0.43815],[0.6644,0.43889],[0.66359,0.43978],[0.66112,0.44403],[0.65753,0.44677],[0.65411,0.45073],[0.65286,0.45355],[0.65205,0.45698],[0.6509,0.45981],[0.65011,0.46098],[0.64922,0.46158],[0.6482,0.4618],[0.64583,0.46131],[0.64073,0.45904],[0.63937,0.45892],[0.63679,0.45936],[0.63527,0.45894],[0.63337,0.45407],[0.63132,0.45093],[0.63057,0.45033],[0.62758,0.44975],[0.62683,0.44911],[0.62321,0.44206],[0.62256,0.44133],[0.6212,0.44074],[0.61984,0.44091],[0.61788,0.44221],[0.6164,0.442],[0.61547,0.44076],[0.61506,0.43801],[0.61395,0.43495],[0.60895,0.42736],[0.60699,0.41975],[0.60601,0.41682],[0.60449,0.40745],[0.6041,0.4064],[0.60234,0.40495],[0.59907,0.40335],[0.5978,0.40177],[0.59757,0.39886],[0.59696,0.39687],[0.59802,0.3876],[0.60421,0.39141],[0.60718,0.39508],[0.6083,0.39586],[0.60924,0.39619],[0.61431,0.39624],[0.61569,0.39673],[0.61955,0.39874],[0.62081,0.39907],[0.62612,0.39859],[0.6273,0.39874],[0.62841,0.39921],[0.63339,0.40433],[0.63515,0.40576],[0.6355,0.40421],[0.6374,0.39913],[0.63818,0.39791],[0.63965,0.39764],[0.64181,0.39498],[0.64351,0.39341],[0.64314,0.38846],[0.64447,0.38364],[0.64655,0.38007],[0.6488,0.37726],[0.64904,0.37628],[0.64833,0.37535],[0.64683,0.37538],[0.64442,0.37737],[0.64286,0.37811],[0.64131,0.37847],[0.63885,0.37845],[0.6289,0.3767],[0.62686,0.37592],[0.62524,0.3748],[0.62413,0.3735],[0.62311,0.37164],[0.62249,0.37009],[0.62183,0.36725],[0.62096,0.36561],[0.61837,0.36226],[0.61725,0.35933],[0.61533,0.35587],[0.61498,0.35486],[0.61461,0.35205],[0.61322,0.34902],[0.612,0.34826],[0.60882,0.34767],[0.60607,0.34563],[0.60345,0.34436],[0.60178,0.34322],[0.59737,0.33896],[0.59381,0.33597],[0.59301,0.33488],[0.59241,0.3336],[0.59189,0.32932],[0.59304,0.32293],[0.59296,0.32185],[0.59255,0.32093],[0.59113,0.31992],[0.5871,0.31966],[0.58378,0.3202],[0.58227,0.32098],[0.57851,0.32355],[0.57671,0.32376],[0.57579,0.3235],[0.57173,0.32111],[0.56874,0.31966],[0.56286,0.3171],[0.5608,0.31528],[0.55907,0.31321],[0.55738,0.31203],[0.55377,0.31083],[0.55072,0.31072],[0.54965,0.31104],[0.54853,0.31171],[0.54566,0.3141],[0.541,0.3216],[0.53982,0.32735],[0.54022,0.33055],[0.54045,0.33675],[0.53998,0.33934],[0.53914,0.3418],[0.53796,0.34379],[0.53608,0.3463],[0.53293,0.34972],[0.52544,0.35604],[0.52292,0.35857],[0.52025,0.36251],[0.51796,0.36723],[0.51658,0.36893],[0.50258,0.38266],[0.50045,0.38457],[0.4979,0.38598],[0.49672,0.38632],[0.49548,0.38632],[0.49391,0.38592],[0.49241,0.38526],[0.48747,0.3818],[0.48548,0.38086],[0.48114,0.37987],[0.47433,0.37887],[0.473,0.37906],[0.47131,0.37972],[0.4677,0.38159],[0.46392,0.3841],[0.46154,0.38608],[0.45868,0.38907],[0.45491,0.39186],[0.4513,0.39414],[0.44969,0.39468],[0.44328,0.39503],[0.43903,0.39658],[0.43688,0.39707],[0.43532,0.39725],[0.43115,0.39609],[0.42986,0.39604],[0.42619,0.39675],[0.42366,0.39646],[0.42234,0.39586],[0.41995,0.39324],[0.41827,0.39245],[0.41553,0.3926],[0.41222,0.39351],[0.41109,0.39362],[0.41008,0.3934],[0.40878,0.39262],[0.40753,0.39078],[0.40652,0.38982],[0.40562,0.38954],[0.40265,0.38927],[0.39781,0.38952],[0.39447,0.38927],[0.39074,0.38981],[0.38785,0.391],[0.38497,0.39426],[0.38415,0.39486],[0.38244,0.39537],[0.37735,0.39473],[0.3729,0.39559],[0.37085,0.39513],[0.36833,0.39336],[0.36534,0.392],[0.36409,0.39183],[0.36096,0.39208],[0.35991,0.39196],[0.35834,0.39156],[0.35603,0.39055],[0.35213,0.38821],[0.34775,0.38809],[0.34686,0.38774],[0.34402,0.38538],[0.34234,0.38431],[0.34049,0.38258],[0.33887,0.38219],[0.33507,0.38266],[0.32656,0.38086],[0.32298,0.37973],[0.32165,0.37983],[0.32036,0.38076],[0.31937,0.38282],[0.31922,0.38421],[0.31908,0.3863],[0.31926,0.38839],[0.3208,0.39879],[0.32059,0.3998],[0.31953,0.40219],[0.31808,0.40335],[0.3145,0.4047],[0.30884,0.40949],[0.30727,0.40971],[0.30143,0.40639],[0.29904,0.40602],[0.29782,0.4062],[0.29673,0.40711],[0.29667,0.40863],[0.29707,0.41003],[0.29704,0.41124],[0.29632,0.41496],[0.29535,0.41575],[0.2944,0.4154],[0.29263,0.41287],[0.29188,0.41235],[0.2906,0.41213],[0.28677,0.41296],[0.28581,0.41358],[0.28615,0.41506],[0.28717,0.41614],[0.28795,0.41766],[0.28807,0.41882],[0.28769,0.42115],[0.28612,0.42425],[0.28617,0.42551],[0.2872,0.42891],[0.28677,0.43041],[0.28573,0.43121],[0.28483,0.43146],[0.28028,0.43179],[0.27925,0.43255],[0.27937,0.43375],[0.28159,0.4368],[0.2826,0.44212],[0.28439,0.4451],[0.28759,0.44932],[0.28879,0.45166],[0.28959,0.45387],[0.28985,0.45626],[0.28955,0.45926],[0.29113,0.46613],[0.29153,0.4721],[0.29142,0.4741],[0.2911,0.47599],[0.28969,0.48057],[0.28767,0.48542],[0.28745,0.48647],[0.28737,0.4928],[0.28842,0.50122],[0.29232,0.51211],[0.29247,0.51378],[0.29225,0.5207],[0.293,0.52505],[0.29298,0.52611],[0.29175,0.5289],[0.29026,0.53094],[0.28843,0.53487],[0.28808,0.53709],[0.28823,0.53839],[0.29024,0.54538],[0.29168,0.54868],[0.29291,0.55084],[0.29658,0.55588],[0.30053,0.56191],[0.30314,0.56735],[0.30408,0.56972],[0.30469,0.57222],[0.30531,0.57346],[0.30704,0.57586],[0.31257,0.58526],[0.31629,0.59189],[0.31658,0.59331],[0.31508,0.59343],[0.31355,0.59124],[0.3124,0.59009],[0.30506,0.58509],[0.30177,0.58313],[0.2919,0.57586],[0.29055,0.57452],[0.28734,0.57053],[0.28589,0.56932],[0.26895,0.55923],[0.26253,0.55486],[0.25755,0.55025],[0.25241,0.54467],[0.24976,0.5414],[0.24712,0.53888],[0.24173,0.5361],[0.23423,0.53325],[0.23269,0.53244],[0.23008,0.53056],[0.22199,0.52644],[0.21467,0.52132],[0.21104,0.51834],[0.20943,0.51644],[0.20713,0.51228],[0.20235,0.50485],[0.1997,0.5001],[0.19841,0.49523],[0.19806,0.4927],[0.19841,0.49012],[0.19944,0.48808],[0.19921,0.48674],[0.19819,0.4866],[0.19732,0.48719],[0.19493,0.4898],[0.19154,0.49484],[0.18976,0.49629],[0.18877,0.49762],[0.18767,0.50198],[0.18526,0.50747],[0.18462,0.5097],[0.18418,0.51192],[0.18422,0.51403],[0.18599,0.51902],[0.18668,0.52222],[0.18666,0.52542],[0.18623,0.52899],[0.18692,0.5315],[0.18872,0.53478],[0.18882,0.53623],[0.18781,0.53675],[0.18689,0.5365],[0.18146,0.53366],[0.17831,0.53037],[0.17444,0.52791],[0.16749,0.52265],[0.16475,0.52142],[0.16243,0.51998],[0.15978,0.51784],[0.1518,0.51078],[0.15057,0.50929],[0.14843,0.50532],[0.14781,0.50372],[0.14741,0.50079],[0.14631,0.50003],[0.14523,0.50052],[0.144,0.50224],[0.14336,0.50368],[0.14306,0.50515],[0.14297,0.50673],[0.14388,0.5161],[0.15034,0.53352],[0.15237,0.53842],[0.15448,0.54263],[0.15702,0.54931],[0.15755,0.55037],[0.1584,0.55136],[0.16767,0.5596],[0.17058,0.56455],[0.17357,0.56891],[0.17566,0.57356],[0.17722,0.57602],[0.17974,0.57826],[0.18411,0.58155],[0.1853,0.58273],[0.18646,0.58446],[0.18709,0.58581],[0.18776,0.58861],[0.18746,0.58982],[0.186,0.58996],[0.18506,0.58952],[0.1798,0.58573],[0.1786,0.58561],[0.17808,0.58675],[0.18058,0.58985],[0.1871,0.59949],[0.18799,0.60126],[0.19022,0.60707],[0.19324,0.61718],[0.19601,0.62375],[0.19819,0.62791],[0.2012,0.63291],[0.20491,0.63567],[0.20531,0.63672],[0.20475,0.63748],[0.20353,0.63744],[0.20139,0.63569],[0.19829,0.63362],[0.19268,0.629],[0.18845,0.62476],[0.18476,0.62179],[0.18277,0.6195],[0.18179,0.61917],[0.18112,0.61991],[0.18355,0.62471],[0.1849,0.62798],[0.18855,0.63283],[0.18959,0.6349],[0.19039,0.63823],[0.19091,0.64538],[0.19185,0.64814],[0.19198,0.64935],[0.19124,0.64977],[0.19018,0.64901],[0.185,0.64041],[0.18353,0.63738],[0.18284,0.63667],[0.18075,0.63542],[0.179,0.63503],[0.1766,0.63529],[0.17553,0.63601],[0.17534,0.63709],[0.17603,0.63849],[0.17726,0.64007],[0.17763,0.6414],[0.17714,0.64295],[0.17629,0.64443],[0.17614,0.64556],[0.17667,0.64637],[0.18097,0.64812],[0.18237,0.64937],[0.18306,0.6504],[0.18572,0.6568],[0.1872,0.66225],[0.18733,0.66321],[0.18713,0.66458],[0.18485,0.66977],[0.18357,0.67497],[0.18379,0.67824],[0.18476,0.68361],[0.18478,0.68686],[0.18439,0.68801],[0.1834,0.68926],[0.18151,0.69003],[0.17953,0.69033],[0.17724,0.68968],[0.17502,0.68828],[0.17279,0.68749],[0.16835,0.68622],[0.16686,0.68614]],"salida":[0.8578,0.60116],"meta":[0.16686,0.68614],"juntas":false,"cumbres":[],"t":{"salida":"Start","meta":"Finish","salidaN":"La Vega (Riosa)","metaN":"Alto de l’Angliru · 1,573 m","gira":"Drag to spin · pinch to zoom","giraRaton":"Drag to spin · scroll to zoom"}}</script>
+<script type="module" src="visor.js"></script>
+</body>
+</html>

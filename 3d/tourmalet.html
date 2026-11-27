@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Col du Tourmalet in 3D: the climb over the real mountain · MatteHaven</title>
+<meta name="description" content="Spin the mountain of Col du Tourmalet with the climb drawn on it (19 km, 1,404 m of climbing) and see your print with your name and your time.">
+<link rel="canonical" href="https://mattehaven.com/3d/tourmalet">
+<meta name="theme-color" content="#111417">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Col du Tourmalet · Hautes-Pyrénées · France · 3D">
+<meta property="og:description" content="Spin the mountain of Col du Tourmalet with the climb drawn on it (19 km, 1,404 m of climbing) and see your print with your name and your time.">
+<meta property="og:url" content="https://mattehaven.com/3d/tourmalet">
+<meta property="og:image" content="https://mattehaven.com/tu-lamina/img/tourmalet.jpg">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png">
+<link rel="preload" href="../fuentes/archivo-web.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="modulepreload" href="vendor/three-r180.min.js">
+<link rel="modulepreload" href="visor.js">
+<link rel="preload" href="datos/tourmalet/previa.jpg" as="image">
+<script>window.__alturas=fetch(matchMedia('(pointer: coarse)').matches?'datos/tourmalet/alturas-movil.webp':'datos/tourmalet/alturas.webp').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.blob()});window.__alturas.catch(function(){})</script>
+<style>
+@font-face{font-family:'Archivo MH';src:url(../fuentes/archivo-web.woff2) format('woff2');font-weight:400 900;font-stretch:62% 100%;font-display:swap}
+:root{--noche:#111417;--papel:#F2EEE6;--rojo:#C8381E;--ruta:#FF5533;--suave:rgba(242,238,230,.66);--tenue:rgba(242,238,230,.58);--linea:rgba(242,238,230,.14);--ease:cubic-bezier(.22,1,.36,1);--letra:'Archivo MH','Arial Narrow',Bahnschrift,'Roboto Condensed',Arial,sans-serif;--col:100vw;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--noche)}
+body{color:var(--papel);font-family:var(--letra);font-size:16px;line-height:1.4;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+.oculto{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.fondo{position:fixed;inset:0;background:radial-gradient(110% 75% at 58% 55%,#252C33 0%,#171B1F 48%,#0C0E10 100%)}
+.fondo::after{content:"";position:absolute;inset:0;background:radial-gradient(48% 36% at 60% 60%,rgba(255,85,51,.08),transparent 70%)}
+#lienzo{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;opacity:0;transition:opacity .7s var(--ease);outline:none;cursor:grab}
+#lienzo:focus-visible{outline:2px solid var(--ruta);outline-offset:-4px}
+#lienzo:active{cursor:grabbing}
+.listo #lienzo{opacity:1}
+a{color:inherit}
+.velo{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(17,20,23,.8) 0,rgba(17,20,23,0) 26%,rgba(17,20,23,0) 68%,rgba(17,20,23,.8) 100%)}
+.marca{position:fixed;top:max(16px,env(safe-area-inset-top));left:16px;z-index:3;font-weight:800;font-stretch:75%;letter-spacing:.18em;font-size:12px;text-transform:uppercase;text-decoration:none;color:var(--suave);padding:10px 0}
+.marca:hover{color:var(--papel)}
+.cabeza{position:fixed;left:16px;right:16px;top:calc(max(16px,env(safe-area-inset-top)) + 46px);z-index:2;pointer-events:none}
+.cabeza>*{animation:entra .9s var(--ease) both}
+.cabeza>:nth-child(2){animation-delay:.08s}.cabeza>:nth-child(3){animation-delay:.16s}.cabeza>:nth-child(4){animation-delay:.24s}.cabeza>:nth-child(5){animation-delay:.32s}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kicker{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ruta);font-weight:700;font-stretch:80%}
+h1{margin:6px 0 0;font-weight:800;font-stretch:68%;font-size:clamp(36px,10.6vw,58px);line-height:.94;letter-spacing:-.01em}
+.distancia{margin:6px 0 0;font-size:17px;font-weight:650;font-stretch:78%;letter-spacing:.07em;text-transform:uppercase;color:var(--suave)}
+.cifras{display:flex;gap:22px;margin:14px 0 0;padding:0;list-style:none}
+.cifras li{display:flex;flex-direction:column}
+.cifras b{font-size:clamp(23px,6.4vw,32px);font-weight:800;font-stretch:72%;line-height:1;font-variant-numeric:tabular-nums}
+.cifras small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);margin-top:5px;font-weight:600}
+.leyenda{display:none;margin:22px 0 0;padding:0;list-style:none;pointer-events:auto;max-width:320px}
+.leyenda li{border-top:1px solid var(--linea)}
+.leyenda li:last-child{border-bottom:1px solid var(--linea)}
+.leyenda button{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:baseline;gap:10px;padding:8px 2px;font-size:14px;font-stretch:85%;cursor:pointer;transition:color .2s,padding .3s var(--ease)}
+.leyenda button::before{content:"";width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--suave);transform:translateY(-1px);transition:border-color .2s}
+.leyenda button:hover{color:var(--ruta);padding-left:6px}
+.leyenda button:hover::before{border-bottom-color:var(--ruta)}
+.leyenda em{font-style:normal;margin-left:auto;color:var(--tenue);font-variant-numeric:tabular-nums}
+.leyenda button:focus-visible,.boton:focus-visible,.circ:focus-visible,.marca:focus-visible,.cred a:focus-visible{outline:2px solid var(--ruta);outline-offset:3px}
+.pie{position:fixed;left:16px;right:16px;bottom:max(14px,env(safe-area-inset-bottom));z-index:3;pointer-events:none}
+.oferta{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"hon hon" "mini prin" "secu secu";gap:9px 12px;align-items:center;pointer-events:auto}
+.mini{grid-area:mini;display:block;width:44px;height:auto;aspect-ratio:3/4;border-radius:2px;box-shadow:0 6px 18px rgba(0,0,0,.55),0 0 0 1px rgba(242,238,230,.18);transform:rotate(-4deg);background:var(--papel)}
+.honesto{grid-area:hon;margin:0;font-size:13px;line-height:1.38;color:rgba(242,238,230,.9)}
+.boton{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 20px;border-radius:999px;font-weight:750;font-stretch:80%;font-size:17px;letter-spacing:.01em;text-decoration:none;transition:transform .25s var(--ease),background .2s,border-color .2s,box-shadow .25s;text-align:center}
+.boton:active{transform:scale(.98)}
+.prin{grid-area:prin;background:var(--rojo);color:#fff;box-shadow:0 10px 30px -8px rgba(200,56,30,.7)}
+.prin:hover{background:#D9442A;box-shadow:0 14px 36px -8px rgba(255,85,51,.75)}
+.prin svg{flex:none;transition:transform .25s var(--ease)}
+.prin:hover svg{transform:translateX(3px)}
+.secu{grid-area:secu;min-height:44px;font-size:15px;color:var(--papel);border:1.5px solid rgba(242,238,230,.34);background:rgba(17,20,23,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.secu:hover{border-color:var(--papel)}
+.cred{margin:10px 0 0;font-size:11px;line-height:1.45;color:var(--tenue);pointer-events:auto}
+.cred a{text-decoration:underline;text-decoration-color:rgba(242,238,230,.35);text-underline-offset:2px}
+.controles{position:fixed;right:16px;top:max(14px,env(safe-area-inset-top));z-index:3;display:flex;gap:8px;align-items:center}
+.circ{width:44px;height:44px;border-radius:50%;border:1px solid var(--linea);background:rgba(17,20,23,.55);color:var(--papel);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:border-color .2s,transform .3s var(--ease);padding:0}
+.circ:hover{border-color:rgba(242,238,230,.5)}
+#reset:active{transform:rotate(-40deg)}
+.pista{position:fixed;left:50%;top:70%;transform:translate(-50%,-50%);z-index:2;width:max-content;max-width:calc(100% - 32px);font-size:13px;letter-spacing:.03em;color:var(--papel);background:rgba(17,20,23,.66);border:1px solid var(--linea);padding:8px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .6s var(--ease);text-align:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;gap:8px;align-items:center;justify-content:center}
+.pista.ver{opacity:1}
+.carga{position:fixed;left:50%;top:52%;transform:translate(-50%,-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--tenue);font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:opacity .4s}
+.carga i{display:block;width:120px;height:2px;background:var(--linea);overflow:hidden;border-radius:2px}
+.carga i::after{content:"";display:block;width:40%;height:100%;background:var(--ruta);box-shadow:0 0 12px var(--ruta);animation:carga 1.1s var(--ease) infinite}
+@keyframes carga{from{transform:translateX(-100%)}to{transform:translateX(260%)}}
+.listo .carga{opacity:0;visibility:hidden}
+.etiquetas{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.et{position:absolute;left:0;top:0;width:0;height:0;opacity:0;transition:opacity .45s;will-change:transform}
+.et.ver{opacity:1}
+.cima .caja{position:absolute;left:0;bottom:26px;background:rgba(12,14,16,.76);border:1px solid rgba(242,238,230,.18);border-radius:7px;padding:4px 8px 5px;text-align:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);white-space:nowrap}
+.cima b{display:block;font-size:13px;font-weight:700;font-stretch:80%;line-height:1.1}
+.cima small{display:block;font-size:11px;color:var(--suave);font-variant-numeric:tabular-nums;line-height:1.2}
+.cima::after{content:"";position:absolute;left:-.5px;bottom:3px;width:1px;height:23px;background:linear-gradient(rgba(242,238,230,.75),rgba(242,238,230,.2))}
+.cima::before{content:"";position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:var(--papel);box-shadow:0 0 0 2px rgba(12,14,16,.55)}
+.hito i{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--ruta),0 0 18px 4px rgba(255,85,51,.8)}
+.hito span{position:absolute;left:15px;top:-12px;background:var(--ruta);color:#140804;font-size:12px;font-weight:800;font-stretch:80%;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:5px;white-space:nowrap;line-height:15px}
+.hito span em{font-style:normal;font-weight:600;letter-spacing:.02em;text-transform:none}
+.hito.izq span{left:auto;right:15px}
+.estatica{display:none}
+.sin-3d .estatica{display:grid;position:fixed;z-index:1;top:var(--arriba,250px);bottom:var(--abajo,230px);left:var(--izq,16px);right:16px;place-items:center;grid-template-rows:auto minmax(0,1fr);gap:10px}
+.sin-3d .estatica img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.sin-3d .estatica p{margin:0;color:var(--suave);font-size:13px;text-align:center}
+.sin-3d #lienzo,.sin-3d .carga,.sin-3d .controles,.sin-3d .etiquetas,.sin-3d .pista,.sin-3d .leyenda{display:none!important}
+@media (min-width:720px){
+  :root{--col:clamp(360px,32vw,520px)}
+  .velo{background:linear-gradient(90deg,rgba(17,20,23,.9) 0,rgba(17,20,23,.82) calc(var(--col) + 10px),rgba(17,20,23,0) calc(var(--col) + 200px))}
+  .marca{top:24px;left:32px}
+  .cabeza{left:32px;right:auto;top:72px;width:var(--col)}
+  h1{font-size:clamp(50px,4.6vw,92px)}
+  .distancia{font-size:clamp(18px,1.4vw,26px)}
+  .cifras{gap:clamp(22px,2vw,36px);margin-top:18px}
+  .cifras b{font-size:clamp(28px,2.4vw,46px)}
+  .leyenda{display:block}
+  .controles{right:28px;top:24px}
+  .pie{left:32px;right:auto;bottom:28px;width:var(--col)}
+  .oferta{grid-template-columns:96px 1fr;grid-template-areas:"mini hon" "mini prin" "mini secu";gap:10px 18px}
+  .mini{width:96px;align-self:center;transform:rotate(-4deg)}
+  .honesto{font-size:13.5px}
+  .prin{font-size:16px;padding:0 18px;white-space:nowrap}
+  .carga{left:calc(32px + var(--col) + (100vw - var(--col) - 32px) / 2)}
+}
+@media (min-width:720px) and (max-height:620px){.leyenda{display:none}}
+@media (min-width:720px) and (max-height:520px){
+  :root{--col:330px}
+  .kicker{display:none}.cabeza{top:52px}h1{font-size:30px;margin:0}.distancia{font-size:14px;margin-top:3px}.cifras{margin-top:6px;gap:18px}.cifras b{font-size:20px}.cifras small{font-size:10px;margin-top:3px}
+  .pie{bottom:10px}.oferta{grid-template-columns:1fr;grid-template-areas:"hon" "prin" "secu";gap:6px}.mini{display:none}
+  .honesto{font-size:11.5px;line-height:1.3}.boton{min-height:40px;font-size:15px}.secu{min-height:34px}.cred{font-size:9.5px;line-height:1.35;margin-top:5px}
+}
+@media (max-width:719px) and (max-height:700px){.kicker{display:none}h1{font-size:30px}.distancia{font-size:15px;margin-top:3px}.cifras{margin-top:8px}.cifras b{font-size:20px}.cifras small{font-size:10px;margin-top:3px}.honesto{font-size:11.5px;line-height:1.3}.oferta{gap:7px 10px}.boton{min-height:44px;font-size:16px}.secu{min-height:38px}.mini{width:34px}.cred{font-size:9.5px;line-height:1.35;margin-top:7px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="fondo" aria-hidden="true"></div>
+<canvas id="lienzo" aria-label="Col du Tourmalet Hautes-Pyrénées · France: relieve 3D con el recorrido" aria-describedby="ayuda" tabindex="0"></canvas>
+<p class="oculto" id="ayuda">With the keyboard: arrows to spin and tilt, + and − to zoom in or out, Esc to go back to the first view.</p>
+<div class="velo" aria-hidden="true"></div>
+<div class="etiquetas" id="etiquetas" aria-hidden="true"></div>
+<a class="marca" href="../index.html">MatteHaven</a>
+<header class="cabeza">
+<p class="kicker">Your climb · in 3D</p>
+<h1>Col du Tourmalet</h1>
+<p class="distancia">Hautes-Pyrénées · France</p>
+<ul class="cifras">
+<li><b data-n="19">19</b><small>km</small></li>
+<li><b data-n="1404">1,404</b><small>m climbing</small></li>
+<li><b data-n="2115">2,115</b><small>m high point</small></li>
+</ul>
+<ul class="leyenda" aria-label="Summits">
+<li><button type="button" data-cima="0">Pic de Néouvielle<em>3,091 m</em></button></li>
+<li><button type="button" data-cima="1">Pic du Midi de Bigorre<em>2,877 m</em></button></li>
+<li><button type="button" data-cima="2">Mont Arrouy<em>2,781 m</em></button></li>
+<li><button type="button" data-cima="3">Pic d'Estibère<em>2,663 m</em></button></li>
+<li><button type="button" data-cima="4">Soum du cot de l'espade<em>2,641 m</em></button></li>
+</ul>
+<p class="oculto">Summits: Pic de Néouvielle 3,091 m, Pic du Midi de Bigorre 2,877 m, Mont Arrouy 2,781 m, Pic d'Estibère 2,663 m, Soum du cot de l'espade 2,641 m.</p>
+</header>
+<div class="controles"><button class="circ" type="button" id="norte" aria-label="North up" title="North up"><svg id="aguja" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l3.4 9.5H8.6z" fill="#FF5533"/><path d="M12 21.5l-3.4-9.5h6.8z" fill="currentColor" opacity=".5"/></svg></button><button class="circ" type="button" id="reset" aria-label="Back to the first view" title="Back to the first view"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button></div>
+<div class="carga" role="status"><i></i><span>Loading the relief</span></div>
+<div class="pista" id="pista" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 12c0-4 3.6-7 8-7s8 3 8 7"/><path d="M17 9l3 3 3-3"/></svg><span></span></div>
+<div class="estatica"><p>Your browser can’t show the 3D view. This is the print:</p><img src="../tu-lamina/img/tourmalet.jpg" alt="Col du Tourmalet cycling print" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<footer class="pie">
+<div class="oferta">
+<img class="mini" src="datos/tourmalet/lamina.webp" alt="Col du Tourmalet cycling print" width="96" height="128" decoding="async">
+<p class="honesto">3D view of the real terrain. The print is flat: it’s printed with this relief drawn on it.</p>
+<a class="boton prin" href="../tu-lamina/tourmalet.html#d=tourmalet">See yours with your name<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+<a class="boton secu" href="https://mattehaven.etsy.com/listing/4618827020" rel="noopener">Order on Etsy</a>
+</div>
+<p class="cred">Height ×1.4 so the relief shows · RGE ALTI® and orthophoto © IGN France (Licence Ouverte 2.0) · Summits © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> (ODbL)</p>
+</footer>
+<noscript><style>.carga,.controles,.leyenda{display:none}.estatica{display:grid!important;position:fixed;z-index:1;top:300px;bottom:250px;left:16px;right:16px;place-items:center;grid-template-rows:auto minmax(0,1fr);gap:10px}.estatica img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;object-fit:contain}@media (min-width:720px){.estatica{top:40px;bottom:40px;left:calc(var(--col) + 72px)}}</style></noscript>
+<script type="application/json" id="datos-visor">{"slug":"tourmalet","idioma":"en","exag":1.4,"sepMiles":",","sepDec":".","zmin":608,"zmax":3046,"ancho":17.1185,"fondo":17.2362,"pasoM":0.5,"alturas":{"url":"datos/tourmalet/alturas.webp","nx":509,"ny":512,"suma":648341280},"alturasMovil":{"url":"datos/tourmalet/alturas-movil.webp","nx":254,"ny":256,"suma":161719526},"textura":"datos/tourmalet/textura.jpg","texturaMovil":"datos/tourmalet/textura-movil.jpg","previa":"datos/tourmalet/previa.jpg","isla":[0.86,1],"acimut":90,"ruta":[[0.1429,0.62734],[0.14342,0.62802],[0.14429,0.6288],[0.14978,0.63303],[0.15027,0.63319],[0.16133,0.629],[0.18207,0.62135],[0.18282,0.62099],[0.18353,0.62051],[0.18828,0.6163],[0.18893,0.6156],[0.20027,0.60514],[0.20114,0.60451],[0.20255,0.60376],[0.20925,0.60083],[0.21706,0.59681],[0.21991,0.59562],[0.22101,0.59537],[0.22258,0.59524],[0.23077,0.59516],[0.24575,0.59384],[0.26443,0.5928],[0.26637,0.5925],[0.26737,0.59225],[0.26994,0.59129],[0.27257,0.59062],[0.28134,0.58797],[0.28329,0.58688],[0.28426,0.58614],[0.28517,0.58522],[0.30303,0.56404],[0.30387,0.56324],[0.30463,0.56274],[0.30636,0.56214],[0.30757,0.56191],[0.30871,0.56192],[0.30982,0.56233],[0.31305,0.56392],[0.31532,0.56434],[0.32214,0.56421],[0.32385,0.56454],[0.32605,0.56543],[0.32715,0.56578],[0.32852,0.56593],[0.33372,0.56598],[0.33603,0.56555],[0.33876,0.56472],[0.34903,0.55927],[0.35,0.55912],[0.35047,0.55942],[0.35074,0.55996],[0.35074,0.56044],[0.35043,0.56092],[0.34892,0.562],[0.348,0.56294],[0.34651,0.56582],[0.34646,0.56619],[0.34669,0.56675],[0.34714,0.567],[0.34772,0.56692],[0.34812,0.56659],[0.34866,0.56439],[0.34925,0.56348],[0.35694,0.55605],[0.35912,0.55379],[0.36269,0.54973],[0.36544,0.54765],[0.36761,0.54579],[0.36975,0.54354],[0.3708,0.54213],[0.3736,0.53759],[0.3775,0.53232],[0.37816,0.53117],[0.37872,0.52973],[0.37959,0.5267],[0.38148,0.52179],[0.38255,0.51836],[0.38332,0.51707],[0.38426,0.51603],[0.38897,0.51196],[0.3893,0.51172],[0.38987,0.51154],[0.39045,0.51172],[0.3908,0.51216],[0.39088,0.51253],[0.39084,0.5129],[0.39065,0.51331],[0.38964,0.51452],[0.38776,0.51606],[0.3873,0.51667],[0.38725,0.51725],[0.38744,0.51768],[0.38792,0.51801],[0.38859,0.51802],[0.38917,0.51764],[0.39078,0.5159],[0.39131,0.51557],[0.39241,0.51528],[0.39456,0.5151],[0.39541,0.51476],[0.39625,0.5141],[0.39869,0.51182],[0.39968,0.51064],[0.40019,0.50955],[0.40116,0.50687],[0.4014,0.50639],[0.40209,0.50552],[0.40894,0.50091],[0.4106,0.50021],[0.41368,0.49957],[0.41535,0.49897],[0.41719,0.498],[0.42619,0.49259],[0.42703,0.49216],[0.4311,0.49052],[0.43225,0.48992],[0.43375,0.48877],[0.43532,0.48733],[0.43655,0.48568],[0.43776,0.48305],[0.43798,0.48273],[0.43828,0.48254],[0.43863,0.48241],[0.43935,0.48249],[0.43989,0.483],[0.44007,0.48361],[0.44001,0.48412],[0.43942,0.48502],[0.4393,0.48562],[0.43934,0.48598],[0.4397,0.4866],[0.44034,0.48693],[0.44103,0.4869],[0.44144,0.48671],[0.44175,0.48635],[0.44194,0.48585],[0.44194,0.4852],[0.44163,0.48259],[0.44183,0.48165],[0.4424,0.48089],[0.44343,0.48018],[0.44437,0.47997],[0.44563,0.47993],[0.44871,0.47932],[0.45425,0.47914],[0.46044,0.47848],[0.46433,0.47658],[0.46579,0.47602],[0.46616,0.47571],[0.47192,0.47273],[0.4727,0.47244],[0.47933,0.46924],[0.48055,0.46888],[0.48362,0.4683],[0.49397,0.46584],[0.49819,0.46472],[0.50072,0.46449],[0.50301,0.4644],[0.50522,0.46378],[0.50993,0.46299],[0.51371,0.46279],[0.51508,0.46263],[0.51592,0.46227],[0.52138,0.45828],[0.5221,0.45787],[0.52335,0.45748],[0.52579,0.45708],[0.52811,0.45626],[0.53066,0.45558],[0.53161,0.45522],[0.54214,0.45036],[0.54899,0.44781],[0.54951,0.44753],[0.55265,0.44536],[0.55387,0.44467],[0.5551,0.44416],[0.55614,0.44401],[0.55889,0.44405],[0.56255,0.44331],[0.57054,0.44224],[0.57175,0.44201],[0.57435,0.44119],[0.577,0.44013],[0.5872,0.43666],[0.58834,0.43651],[0.59154,0.43695],[0.59373,0.43685],[0.59509,0.43653],[0.59918,0.43519],[0.60647,0.43325],[0.60735,0.43311],[0.60933,0.43293],[0.62221,0.43257],[0.62857,0.43165],[0.63154,0.43143],[0.63384,0.43137],[0.63461,0.43138],[0.6355,0.43157],[0.63625,0.43199],[0.63704,0.43264],[0.63811,0.4333],[0.63893,0.43357],[0.63936,0.43357],[0.64297,0.43269],[0.64699,0.4321],[0.64779,0.4319],[0.64897,0.43126],[0.65074,0.43003],[0.65166,0.4291],[0.65213,0.42839],[0.65229,0.42793],[0.65232,0.427],[0.6522,0.42654],[0.65197,0.42601],[0.65135,0.42523],[0.64793,0.42131],[0.64751,0.42095],[0.64691,0.42058],[0.64606,0.42027],[0.64531,0.4202],[0.64335,0.42028],[0.64293,0.42018],[0.6426,0.41997],[0.64232,0.41947],[0.64239,0.41895],[0.64297,0.41844],[0.64446,0.41788],[0.64598,0.41771],[0.64741,0.41774],[0.65067,0.41813],[0.65312,0.4187],[0.6542,0.41921],[0.65553,0.42047],[0.65595,0.42069],[0.65655,0.42061],[0.6569,0.42022],[0.65692,0.41954],[0.65648,0.41877],[0.65609,0.41839],[0.6548,0.41742],[0.65222,0.41575],[0.64989,0.41487],[0.64807,0.41375],[0.64735,0.41342],[0.64622,0.41319],[0.64488,0.41325],[0.64442,0.41319],[0.64393,0.41284],[0.64383,0.41228],[0.64416,0.41185],[0.6445,0.4117],[0.64994,0.41262],[0.6572,0.41366],[0.66058,0.41367],[0.66141,0.41388],[0.6627,0.41447],[0.66368,0.41454],[0.66881,0.41326],[0.6707,0.41328],[0.67501,0.41304],[0.67971,0.41218],[0.68139,0.41166],[0.68584,0.40985],[0.69139,0.40791],[0.69251,0.40763],[0.69409,0.4075],[0.6986,0.40742],[0.70264,0.40681],[0.70506,0.40669],[0.70602,0.40676],[0.70815,0.40712],[0.70964,0.40753],[0.71103,0.40812],[0.71157,0.40824],[0.71194,0.40817],[0.71222,0.40796],[0.71237,0.40739],[0.71213,0.40676],[0.7105,0.40506],[0.70887,0.40283],[0.70881,0.40221],[0.70903,0.40193],[0.70944,0.40172],[0.71003,0.40183],[0.71296,0.40389],[0.71585,0.40541],[0.71805,0.40613],[0.72008,0.40662],[0.72305,0.40716],[0.73334,0.40855],[0.74222,0.40862],[0.74398,0.40853],[0.74986,0.40887],[0.75433,0.40871],[0.75754,0.40835],[0.75852,0.40835],[0.76397,0.40875],[0.76654,0.40908],[0.77104,0.40937],[0.77578,0.40952],[0.77654,0.40962],[0.77725,0.40983],[0.779,0.41061],[0.78312,0.41194],[0.78386,0.4123],[0.78443,0.41283],[0.78481,0.41339],[0.7852,0.41448],[0.78538,0.41584],[0.78522,0.41662],[0.785,0.41707],[0.78455,0.41752],[0.7842,0.41771],[0.78247,0.41809],[0.78134,0.41858],[0.77972,0.41979],[0.7791,0.42036],[0.77868,0.42089],[0.77778,0.42295],[0.77705,0.42409],[0.77616,0.42487],[0.77539,0.42527],[0.77009,0.42684],[0.76908,0.42699],[0.76685,0.427],[0.76617,0.42711],[0.76408,0.42805],[0.76359,0.4281],[0.76187,0.42776],[0.7613,0.42781],[0.76101,0.428],[0.76078,0.42855],[0.76081,0.42894],[0.76129,0.4295],[0.76185,0.42981],[0.76301,0.43023],[0.76363,0.43026],[0.76459,0.43011],[0.76536,0.43019],[0.76732,0.43113],[0.76775,0.4312],[0.76883,0.43106],[0.77013,0.43059],[0.77168,0.42989],[0.7721,0.4298],[0.77321,0.42981],[0.77477,0.43002],[0.7781,0.43152],[0.78111,0.43255],[0.78191,0.43257],[0.78295,0.43237],[0.78361,0.43237],[0.78421,0.43257],[0.78499,0.4332],[0.78645,0.43498],[0.7876,0.43587],[0.78816,0.43644],[0.78833,0.43675],[0.78868,0.43806],[0.78905,0.44098],[0.78924,0.44145],[0.7898,0.4418],[0.79018,0.44183],[0.79056,0.44178],[0.79143,0.44138],[0.79348,0.44024],[0.79438,0.44],[0.79578,0.43984],[0.79619,0.4397],[0.79651,0.4395],[0.7969,0.43896],[0.79727,0.43786],[0.79748,0.43749],[0.7981,0.43697],[0.79944,0.43634],[0.8002,0.43624],[0.80178,0.43669],[0.80255,0.43668],[0.80479,0.43595],[0.80646,0.43566],[0.8067,0.4354],[0.80688,0.43477],[0.80692,0.43389],[0.80707,0.43341],[0.80779,0.43209],[0.80818,0.4316],[0.80874,0.43121],[0.81017,0.43056],[0.81047,0.43028],[0.81093,0.42952],[0.81149,0.42789],[0.8118,0.42591],[0.81179,0.42523],[0.81158,0.4239],[0.81168,0.4229],[0.81217,0.42207],[0.81308,0.42105],[0.81355,0.42061],[0.81531,0.41953],[0.81643,0.41822],[0.81718,0.41698],[0.8179,0.41506],[0.81889,0.41381],[0.8192,0.41292],[0.81922,0.41161],[0.81866,0.4094],[0.8186,0.40884],[0.81876,0.40723],[0.81868,0.40656],[0.81821,0.40561],[0.81652,0.40378],[0.81614,0.40313],[0.81518,0.40095],[0.81492,0.39995],[0.815,0.39681],[0.81567,0.39421],[0.81589,0.39256],[0.81595,0.39076],[0.81618,0.38859],[0.81608,0.3869],[0.81615,0.3859],[0.81644,0.3854],[0.81831,0.38396],[0.81854,0.38365],[0.81859,0.38315],[0.81833,0.38266],[0.81738,0.3818],[0.81575,0.38001],[0.81548,0.37959],[0.81518,0.37852],[0.81512,0.37797],[0.81526,0.37631],[0.81521,0.37576],[0.81493,0.37463],[0.81428,0.37324],[0.81329,0.37222],[0.81158,0.37127],[0.8109,0.37076],[0.81024,0.36993],[0.80995,0.36886],[0.81008,0.36825],[0.81043,0.36789],[0.8109,0.3677],[0.81152,0.36776],[0.812,0.3681],[0.8127,0.3697],[0.81323,0.37061],[0.81445,0.37149],[0.81611,0.37285],[0.81648,0.37326],[0.81693,0.37403],[0.81738,0.37516],[0.81757,0.37574],[0.81791,0.3776],[0.81816,0.37822],[0.81841,0.37858],[0.81872,0.37889],[0.82067,0.38028],[0.8227,0.38125],[0.82301,0.38171],[0.82308,0.38233],[0.82296,0.3841],[0.82246,0.38627],[0.82224,0.38826],[0.8224,0.3909],[0.8222,0.39238],[0.82219,0.39327],[0.82241,0.39486],[0.82264,0.39573],[0.82381,0.39768],[0.82561,0.39945],[0.82603,0.40006],[0.82641,0.40092],[0.82706,0.40192],[0.82738,0.40224],[0.82829,0.40289],[0.82955,0.40439],[0.83124,0.40591],[0.83241,0.40657],[0.83405,0.40718],[0.83581,0.40769],[0.83661,0.40782],[0.83758,0.40777],[0.83979,0.40654],[0.84132,0.40601],[0.84269,0.4059],[0.84318,0.40597],[0.84374,0.40624],[0.84409,0.40665],[0.84481,0.40803],[0.84555,0.40902],[0.84693,0.41244],[0.8473,0.4132],[0.84783,0.41379],[0.85003,0.41501],[0.85074,0.41533],[0.85215,0.41573],[0.85335,0.41629],[0.85553,0.41814],[0.85594,0.41888],[0.85635,0.42043],[0.85661,0.42077],[0.85713,0.42082],[0.85741,0.42041],[0.85734,0.42003],[0.85625,0.41718],[0.85404,0.41475],[0.8532,0.41349],[0.85219,0.41152],[0.85076,0.41034],[0.85033,0.40969],[0.84988,0.40755],[0.84977,0.40638],[0.85024,0.40386],[0.85014,0.40325],[0.84971,0.40207],[0.8497,0.40144],[0.84984,0.40097],[0.85022,0.40043],[0.85065,0.40004]],"salida":[0.1429,0.62734],"meta":[0.85065,0.40004],"juntas":false,"cumbres":[{"n":"Pic de Néouvielle","alt":3091,"u":0.70688,"v":0.87155,"t":"3,091 m"},{"n":"Pic du Midi de Bigorre","alt":2877,"u":0.83308,"v":0.21659,"t":"2,877 m"},{"n":"Mont Arrouy","alt":2781,"u":0.51005,"v":0.86241,"t":"2,781 m"},{"n":"Pic d'Estibère","alt":2663,"u":0.85678,"v":0.73417,"t":"2,663 m"},{"n":"Soum du cot de l'espade","alt":2641,"u":0.9026,"v":0.51983,"t":"2,641 m"}],"t":{"salida":"Start","meta":"Finish","salidaN":"Luz-Saint-Sauveur","metaN":"Col du Tourmalet · 2,115 m","gira":"Drag to spin · pinch to zoom","giraRaton":"Drag to spin · scroll to zoom"}}</script>
+<script type="module" src="visor.js"></script>
+</body>
+</html>

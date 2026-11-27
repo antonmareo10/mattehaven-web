@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>El Teide in 3D: the climb over the real mountain · MatteHaven</title>
+<meta name="description" content="Spin the mountain of El Teide with the climb drawn on it (27.2 km, 1,140 m of climbing) and see your print with your name and your time.">
+<link rel="canonical" href="https://mattehaven.com/3d/teide">
+<meta name="theme-color" content="#111417">
+<meta property="og:type" content="website">
+<meta property="og:title" content="El Teide · Tenerife · Spain · 3D">
+<meta property="og:description" content="Spin the mountain of El Teide with the climb drawn on it (27.2 km, 1,140 m of climbing) and see your print with your name and your time.">
+<meta property="og:url" content="https://mattehaven.com/3d/teide">
+<meta property="og:image" content="https://mattehaven.com/tu-lamina/img/teide.jpg">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png">
+<link rel="preload" href="../fuentes/archivo-web.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="modulepreload" href="vendor/three-r180.min.js">
+<link rel="modulepreload" href="visor.js">
+<link rel="preload" href="datos/teide/previa.jpg" as="image">
+<script>window.__alturas=fetch(matchMedia('(pointer: coarse)').matches?'datos/teide/alturas-movil.webp':'datos/teide/alturas.webp').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.blob()});window.__alturas.catch(function(){})</script>
+<style>
+@font-face{font-family:'Archivo MH';src:url(../fuentes/archivo-web.woff2) format('woff2');font-weight:400 900;font-stretch:62% 100%;font-display:swap}
+:root{--noche:#111417;--papel:#F2EEE6;--rojo:#C8381E;--ruta:#FF5533;--suave:rgba(242,238,230,.66);--tenue:rgba(242,238,230,.58);--linea:rgba(242,238,230,.14);--ease:cubic-bezier(.22,1,.36,1);--letra:'Archivo MH','Arial Narrow',Bahnschrift,'Roboto Condensed',Arial,sans-serif;--col:100vw;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--noche)}
+body{color:var(--papel);font-family:var(--letra);font-size:16px;line-height:1.4;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+.oculto{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.fondo{position:fixed;inset:0;background:radial-gradient(110% 75% at 58% 55%,#252C33 0%,#171B1F 48%,#0C0E10 100%)}
+.fondo::after{content:"";position:absolute;inset:0;background:radial-gradient(48% 36% at 60% 60%,rgba(255,85,51,.08),transparent 70%)}
+#lienzo{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;opacity:0;transition:opacity .7s var(--ease);outline:none;cursor:grab}
+#lienzo:focus-visible{outline:2px solid var(--ruta);outline-offset:-4px}
+#lienzo:active{cursor:grabbing}
+.listo #lienzo{opacity:1}
+a{color:inherit}
+.velo{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(17,20,23,.8) 0,rgba(17,20,23,0) 26%,rgba(17,20,23,0) 68%,rgba(17,20,23,.8) 100%)}
+.marca{position:fixed;top:max(16px,env(safe-area-inset-top));left:16px;z-index:3;font-weight:800;font-stretch:75%;letter-spacing:.18em;font-size:12px;text-transform:uppercase;text-decoration:none;color:var(--suave);padding:10px 0}
+.marca:hover{color:var(--papel)}
+.cabeza{position:fixed;left:16px;right:16px;top:calc(max(16px,env(safe-area-inset-top)) + 46px);z-index:2;pointer-events:none}
+.cabeza>*{animation:entra .9s var(--ease) both}
+.cabeza>:nth-child(2){animation-delay:.08s}.cabeza>:nth-child(3){animation-delay:.16s}.cabeza>:nth-child(4){animation-delay:.24s}.cabeza>:nth-child(5){animation-delay:.32s}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kicker{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ruta);font-weight:700;font-stretch:80%}
+h1{margin:6px 0 0;font-weight:800;font-stretch:68%;font-size:clamp(36px,10.6vw,58px);line-height:.94;letter-spacing:-.01em}
+.distancia{margin:6px 0 0;font-size:17px;font-weight:650;font-stretch:78%;letter-spacing:.07em;text-transform:uppercase;color:var(--suave)}
+.cifras{display:flex;gap:22px;margin:14px 0 0;padding:0;list-style:none}
+.cifras li{display:flex;flex-direction:column}
+.cifras b{font-size:clamp(23px,6.4vw,32px);font-weight:800;font-stretch:72%;line-height:1;font-variant-numeric:tabular-nums}
+.cifras small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);margin-top:5px;font-weight:600}
+.leyenda{display:none;margin:22px 0 0;padding:0;list-style:none;pointer-events:auto;max-width:320px}
+.leyenda li{border-top:1px solid var(--linea)}
+.leyenda li:last-child{border-bottom:1px solid var(--linea)}
+.leyenda button{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:baseline;gap:10px;padding:8px 2px;font-size:14px;font-stretch:85%;cursor:pointer;transition:color .2s,padding .3s var(--ease)}
+.leyenda button::before{content:"";width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--suave);transform:translateY(-1px);transition:border-color .2s}
+.leyenda button:hover{color:var(--ruta);padding-left:6px}
+.leyenda button:hover::before{border-bottom-color:var(--ruta)}
+.leyenda em{font-style:normal;margin-left:auto;color:var(--tenue);font-variant-numeric:tabular-nums}
+.leyenda button:focus-visible,.boton:focus-visible,.circ:focus-visible,.marca:focus-visible,.cred a:focus-visible{outline:2px solid var(--ruta);outline-offset:3px}
+.pie{position:fixed;left:16px;right:16px;bottom:max(14px,env(safe-area-inset-bottom));z-index:3;pointer-events:none}
+.oferta{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"hon hon" "mini prin" "secu secu";gap:9px 12px;align-items:center;pointer-events:auto}
+.mini{grid-area:mini;display:block;width:44px;height:auto;aspect-ratio:3/4;border-radius:2px;box-shadow:0 6px 18px rgba(0,0,0,.55),0 0 0 1px rgba(242,238,230,.18);transform:rotate(-4deg);background:var(--papel)}
+.honesto{grid-area:hon;margin:0;font-size:13px;line-height:1.38;color:rgba(242,238,230,.9)}
+.boton{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 20px;border-radius:999px;font-weight:750;font-stretch:80%;font-size:17px;letter-spacing:.01em;text-decoration:none;transition:transform .25s var(--ease),background .2s,border-color .2s,box-shadow .25s;text-align:center}
+.boton:active{transform:scale(.98)}
+.prin{grid-area:prin;background:var(--rojo);color:#fff;box-shadow:0 10px 30px -8px rgba(200,56,30,.7)}
+.prin:hover{background:#D9442A;box-shadow:0 14px 36px -8px rgba(255,85,51,.75)}
+.prin svg{flex:none;transition:transform .25s var(--ease)}
+.prin:hover svg{transform:translateX(3px)}
+.secu{grid-area:secu;min-height:44px;font-size:15px;color:var(--papel);border:1.5px solid rgba(242,238,230,.34);background:rgba(17,20,23,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.secu:hover{border-color:var(--papel)}
+.cred{margin:10px 0 0;font-size:11px;line-height:1.45;color:var(--tenue);pointer-events:auto}
+.cred a{text-decoration:underline;text-decoration-color:rgba(242,238,230,.35);text-underline-offset:2px}
+.controles{position:fixed;right:16px;top:max(14px,env(safe-area-inset-top));z-index:3;display:flex;gap:8px;align-items:center}
+.circ{width:44px;height:44px;border-radius:50%;border:1px solid var(--linea);background:rgba(17,20,23,.55);color:var(--papel);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:border-color .2s,transform .3s var(--ease);padding:0}
+.circ:hover{border-color:rgba(242,238,230,.5)}
+#reset:active{transform:rotate(-40deg)}
+.pista{position:fixed;left:50%;top:70%;transform:translate(-50%,-50%);z-index:2;width:max-content;max-width:calc(100% - 32px);font-size:13px;letter-spacing:.03em;color:var(--papel);background:rgba(17,20,23,.66);border:1px solid var(--linea);padding:8px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .6s var(--ease);text-align:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;gap:8px;align-items:center;justify-content:center}
+.pista.ver{opacity:1}
+.carga{position:fixed;left:50%;top:52%;transform:translate(-50%,-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--tenue);font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:opacity .4s}
+.carga i{display:block;width:120px;height:2px;background:var(--linea);overflow:hidden;border-radius:2px}
+.carga i::after{content:"";display:block;width:40%;height:100%;background:var(--ruta);box-shadow:0 0 12px var(--ruta);animation:carga 1.1s var(--ease) infinite}
+@keyframes carga{from{transform:translateX(-100%)}to{transform:translateX(260%)}}
+.listo .carga{opacity:0;visibility:hidden}
+.etiquetas{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.et{position:absolute;left:0;top:0;width:0;height:0;opacity:0;transition:opacity .45s;will-change:transform}
+.et.ver{opacity:1}
+.cima .caja{position:absolute;left:0;bottom:26px;background:rgba(12,14,16,.76);border:1px solid rgba(242,238,230,.18);border-radius:7px;padding:4px 8px 5px;text-align:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);white-space:nowrap}
+.cima b{display:block;font-size:13px;font-weight:700;font-stretch:80%;line-height:1.1}
+.cima small{display:block;font-size:11px;color:var(--suave);font-variant-numeric:tabular-nums;line-height:1.2}
+.cima::after{content:"";position:absolute;left:-.5px;bottom:3px;width:1px;height:23px;background:linear-gradient(rgba(242,238,230,.75),rgba(242,238,230,.2))}
+.cima::before{content:"";position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:var(--papel);box-shadow:0 0 0 2px rgba(12,14,16,.55)}
+.hito i{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--ruta),0 0 18px 4px rgba(255,85,51,.8)}
+.hito span{position:absolute;left:15px;top:-12px;background:var(--ruta);color:#140804;font-size:12px;font-weight:800;font-stretch:80%;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:5px;white-space:nowrap;line-height:15px}
+.hito span em{font-style:normal;font-weight:600;letter-spacing:.02em;text-transform:none}
+.hito.izq span{left:auto;right:15px}
+.estatica{display:none}
+.sin-3d .estatica{display:grid;position:fixed;z-index:1;top:var(--arriba,250px);bottom:var(--abajo,230px);left:var(--izq,16px);right:16px;place-items:center;grid-template-rows:auto minmax(0,1fr);gap:10px}
+.sin-3d .estatica img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.sin-3d .estatica p{margin:0;color:var(--suave);font-size:13px;text-align:center}
+.sin-3d #lienzo,.sin-3d .carga,.sin-3d .controles,.sin-3d .etiquetas,.sin-3d .pista,.sin-3d .leyenda{display:none!important}
+@media (min-width:720px){
+  :root{--col:clamp(360px,32vw,520px)}
+  .velo{background:linear-gradient(90deg,rgba(17,20,23,.9) 0,rgba(17,20,23,.82) calc(var(--col) + 10px),rgba(17,20,23,0) calc(var(--col) + 200px))}
+  .marca{top:24px;left:32px}
+  .cabeza{left:32px;right:auto;top:72px;width:var(--col)}
+  h1{font-size:clamp(50px,4.6vw,92px)}
+  .distancia{font-size:clamp(18px,1.4vw,26px)}
+  .cifras{gap:clamp(22px,2vw,36px);margin-top:18px}
+  .cifras b{font-size:clamp(28px,2.4vw,46px)}
+  .leyenda{display:block}
+  .controles{right:28px;top:24px}
+  .pie{left:32px;right:auto;bottom:28px;width:var(--col)}
+  .oferta{grid-template-columns:96px 1fr;grid-template-areas:"mini hon" "mini prin" "mini secu";gap:10px 18px}
+  .mini{width:96px;align-self:center;transform:rotate(-4deg)}
+  .honesto{font-size:13.5px}
+  .prin{font-size:16px;padding:0 18px;white-space:nowrap}
+  .carga{left:calc(32px + var(--col) + (100vw - var(--col) - 32px) / 2)}
+}
+@media (min-width:720px) and (max-height:620px){.leyenda{display:none}}
+@media (min-width:720px) and (max-height:520px){
+  :root{--col:330px}
+  .kicker{display:none}.cabeza{top:52px}h1{font-size:30px;margin:0}.distancia{font-size:14px;margin-top:3px}.cifras{margin-top:6px;gap:18px}.cifras b{font-size:20px}.cifras small{font-size:10px;margin-top:3px}
+  .pie{bottom:10px}.oferta{grid-template-columns:1fr;grid-template-areas:"hon" "prin" "secu";gap:6px}.mini{display:none}
+  .honesto{font-size:11.5px;line-height:1.3}.boton{min-height:40px;font-size:15px}.secu{min-height:34px}.cred{font-size:9.5px;line-height:1.35;margin-top:5px}
+}
+@media (max-width:719px) and (max-height:700px){.kicker{display:none}h1{font-size:30px}.distancia{font-size:15px;margin-top:3px}.cifras{margin-top:8px}.cifras b{font-size:20px}.cifras small{font-size:10px;margin-top:3px}.honesto{font-size:11.5px;line-height:1.3}.oferta{gap:7px 10px}.boton{min-height:44px;font-size:16px}.secu{min-height:38px}.mini{width:34px}.cred{font-size:9.5px;line-height:1.35;margin-top:7px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="fondo" aria-hidden="true"></div>
+<canvas id="lienzo" aria-label="El Teide Tenerife · Spain: relieve 3D con el recorrido" aria-describedby="ayuda" tabindex="0"></canvas>
+<p class="oculto" id="ayuda">With the keyboard: arrows to spin and tilt, + and − to zoom in or out, Esc to go back to the first view.</p>
+<div class="velo" aria-hidden="true"></div>
+<div class="etiquetas" id="etiquetas" aria-hidden="true"></div>
+<a class="marca" href="../index.html">MatteHaven</a>
+<header class="cabeza">
+<p class="kicker">Your climb · in 3D</p>
+<h1>El Teide</h1>
+<p class="distancia">Tenerife · Spain</p>
+<ul class="cifras">
+<li><b data-n="27.2">27.2</b><small>km</small></li>
+<li><b data-n="1140">1,140</b><small>m climbing</small></li>
+<li><b data-n="2364">2,364</b><small>m high point</small></li>
+</ul>
+<ul class="leyenda" aria-label="Summits">
+<li><button type="button" data-cima="0">Pico Viejo<em>3,129 m</em></button></li>
+<li><button type="button" data-cima="1">Guajara<em>2,718 m</em></button></li>
+<li><button type="button" data-cima="2">Roque de la Grieta<em>2,576 m</em></button></li>
+<li><button type="button" data-cima="3">El Sombrero<em>2,532 m</em></button></li>
+<li><button type="button" data-cima="4">Montaña de Chío<em>2,345 m</em></button></li>
+</ul>
+<p class="oculto">Summits: Pico Viejo 3,129 m, Guajara 2,718 m, Roque de la Grieta 2,576 m, El Sombrero 2,532 m, Montaña de Chío 2,345 m.</p>
+</header>
+<div class="controles"><button class="circ" type="button" id="norte" aria-label="North up" title="North up"><svg id="aguja" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l3.4 9.5H8.6z" fill="#FF5533"/><path d="M12 21.5l-3.4-9.5h6.8z" fill="currentColor" opacity=".5"/></svg></button><button class="circ" type="button" id="reset" aria-label="Back to the first view" title="Back to the first view"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button></div>
+<div class="carga" role="status"><i></i><span>Loading the relief</span></div>
+<div class="pista" id="pista" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 12c0-4 3.6-7 8-7s8 3 8 7"/><path d="M17 9l3 3 3-3"/></svg><span></span></div>
+<div class="estatica"><p>Your browser can’t show the 3D view. This is the print:</p><img src="../tu-lamina/img/teide.jpg" alt="El Teide cycling print" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<footer class="pie">
+<div class="oferta">
+<img class="mini" src="datos/teide/lamina.webp" alt="El Teide cycling print" width="96" height="128" decoding="async">
+<p class="honesto">3D view of the real terrain. The print is flat: it’s printed with this relief drawn on it.</p>
+<a class="boton prin" href="../tu-lamina/teide.html#d=teide">See yours with your name<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+<a class="boton secu" href="https://mattehaven.etsy.com/listing/4622101366" rel="noopener">Order on Etsy</a>
+</div>
+<p class="cred">Height ×1.3 so the relief shows · MDT y ortofoto PNOA © Instituto Geográfico Nacional (CC BY 4.0) · Summits © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> (ODbL)</p>
+</footer>
+<noscript><style>.carga,.controles,.leyenda{display:none}.estatica{display:grid!important;position:fixed;z-index:1;top:300px;bottom:250px;left:16px;right:16px;place-items:center;grid-template-rows:auto minmax(0,1fr);gap:10px}.estatica img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;object-fit:contain}@media (min-width:720px){.estatica{top:40px;bottom:40px;left:calc(var(--col) + 72px)}}</style></noscript>
+<script type="application/json" id="datos-visor">{"slug":"teide","idioma":"en","exag":1.3,"sepMiles":",","sepDec":".","zmin":687,"zmax":3705,"ancho":15.607,"fondo":15.712,"pasoM":0.5,"alturas":{"url":"datos/teide/alturas.webp","nx":509,"ny":512,"suma":656751699},"alturasMovil":{"url":"datos/teide/alturas-movil.webp","nx":254,"ny":256,"suma":163716100},"textura":"datos/teide/textura.jpg","texturaMovil":"datos/teide/textura-movil.jpg","previa":"datos/teide/previa.jpg","isla":[0.86,1],"acimut":30,"ruta":[[0.5426,0.8575],[0.54221,0.8548],[0.54177,0.85295],[0.53983,0.84916],[0.53921,0.84827],[0.53872,0.84776],[0.53772,0.84708],[0.53589,0.84662],[0.52955,0.84629],[0.52902,0.84606],[0.52861,0.84567],[0.52832,0.84508],[0.5282,0.84422],[0.52844,0.84344],[0.52863,0.84317],[0.52909,0.84284],[0.52998,0.84257],[0.5321,0.8424],[0.53335,0.84199],[0.5344,0.84134],[0.53486,0.84078],[0.53524,0.84011],[0.53569,0.83864],[0.53642,0.83181],[0.53646,0.83015],[0.53624,0.82691],[0.53641,0.82564],[0.53677,0.82487],[0.53755,0.82375],[0.53852,0.82266],[0.54095,0.82033],[0.54313,0.81807],[0.54412,0.81666],[0.54445,0.81576],[0.54459,0.8135],[0.54454,0.81115],[0.54447,0.81031],[0.54389,0.80731],[0.54386,0.80608],[0.54401,0.80534],[0.54441,0.80477],[0.54497,0.80443],[0.54523,0.80438],[0.5461,0.80448],[0.54703,0.80501],[0.55538,0.81507],[0.56069,0.82409],[0.56123,0.82452],[0.56185,0.82465],[0.56252,0.82447],[0.56319,0.82383],[0.56337,0.82326],[0.56322,0.82248],[0.56288,0.82198],[0.56122,0.82015],[0.56044,0.81902],[0.56008,0.81826],[0.55899,0.81508],[0.55506,0.80242],[0.55123,0.79504],[0.5511,0.79461],[0.55105,0.79391],[0.55113,0.79353],[0.55147,0.7929],[0.55223,0.79226],[0.553,0.79203],[0.55332,0.79204],[0.55414,0.79252],[0.55467,0.7931],[0.55663,0.79673],[0.56158,0.8072],[0.56334,0.8119],[0.56362,0.81224],[0.564,0.81248],[0.56481,0.81261],[0.56511,0.81253],[0.56566,0.81212],[0.56586,0.81184],[0.56601,0.81109],[0.56589,0.81037],[0.56571,0.81002],[0.56366,0.80712],[0.56287,0.80548],[0.56247,0.80383],[0.56186,0.79868],[0.56158,0.79718],[0.56106,0.79538],[0.55681,0.78555],[0.55278,0.77289],[0.54771,0.76003],[0.5466,0.75785],[0.53758,0.74411],[0.53687,0.74332],[0.53587,0.74253],[0.53482,0.74195],[0.53361,0.74151],[0.5308,0.7411],[0.51962,0.73988],[0.51783,0.73947],[0.51618,0.73882],[0.51049,0.73552],[0.50998,0.73514],[0.50934,0.73432],[0.50905,0.73368],[0.50887,0.73258],[0.50888,0.73151],[0.50917,0.72866],[0.50912,0.72758],[0.50866,0.72641],[0.50811,0.7258],[0.5077,0.7255],[0.50689,0.72512],[0.50618,0.72498],[0.50555,0.725],[0.50443,0.72532],[0.50146,0.72665],[0.50056,0.72727],[0.49975,0.72826],[0.49937,0.72923],[0.49934,0.73026],[0.49971,0.73191],[0.50191,0.73894],[0.50213,0.74038],[0.50232,0.74353],[0.50252,0.74457],[0.50405,0.74891],[0.50444,0.75038],[0.50457,0.75205],[0.50451,0.75668],[0.50439,0.75797],[0.50411,0.75894],[0.50187,0.76392],[0.50121,0.76484],[0.50046,0.76564],[0.49945,0.7663],[0.49758,0.76692],[0.4964,0.767],[0.49524,0.76688],[0.49261,0.76591],[0.49072,0.76506],[0.48958,0.76404],[0.48916,0.76338],[0.48876,0.76215],[0.48704,0.75034],[0.4866,0.74922],[0.48599,0.74831],[0.48513,0.74767],[0.48398,0.74727],[0.48298,0.74712],[0.47854,0.747],[0.47767,0.74676],[0.47669,0.74616],[0.47593,0.74537],[0.47514,0.74426],[0.47125,0.73743],[0.47056,0.73658],[0.47014,0.73626],[0.46909,0.73587],[0.46846,0.73595],[0.46767,0.73639],[0.46707,0.73724],[0.46637,0.7393],[0.46487,0.74685],[0.46433,0.74798],[0.46327,0.74897],[0.46083,0.75039],[0.46033,0.7506],[0.45954,0.75073],[0.45834,0.75053],[0.45739,0.75013],[0.45243,0.74745],[0.45181,0.74688],[0.45145,0.74632],[0.45132,0.74569],[0.45143,0.74506],[0.45162,0.74474],[0.45216,0.74429],[0.45301,0.74403],[0.4538,0.74404],[0.45696,0.74442],[0.45807,0.74439],[0.45914,0.74404],[0.46135,0.74303],[0.46243,0.74227],[0.46292,0.74155],[0.46303,0.7407],[0.46293,0.74026],[0.46253,0.73964],[0.46181,0.73913],[0.4613,0.73891],[0.45838,0.73836],[0.45793,0.73821],[0.45697,0.73765],[0.45169,0.73331],[0.44572,0.72934],[0.44226,0.72616],[0.44117,0.72544],[0.44016,0.72525],[0.4392,0.72551],[0.43836,0.72619],[0.43651,0.72915],[0.43607,0.72957],[0.43553,0.72985],[0.43505,0.72992],[0.43419,0.72967],[0.43374,0.72935],[0.43328,0.72884],[0.43052,0.72531],[0.42998,0.72477],[0.4226,0.7199],[0.42218,0.71942],[0.4218,0.71871],[0.42162,0.71799],[0.42152,0.71437],[0.42137,0.71374],[0.42087,0.71279],[0.42041,0.71226],[0.41972,0.7117],[0.41381,0.70709],[0.41294,0.70616],[0.41257,0.70555],[0.41208,0.70402],[0.41042,0.69309],[0.41034,0.69155],[0.4105,0.69074],[0.41077,0.69005],[0.41302,0.68565],[0.41685,0.67955],[0.41921,0.67667],[0.41991,0.67552],[0.42025,0.67464],[0.42291,0.66512],[0.42563,0.65881],[0.42583,0.65759],[0.42571,0.65636],[0.42421,0.64725],[0.42405,0.64652],[0.42359,0.64555],[0.42284,0.64482],[0.42162,0.64426],[0.41467,0.64288],[0.41363,0.6428],[0.41317,0.64286],[0.41277,0.64301],[0.41215,0.64351],[0.41019,0.64681],[0.40865,0.64868],[0.4081,0.64921],[0.40746,0.64968],[0.40387,0.65162],[0.40052,0.6538],[0.39951,0.65419],[0.39844,0.65417],[0.39765,0.65384],[0.39709,0.65339],[0.39472,0.65096],[0.39406,0.65011],[0.39387,0.64971],[0.39366,0.64869],[0.3937,0.64817],[0.39554,0.64217],[0.3957,0.6412],[0.39565,0.64069],[0.39514,0.63951],[0.39062,0.63279],[0.38999,0.6319],[0.38905,0.631],[0.38808,0.63041],[0.38728,0.63007],[0.38476,0.62906],[0.38346,0.62872],[0.38292,0.62869],[0.37892,0.62917],[0.37698,0.62891],[0.37559,0.62836],[0.37089,0.62605],[0.36905,0.6253],[0.36855,0.62524],[0.36754,0.6253],[0.36172,0.62708],[0.36045,0.62738],[0.35935,0.62733],[0.35876,0.62716],[0.35805,0.62653],[0.35771,0.62584],[0.35762,0.62534],[0.35777,0.62406],[0.36066,0.61679],[0.36177,0.61196],[0.36392,0.60613],[0.36558,0.599],[0.36599,0.59666],[0.36607,0.59533],[0.3659,0.59433],[0.36538,0.59321],[0.3647,0.59247],[0.36431,0.59223],[0.36285,0.59162],[0.36195,0.59162],[0.36087,0.59189],[0.3591,0.59269],[0.35169,0.59745],[0.35058,0.59787],[0.34992,0.59797],[0.33755,0.5976],[0.33606,0.5973],[0.33526,0.59675],[0.335,0.59643],[0.3346,0.59559],[0.33449,0.59477],[0.33462,0.59326],[0.33551,0.58813],[0.33551,0.5873],[0.33539,0.58664],[0.33519,0.58618],[0.33448,0.58542],[0.33346,0.5849],[0.32664,0.58305],[0.32535,0.58256],[0.32443,0.58188],[0.32377,0.58096],[0.32342,0.58019],[0.32094,0.57387],[0.32075,0.57318],[0.32067,0.57233],[0.32077,0.57156],[0.32121,0.57068],[0.32165,0.57012],[0.32388,0.56823],[0.3249,0.56754],[0.3256,0.56728],[0.32869,0.56657],[0.32916,0.56636],[0.33019,0.56561],[0.34072,0.55425],[0.34152,0.55315],[0.34198,0.55207],[0.34205,0.55114],[0.34194,0.55065],[0.34144,0.54986],[0.34062,0.54919],[0.34018,0.549],[0.33857,0.54887],[0.33066,0.55055],[0.32938,0.55062],[0.32759,0.55042],[0.32669,0.5502],[0.3256,0.54979],[0.32507,0.5494],[0.32459,0.54871],[0.32436,0.54812],[0.32377,0.54556],[0.32343,0.54481],[0.32285,0.54418],[0.32245,0.54391],[0.31977,0.54266],[0.31913,0.54205],[0.31894,0.54165],[0.31876,0.54072],[0.31892,0.53953],[0.31953,0.53724],[0.31958,0.5364],[0.31936,0.53555],[0.31599,0.52805],[0.31521,0.5267],[0.31426,0.52553],[0.3131,0.52442],[0.31155,0.52325],[0.31068,0.52302],[0.31007,0.52305],[0.30864,0.52347],[0.30728,0.52419],[0.30624,0.52516],[0.30162,0.5303],[0.30038,0.53142],[0.29972,0.53186],[0.2968,0.53325],[0.29401,0.53494],[0.29298,0.53565],[0.29077,0.53764],[0.28892,0.53906],[0.28647,0.54041],[0.28596,0.54056],[0.28505,0.54065],[0.28423,0.5405],[0.28362,0.54017],[0.28294,0.53933],[0.28258,0.53829],[0.28237,0.53681],[0.28238,0.53531],[0.2827,0.53429],[0.28377,0.53214],[0.28386,0.53174],[0.28383,0.53098],[0.28368,0.53035],[0.2821,0.52603],[0.28125,0.52418],[0.28063,0.52352],[0.28024,0.52327],[0.27918,0.52289],[0.27492,0.52218],[0.27127,0.52249],[0.27057,0.52227],[0.27012,0.52189],[0.26994,0.52147],[0.26996,0.52092],[0.27026,0.52029],[0.27074,0.51984],[0.27224,0.51898],[0.27284,0.51873],[0.27604,0.51791],[0.27677,0.51736],[0.27711,0.51688],[0.28056,0.51032],[0.28077,0.50942],[0.28076,0.50896],[0.28052,0.50823],[0.27865,0.50528],[0.2783,0.50461],[0.27801,0.50368],[0.27797,0.50204],[0.27824,0.49975],[0.27823,0.49885],[0.27809,0.49799],[0.27669,0.49272],[0.27642,0.49134],[0.27634,0.48641],[0.27606,0.48527],[0.27371,0.47949],[0.2733,0.47809],[0.27298,0.47571],[0.27298,0.47447],[0.27318,0.47321],[0.27342,0.47246],[0.27393,0.47144],[0.27463,0.4704],[0.27537,0.46954],[0.27608,0.46893],[0.27721,0.46819],[0.27827,0.46767],[0.27931,0.46732],[0.28108,0.46694],[0.28355,0.46662],[0.2952,0.46563],[0.32189,0.46213],[0.3253,0.46157],[0.3271,0.46103],[0.32878,0.46024],[0.32982,0.45958],[0.33508,0.45543],[0.33766,0.45381],[0.3396,0.45311],[0.34062,0.45291],[0.34178,0.45283],[0.34383,0.45299],[0.34613,0.45367],[0.3995,0.47486],[0.40152,0.47598],[0.42082,0.48818],[0.42301,0.48926],[0.42395,0.48961],[0.4258,0.48996],[0.42686,0.49001],[0.42849,0.48991],[0.44071,0.4884],[0.44187,0.48833],[0.44424,0.48839],[0.49838,0.49421],[0.50574,0.49507],[0.51023,0.49546],[0.5129,0.49547],[0.51618,0.49509],[0.51992,0.49446],[0.55334,0.48832],[0.56993,0.48537],[0.57491,0.48439],[0.57655,0.48386],[0.57757,0.48338],[0.58149,0.48072],[0.58202,0.48042],[0.58312,0.48005],[0.58486,0.47989],[0.59229,0.48056],[0.5938,0.48058],[0.59456,0.48045],[0.59597,0.47997],[0.59709,0.47925],[0.60257,0.47475],[0.60346,0.47379],[0.60454,0.47236],[0.61809,0.44777],[0.61842,0.44708],[0.61873,0.44585],[0.61862,0.44486],[0.61848,0.44444],[0.61802,0.4436],[0.61759,0.44312],[0.61711,0.4427],[0.6159,0.44202],[0.61191,0.44044],[0.61041,0.43961],[0.60981,0.43916],[0.60887,0.43811],[0.60802,0.43637],[0.60752,0.43426],[0.60203,0.39881],[0.6015,0.39387],[0.59088,0.25823],[0.59087,0.25661],[0.59099,0.25513],[0.59129,0.25391],[0.59161,0.25305],[0.59283,0.25083],[0.60517,0.23426],[0.60619,0.23272],[0.60688,0.23143],[0.60723,0.23046],[0.60776,0.22814],[0.61029,0.21067],[0.61056,0.20948],[0.61107,0.20804],[0.61218,0.20601],[0.62368,0.18704],[0.62475,0.18593],[0.62654,0.18509],[0.65681,0.17404],[0.65821,0.1733],[0.66644,0.16673],[0.6672,0.16604],[0.66743,0.16569],[0.66773,0.1645],[0.66808,0.15885],[0.66828,0.15753],[0.66907,0.15489],[0.66968,0.15374],[0.67011,0.15335],[0.67106,0.1529],[0.68254,0.14926],[0.68351,0.14883],[0.68408,0.14834],[0.68451,0.14763],[0.68559,0.14429],[0.68603,0.14362],[0.68678,0.14308],[0.68718,0.14298],[0.68824,0.14312],[0.69231,0.14412],[0.6928,0.14427],[0.69355,0.14471],[0.6971,0.14915],[0.69796,0.1498],[0.6993,0.15057],[0.70018,0.15126],[0.70073,0.152],[0.70325,0.15633],[0.70386,0.15719],[0.70445,0.15758],[0.70522,0.15778],[0.7061,0.15776],[0.71148,0.15674],[0.7129,0.15627],[0.7287,0.1459],[0.72953,0.14544],[0.7304,0.14517]],"salida":[0.5426,0.8575],"meta":[0.7304,0.14517],"juntas":false,"cumbres":[{"n":"Pico Viejo","alt":3129,"u":0.37556,"v":0.11315,"t":"3,129 m"},{"n":"Guajara","alt":2718,"u":0.70484,"v":0.44573,"t":"2,718 m"},{"n":"Roque de la Grieta","alt":2576,"u":0.86544,"v":0.37091,"t":"2,576 m"},{"n":"El Sombrero","alt":2532,"u":0.3609,"v":0.51531,"t":"2,532 m"},{"n":"Montaña de Chío","alt":2345,"u":0.19725,"v":0.18475,"t":"2,345 m"}],"t":{"salida":"Start","meta":"Finish","salidaN":"Vilaflor","metaN":"High point · 2,364 m","gira":"Drag to spin · pinch to zoom","giraRaton":"Drag to spin · scroll to zoom"}}</script>
+<script type="module" src="visor.js"></script>
+</body>
+</html>
