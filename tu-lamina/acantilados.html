@@ -285,7 +285,9 @@ function iniciarFormatos(D, alCambiar) {
 }
 let FMT=null;FMT=iniciarFormatos(D,()=>guia());
 sinNombre();plazo();enlace();guia();
-(document.fonts?document.fonts.load("700 40px 'Barlow Semi Condensed'").catch(()=>{}):Promise.resolve()).then(dibujar);
+// La lámina se pinta YA (con Bahnschrift en Windows o la letra de reserva) y se repinta cuando llega Barlow: antes no se
+// veía nada hasta descargar la letra de Google (unos 3 s en móvil, auditoría SEO del 28/11/2026).
+dibujar();if(document.fonts)document.fonts.load("700 40px 'Barlow Semi Condensed'").then(dibujar).catch(()=>{});
 </script>
 </body>
 </html>
