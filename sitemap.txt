@@ -4,6 +4,7 @@ https://mattehaven.com/organizadores
 https://mattehaven.com/about.html
 https://mattehaven.com/shipping.html
 https://mattehaven.com/privacy.html
+https://mattehaven.com/tu-lamina/
 https://mattehaven.com/tu-lamina/canfranc
 https://mattehaven.com/tu-lamina/marao
 https://mattehaven.com/tu-lamina/acantilados
@@ -31,6 +32,7 @@ https://mattehaven.com/tu-lamina/teide
 https://mattehaven.com/tu-lamina/tmb
 https://mattehaven.com/tu-lamina/tourmalet
 https://mattehaven.com/tu-lamina/whw
+https://mattehaven.com/3d/
 https://mattehaven.com/3d/acantilados
 https://mattehaven.com/3d/alpehuez
 https://mattehaven.com/3d/ancares-gf
